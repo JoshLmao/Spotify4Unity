@@ -11,9 +11,6 @@
    <a href="https://paypal.me/ijoshlmao">
     <img src="https://img.shields.io/badge/donations-_£-brightgreen.svg?style=flat-square" alt="donations"/>
   </a>
-   <a href="http://opensource.org/licenses/MIT">
-    <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="MIT license"/>
-  </a>
    <a href="https://github.com/joshLmao/spotify4Unity/releases">
     <img src="https://img.shields.io/badge/release-v1.0-green.svg?style=flat-square" alt="releases"/>
   </a>
@@ -27,6 +24,8 @@
   <a href="#examples">Examples</a> •
   <a href="#donations">Donations</a>
 </p>
+
+**This repo is used to host the Wiki and any issues with my plugin. To access it, [download it on the Unity Asset Store](https://assetstore.unity.com/packages/tools/integration/spotify4unity-ui-tools-spotify-authorization-129028)**
 
 Spotify4Unity is a plugin which helps you integrate Spotify connectivity into you Unity game/application easily, allowing users to use basic track control functionality to viewing their whole library. This plugin relies heavily on JohnnyCrazy's [SpotifyAPI-NET](https://github.com/JohnnyCrazy/SpotifyAPI-NET)
 

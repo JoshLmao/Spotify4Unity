@@ -8,11 +8,8 @@
   <a href="https://twitter.com/_JShepherd">
     <img src="https://img.shields.io/badge/twitter-__JShepherd-blue.svg?style=flat-square" alt="twitter"/>
   </a>
-   <a href="https://paypal.me/ijoshlmao">
-    <img src="https://img.shields.io/badge/donations-_£-brightgreen.svg?style=flat-square" alt="donations"/>
-  </a>
    <a href="https://github.com/joshLmao/spotify4Unity/releases">
-    <img src="https://img.shields.io/badge/release-v1.0-green.svg?style=flat-square" alt="releases"/>
+    <img src="https://img.shields.io/badge/release-v1.2-green.svg?style=flat-square" alt="releases"/>
   </a>
    <a href="https://github.com/joshLmao/spotify4Unity/wiki">
     <img src="https://img.shields.io/badge/documentation-online-brightgreen.svg?style=flat-square" alt="documentation"/>
@@ -22,7 +19,7 @@
 <p align="center">
   <a href="#quick-start">Quick Start</a> •
   <a href="#examples">Examples</a> •
-  <a href="#donations">Donations</a>
+  Last Update: 03.02.19
 </p>
 
 **This repo is used to host the Wiki and any issues with my plugin. To access it, [download it on the Unity Asset Store](https://assetstore.unity.com/packages/tools/integration/spotify4unity-ui-tools-spotify-authorization-129028)**
@@ -50,13 +47,3 @@ Check [the Home wiki page](https://github.com/JoshLmao/Spotify4Unity/wiki#Quick_
 ## Examples
 
 If anyone has an usage examples in any projects, [send me a message on Twitter](https://twitter.com/_JShepherd) so I can fill this section with your work! _(With your permission, of course)_
-
-## License
-
-Spotify4Unity is available under the [Fair Source License](https://fair.io/). Check the [License](LICENSE) for more information
-
-## Donations
-
-If you want to support my plugin and my works, please consider buying me a coffee (or two! ;D)
-
-[![Donate Link](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://paypal.me/ijoshlmao)

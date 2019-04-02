@@ -5,8 +5,8 @@
 </h1>
 
 <p align="center">
-  <a href="https://twitter.com/_JShepherd">
-    <img src="https://img.shields.io/badge/twitter-__JShepherd-blue.svg?style=flat-square" alt="twitter"/>
+  <a href="https://twitter.com/JoshLmao">
+    <img src="https://img.shields.io/badge/twitter-JoshLmao-blue.svg?style=flat-square" alt="twitter"/>
   </a>
    <a href="https://github.com/joshLmao/spotify4Unity/releases">
     <img src="https://img.shields.io/badge/release-v1.2-green.svg?style=flat-square" alt="releases"/>

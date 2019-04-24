@@ -41,7 +41,7 @@ Check out more and the full and maintained documentation [on the Wiki](https://g
 
 ## Requirements
 
-1. Unity 2018.2.0f2 or above
+1. Unity 2018.3.0f2 or above
 2. Scripting Runtime Version: .NET 4.6
 3. Can be used with Windows, Mac & Linux, Android or iOS
 

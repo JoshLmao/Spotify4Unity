@@ -15,7 +15,7 @@
     <img src="https://img.shields.io/badge/twitter-JoshLmao-blue.svg?style=flat-square" alt="twitter"/>
   </a>
    <a href="https://github.com/joshLmao/spotify4Unity/releases">
-    <img src="https://img.shields.io/badge/release-v1.4-green.svg?style=flat-square" alt="releases"/>
+    <img src="https://img.shields.io/badge/release-v1.4.1-green.svg?style=flat-square" alt="releases"/>
   </a>
    <a href="https://github.com/joshLmao/spotify4Unity/wiki">
     <img src="https://img.shields.io/badge/documentation-online-brightgreen.svg?style=flat-square" alt="documentation"/>
@@ -28,7 +28,7 @@
 <p align="center">
   <a href="#quick-start">Quick Start</a> •
   <a href="#examples">Examples</a> •
-  Last Update: 24.04.19
+  Last Update: 28.04.19
 </p>
 
 **This repo is used to host the Wiki and any issues with my plugin. To access it, [download it on the Unity Asset Store](https://assetstore.unity.com/packages/tools/integration/spotify4unity-ui-tools-spotify-authorization-129028)**

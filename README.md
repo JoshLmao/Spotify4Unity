@@ -4,6 +4,7 @@
   </br>
 </h1>
 
+
 <p align="right">
   <a href="https://assetstore.unity.com/packages/tools/integration/spotify4unity-ui-tools-spotify-authorization-129028">
     <img src="https://i.imgur.com/LFOGXkf.png" width="100px" align="right"></img>
@@ -56,3 +57,9 @@ Check [the Home wiki page](https://github.com/JoshLmao/Spotify4Unity/wiki#Quick_
 ## Examples
 
 If anyone has an usage examples in any public projects, [send me a message on Twitter](https://twitter.com/JoshLmao) so I can fill this section with your work! _(With your permission, of course)_
+
+### Spotify Wallpaper
+
+Created by [Eyliess](https://github.com/Eyliess) for Wallpaper Engine, a music visualizer with spectrum and other audio-visual effects that also displays the current song and user information - **Download:** [Steam Community](https://steamcommunity.com/sharedfiles/filedetails/?id=1761151170&searchtext=spotify+wallpaper)
+
+[![](https://steamuserimages-a.akamaihd.net/ugc/786355365567612744/72EA96A669516A5250CE769C06A3FE7653798C0B/)](https://steamcommunity.com/sharedfiles/filedetails/?id=1761151170&searchtext=spotify+wallpaper)

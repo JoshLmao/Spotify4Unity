@@ -1,0 +1,8 @@
+<!-- Spotify4Unity - link.xml 
+     https://github.com/JoshLmao/Spotify4Unity -->
+<linker>
+  <!-- Make sure Unity doesn't strip the constructors for the SpotifyAPI Models otherwise will have problems parsing -->
+  <assembly fullname="SpotifyAPI.Web">
+    <namespace fullname="SpotifyAPI.Web.Models" preserve="all" />
+  </assembly>
+</linker>

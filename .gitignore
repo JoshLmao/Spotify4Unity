@@ -3,7 +3,10 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+
 Spotify4Unity/Assets/AssetStoreTools*
+Spotify4Unity/Spotify4Unity/[Bb]in*
+Spotify4Unity/Spotify4Unity/obj*
 
 # Visual Studio cache directory
 .vs/
@@ -13,7 +16,6 @@ ExportedObj/
 .consulo/
 *.csproj
 *.unityproj
-*.sln
 *.suo
 *.tmp
 *.user
@@ -23,10 +25,12 @@ ExportedObj/
 *.svd
 *.pdb
 *.opendb
+*.dll.mdb
 
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
+*.dll.mdb.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
@@ -34,3 +38,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+tools/wiki-tool/Spotify4Unity.wiki/

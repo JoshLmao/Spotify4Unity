@@ -1,0 +1,3662 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unosquare.Labs.EmbedIO</name>
+    </assembly>
+    <members>
+        <member name="T:Unosquare.Labs.EmbedIO.Constants.CompressionMethod">
+            <summary>
+            Specifies the compression method used to compress a message on
+            the WebSocket connection.
+            </summary>
+            <remarks>
+            The compression methods that can be used are defined in
+            <see href="https://tools.ietf.org/html/rfc7692">
+            Compression Extensions for WebSocket</see>.
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.CompressionMethod.None">
+            <summary>
+            Specifies non compression.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.CompressionMethod.Deflate">
+            <summary>
+            Specifies DEFLATE.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.CompressionMethod.Gzip">
+            <summary>
+            Specifies GZIP.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Constants.Headers">
+            <summary>
+            HTTP Header Constants
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.AccessControlAllowOrigin">
+            <summary>
+            Access-Control-Allow-Origin HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.AccessControlAllowHeaders">
+            <summary>
+            Access-Control-Allow-Headers HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.AccessControlAllowMethods">
+            <summary>
+            Access-Control-Allow-Methods HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.Origin">
+            <summary>
+            Origin HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.AccessControlRequestHeaders">
+            <summary>
+            Access-Control-Request-Headers HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.AccessControlRequestMethod">
+            <summary>
+            Access-Control-Request-Headers HTTP Method
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.Cookie">
+            <summary>
+            The cookie header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.AcceptEncoding">
+            <summary>
+            Accept-Encoding HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.ContentEncoding">
+            <summary>
+            Content-Encoding HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.IfModifiedSince">
+            <summary>
+            If-Modified-Since HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.CacheControl">
+            <summary>
+            Cache-Control HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.Pragma">
+            <summary>
+            Pragma HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.Expires">
+            <summary>
+            Expires HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.LastModified">
+            <summary>
+            Last-Modified HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.IfNotMatch">
+            <summary>
+            If-None-Match HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.ETag">
+            <summary>
+            ETag HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.AcceptRanges">
+            <summary>
+            Accept-Ranges HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.Range">
+            <summary>
+            Range HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.ContentRanges">
+            <summary>
+            Content-Range HTTP Header
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Headers.CompressionGzip">
+            <summary>
+            The header compression gzip
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Constants.HttpVerbs">
+            <summary>
+            Enumerates the different HTTP Verbs
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.HttpVerbs.Any">
+            <summary>
+            Wildcard Method
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.HttpVerbs.Delete">
+            <summary>
+            DELETE Method
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.HttpVerbs.Get">
+            <summary>
+            GET Method
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.HttpVerbs.Head">
+            <summary>
+            HEAD method
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.HttpVerbs.Options">
+            <summary>
+            OPTIONS method
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.HttpVerbs.Patch">
+            <summary>
+            PATCH method
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.HttpVerbs.Post">
+            <summary>
+            POST method
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.HttpVerbs.Put">
+            <summary>
+            PUT method
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Constants.MimeTypes">
+            <summary>
+            Represents a MimeType collection
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.MimeTypes.DefaultMimeTypes">
+            <summary>
+            A big list of default MIME types.
+            </summary>
+            <remarks>
+            Originally started from: http://stackoverflow.com/questions/1029740/get-mime-type-from-filename-extension
+            </remarks>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Constants.Responses">
+            <summary>
+            Represents common responses Constants
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Responses.Response404Html">
+            <summary>
+            Default Http Status 404 response output
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Responses.Response405Html">
+            <summary>
+            Default Status Http 405 response output
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Responses.Response500HtmlFormat">
+            <summary>
+            Default Http Status 500 response output
+            The first format argument takes the error message.
+            The second format argument takes the stack trace.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Constants.RoutingStrategy">
+            <summary>
+            Defines the routing strategy for URL matching
+            This is especially useful for REST service implementations
+            in the WebApi module.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.RoutingStrategy.Wildcard">
+            <summary>
+            The wildcard strategy, default one
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.RoutingStrategy.Regex">
+            <summary>
+            The Regex strategy
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.RoutingStrategy.Simple">
+            <summary>
+            The simple strategy
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Constants.Strings">
+            <summary>
+            Defines assembly-wide constants
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Strings.BrowserTimeFormat">
+            <summary>
+             Default Browser time format
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Strings.CorsWildcard">
+            <summary>
+            Default CORS rule
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Strings.CommaSplitChar">
+            <summary>
+            The comma split character for String.Split method calls.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Constants.Strings.CookieSplitChars">
+            <summary>
+            The cookie split chars for String.Split method calls.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Constants.Strings.StandardCultureInfo">
+            <summary>
+            The format culture used for header outputs
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Constants.Strings.StandardStringComparer">
+            <summary>
+            The standard string comparer
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Extensions">
+            <summary>
+            Extension methods to help your coding!
+            </summary>
+            <summary>
+            Extensions methods to EmbedIO's Fluent Interface
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.GetSession(Unosquare.Net.HttpListenerContext,Unosquare.Labs.EmbedIO.WebServer)">
+            <summary>
+            Gets the session object associated to the current context.
+            Returns null if the LocalSessionWebModule has not been loaded.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="server">The server.</param>
+            <returns>A session object for the given server context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.DeleteSession(Unosquare.Net.HttpListenerContext,Unosquare.Labs.EmbedIO.WebServer)">
+            <summary>
+            Deletes the session object associated to the current context.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="server">The server.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.DeleteSession(Unosquare.Labs.EmbedIO.WebServer,Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Deletes the session object associated to the current context.
+            </summary>
+            <param name="server">The server.</param>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.DeleteSession(Unosquare.Labs.EmbedIO.WebServer,Unosquare.Labs.EmbedIO.SessionInfo)">
+            <summary>
+            Deletes the given session object.
+            </summary>
+            <param name="server">The server.</param>
+            <param name="session">The session info.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.GetSession(Unosquare.Labs.EmbedIO.WebServer,Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Gets the session object associated to the current context.
+            Returns null if the LocalSessionWebModule has not been loaded.
+            </summary>
+            <param name="server">The server.</param>
+            <param name="context">The context.</param>
+            <returns>A session info for the given server context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.GetSession(Unosquare.Net.WebSocketContext,Unosquare.Labs.EmbedIO.WebServer)">
+            <summary>
+            Gets the session object associated to the current context.
+            Returns null if the LocalSessionWebModule has not been loaded.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="server">The server.</param>
+            <returns>A session info for the given websocket context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.GetSession(Unosquare.Labs.EmbedIO.WebServer,Unosquare.Net.WebSocketContext)">
+            <summary>
+            Gets the session.
+            </summary>
+            <param name="server">The server.</param>
+            <param name="context">The context.</param>
+            <returns>A session info for the given websocket context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestPath(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Gets the request path for the specified context.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>Path for the specified context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestWilcardPath(Unosquare.Net.HttpListenerContext,System.String[])">
+            <summary>
+            Gets the request path for the specified context using a wildcard paths to 
+            match.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="wildcardPaths">The wildcard paths.</param>
+            <returns>Path for the specified context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestPathCaseSensitive(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Gets the request path for the specified context case sensitive.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>Path for the specified context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestVerb(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Retrieves the Request HTTP Verb (also called Method) of this context.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>HTTP verb result of the conversion of this context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.QueryString(Unosquare.Net.HttpListenerContext,System.String)">
+            <summary>
+            Gets the value for the specified query string key.
+            If the value does not exist it returns null.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="key">The key.</param>
+            <returns>A string that represents the value for the specified query string key</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.InQueryString(Unosquare.Net.HttpListenerContext,System.String)">
+            <summary>
+            Determines if a key exists within the Request's query string
+            </summary>
+            <param name="context">The context.</param>
+            <param name="key">The key.</param>
+            <returns>True if a key exists within the Request's query string; otherwise, false</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestHeader(Unosquare.Net.HttpListenerContext,System.String)">
+            <summary>
+            Retrieves the specified request the header.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="headerName">Name of the header.</param>
+            <returns>Specified request the header when is true; otherwise, empty string </returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.HasRequestHeader(Unosquare.Net.HttpListenerContext,System.String)">
+            <summary>
+            Determines whether [has request header] [the specified context].
+            </summary>
+            <param name="context">The context.</param>
+            <param name="headerName">Name of the header.</param>
+            <returns>True if request headers is not a null; otherwise, false</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestBody(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Retrieves the request body as a string.
+            Note that once this method returns, the underlying input stream cannot be read again as 
+            it is not rewindable for obvious reasons. This functionality is by design.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>
+            The rest of the stream as a string, from the current position to the end.
+            If the current position is at the end of the stream, returns an empty string
+            </returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestWildcardUrlParams(Unosquare.Net.HttpListenerContext,System.String)">
+            <summary>
+            Requests the wildcard URL parameters.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="basePath">The base path.</param>
+            <returns>The params from the request.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestWildcardUrlParams(System.String,System.String)">
+            <summary>
+            Requests the wildcard URL parameters.
+            </summary>
+            <param name="requestPath">The request path.</param>
+            <param name="basePath">The base path.</param>
+            <returns>The params from the request.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestRegexUrlParams(Unosquare.Net.WebSocketContext,System.String)">
+            <summary>
+            Requests the regex URL parameters.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="urlPattern">The url pattern </param>
+            <returns>The params from the request.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestRegexUrlParams(Unosquare.Net.HttpListenerContext,System.String)">
+            <summary>
+            Requests the regex URL parameters.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="basePath">The base path.</param>
+            <returns>The params from the request.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestRegexUrlParams(System.String,System.String,System.Func{System.Boolean})">
+            <summary>
+            Requests the regex URL parameters.
+            </summary>
+            <param name="requestPath">The request path.</param>
+            <param name="basePath">The base path.</param>
+            <param name="validateFunc">The validate function.</param>
+            <returns>
+            The params from the request.
+            </returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.NoCache(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Sends headers to disable caching on the client side.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.Redirect(Unosquare.Net.HttpListenerContext,System.String,System.Boolean)">
+            <summary>
+            Sets a response static code of 302 and adds a Location header to the response
+            in order to direct the client to a different URL
+            </summary>
+            <param name="context">The context.</param>
+            <param name="location">The location.</param>
+            <param name="useAbsoluteUrl">if set to <c>true</c> [use absolute URL].</param>
+            <returns><b>true</b> if the headers were set, otherwise <b>false</b></returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.JsonResponse(Unosquare.Net.HttpListenerContext,System.Object)">
+            <summary>
+            Outputs a Json Response given a data object
+            </summary>
+            <param name="context">The context.</param>
+            <param name="data">The data.</param>
+            <returns>A <c>true</c> value of type ref=JsonResponseAsync"</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.JsonResponseAsync(Unosquare.Net.HttpListenerContext,System.Object)">
+            <summary>
+            Outputs async a Json Response given a data object
+            </summary>
+            <param name="context">The context.</param>
+            <param name="data">The data.</param>
+            <returns>A <c>true</c> value of type ref=JsonResponseAsync"</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.JsonResponse(Unosquare.Net.HttpListenerContext,System.String)">
+            <summary>
+            Outputs a Json Response given a Json string
+            </summary>
+            <param name="context">The context.</param>
+            <param name="json">The JSON.</param>
+            <returns> A <c>true</c> value of type ref=JsonResponseAsync"</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.JsonResponseAsync(Unosquare.Net.HttpListenerContext,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Outputs async a JSON Response given a JSON string
+            </summary>
+            <param name="context">The context.</param>
+            <param name="json">The JSON.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A task for writing the output stream</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.HtmlResponseAsync(Unosquare.Net.HttpListenerContext,System.String,System.Net.HttpStatusCode,System.Threading.CancellationToken)">
+            <summary>
+            Outputs a HTML Response given a HTML content
+            </summary>
+            <param name="context">The context.</param>
+            <param name="htmlContent">Content of the HTML.</param>
+            <param name="statusCode">The status code.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>A task for writing the output stream</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.JsonExceptionResponse(Unosquare.Net.HttpListenerContext,System.Exception,System.Net.HttpStatusCode)">
+            <summary>
+            Outputs async a JSON Response given an exception.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="ex">The ex.</param>
+            <param name="statusCode">The status code.</param>
+            <returns>A <c>true</c> value when the exception is written to the HTTP Response</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.JsonExceptionResponseAsync(Unosquare.Net.HttpListenerContext,System.Exception,System.Net.HttpStatusCode)">
+            <summary>
+            Outputs a JSON Response given an exception.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="ex">The ex.</param>
+            <param name="statusCode">The status code.</param>
+            <returns>A task for writing the output stream</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.StringResponseAsync(Unosquare.Net.HttpListenerContext,System.String,System.String,System.Threading.CancellationToken,System.Text.Encoding)">
+            <summary>
+            Outputs async a string response given a string
+            </summary>
+            <param name="context">The context.</param>
+            <param name="content">The content.</param>
+            <param name="contentType">Type of the content.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <param name="encoding">The encoding.</param>
+            <returns>A task for writing the output stream</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.ParseJson``1(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Parses the JSON as a given type from the request body.
+            Please note the underlying input stream is not rewindable.
+            </summary>
+            <typeparam name="T">The type of specified object type</typeparam>
+            <param name="context">The context.</param>
+            <returns>
+            Parses the json as a given type from the request body
+            </returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.ParseJson``1(System.String)">
+            <summary>
+            Parses the JSON as a given type from the request body string.
+            </summary>
+            <typeparam name="T">The type of specified object type</typeparam>
+            <param name="requestBody">The request body.</param>
+            <returns>
+            A string that represents the json as a given type from the request body string
+            </returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestFormDataDictionary(System.String)">
+            <summary>
+            Returns a dictionary of KVPs from Request data
+            </summary>
+            <param name="requestBody">The request body.</param>
+            <returns>A collection that represents KVPs from request data</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.RequestFormDataDictionary(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Returns dictionary from Request POST data
+            Please note the underlying input stream is not rewindable.
+            </summary>
+            <param name="context">The context to request body as string</param>
+            <returns>A collection that represents KVPs from request data</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.Compress(System.IO.Stream,Unosquare.Labs.EmbedIO.Constants.CompressionMethod,System.IO.Compression.CompressionMode)">
+            <summary>
+            Compresses the specified buffer stream using the G-Zip compression algorithm.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <param name="method">The method.</param>
+            <param name="mode">The mode.</param>
+            <returns>Block of bytes of compressed stream</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.Compress(System.Byte[],Unosquare.Labs.EmbedIO.Constants.CompressionMethod,System.IO.Compression.CompressionMode)">
+            <summary>
+            Compresses/Decompresses the specified buffer using the compression algorithm.
+            </summary>
+            <param name="buffer">The buffer.</param>
+            <param name="method">The method.</param>
+            <param name="mode">The mode.</param>
+            <returns>Block of bytes of compressed stream </returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.WithStaticFolderAt(Unosquare.Labs.EmbedIO.WebServer,System.String,System.String,System.Boolean)">
+            <summary>
+            Add the StaticFilesModule to the specified WebServer
+            </summary>
+            <param name="webserver">The webserver instance.</param>
+            <param name="rootPath">The static folder path.</param>
+            <param name="defaultDocument">The default document name</param>
+            <param name="useDirectoryBrowser">if set to <c>true</c> [use directory browser].</param>
+            <returns>
+            An instance of webserver
+            </returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.WithVirtualPaths(Unosquare.Labs.EmbedIO.WebServer,System.Collections.Generic.Dictionary{System.String,System.String},System.String)">
+            <summary>
+            Add the StaticFilesModule with multiple paths
+            </summary>
+            <param name="webserver">The webserver.</param>
+            <param name="virtualPaths">The virtual paths.</param>
+            <param name="defaultDocument">The default document.</param>
+            <returns>An instance of a web module</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.WithLocalSession(Unosquare.Labs.EmbedIO.WebServer)">
+            <summary>
+            Add StaticFilesModule to WebServer
+            </summary>
+            <param name="webserver">The webserver instance.</param>
+            <returns>An instance of a web module</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.WithWebApi(Unosquare.Labs.EmbedIO.WebServer,System.Reflection.Assembly)">
+            <summary>
+            Add WebApiModule to WebServer
+            </summary>
+            <param name="webserver">The webserver instance.</param>
+            <param name="assembly">The assembly to load WebApi Controllers from. Leave null to avoid autoloading.</param>
+            <returns>An instance of webserver</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.WithWebSocket(Unosquare.Labs.EmbedIO.WebServer,System.Reflection.Assembly)">
+            <summary>
+            Add WebSocketsModule to WebServer
+            </summary>
+            <param name="webserver">The webserver instance.</param>
+            <param name="assembly">The assembly to load Web Sockets from. Leave null to avoid autoloading.</param>
+            <returns>An instance of webserver</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.LoadApiControllers(Unosquare.Labs.EmbedIO.WebServer,System.Reflection.Assembly)">
+            <summary>
+            Load all the WebApi Controllers in an assembly.
+            </summary>
+            <param name="webserver">The webserver instance.</param>
+            <param name="assembly">The assembly to load WebApi Controllers from. Leave null to load from the currently executing assembly.</param>
+            <returns>An instance of webserver</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.LoadApiControllers(Unosquare.Labs.EmbedIO.Modules.WebApiModule,System.Reflection.Assembly)">
+            <summary>
+            Load all the WebApi Controllers in an assembly.
+            </summary>
+            <param name="apiModule">The Web API Module instance.</param>
+            <param name="assembly">The assembly to load WebApi Controllers from. Leave null to load from the currently executing assembly.</param>
+            <returns>The webserver instance.</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.LoadWebSockets(Unosquare.Labs.EmbedIO.WebServer,System.Reflection.Assembly)">
+            <summary>
+            Load all the WebSockets in an assembly
+            </summary>
+            <param name="webserver">The webserver instance.</param>
+            <param name="assembly">The assembly to load WebSocketsServer types from. Leave null to load from the currently executing assembly.</param>
+            <returns>An instance of webserver</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.EnableCors(Unosquare.Labs.EmbedIO.WebServer,System.String,System.String,System.String)">
+            <summary>
+            Enables CORS in the WebServer
+            </summary>
+            <param name="webserver">The webserver instance.</param>
+            <param name="origins">The valid origins, default all</param>
+            <param name="headers">The valid headers, default all</param>
+            <param name="methods">The valid method, default all</param>
+            <returns>An instance of the tiny web server used to handle request</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Extensions.WithWebApiController``1(Unosquare.Labs.EmbedIO.WebServer)">
+            <summary>
+            Add WebApi Controller to WebServer
+            </summary>
+            <typeparam name="T">The type of Web API Controller</typeparam>
+            <param name="webserver">The webserver instance.</param>
+            <returns>An instance of webserver</returns>
+            <exception cref="T:System.ArgumentNullException">webserver</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.FormDataParser.ParseAsDictionary(System.String,System.String)">
+            <summary>
+            Parses the form data given the request body string.
+            </summary>
+            <param name="requestBody">The request body.</param>
+            <param name="contentTypeHeader">The content type header.</param>
+            <returns>
+            A collection that represents the request body string
+            </returns>
+            <exception cref="T:System.NotImplementedException">multipart/form-data Content Type parsing is not yet implemented</exception>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.ISessionWebModule">
+            <inheritdoc />
+            <summary>
+            Interface to create session modules
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.ISessionWebModule.Sessions">
+            <summary>
+            The dictionary holding the sessions
+            Direct access is guaranteed to be thread-safe
+            </summary>
+            <value>
+            The sessions.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.ISessionWebModule.Expiration">
+            <summary>
+            Gets or sets the expiration time for the sessions.
+            </summary>
+            <value>
+            The expiration.
+            </value>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.ISessionWebModule.GetSession(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Gets a session object for the given server context.
+            If no session exists for the context, then null is returned
+            </summary>
+            <param name="context">The context.</param>
+            <returns>A session info for the given server context</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.ISessionWebModule.DeleteSession(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Delete the session object for the given context
+            If no session exists for the context, then null is returned
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.ISessionWebModule.DeleteSession(Unosquare.Labs.EmbedIO.SessionInfo)">
+            <summary>
+            Delete a session for the given session info
+            No exceptions are thrown if the session is not found
+            </summary>
+            <param name="session">The session info.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.ISessionWebModule.GetSession(Unosquare.Net.WebSocketContext)">
+            <summary>
+            Gets a session object for the given WebSocket context.
+            If no session exists for the context, then null is returned
+            </summary>
+            <param name="context">The context.</param>
+            <returns>A session object for the given WebSocket context</returns>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.IWebModule">
+            <summary>
+            Interface to create web modules
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.IWebModule.Name">
+            <summary>
+            Gets the friendly name of the module.
+            </summary>
+            <value>
+            The name.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.IWebModule.Handlers">
+            <summary>
+            Gets the registered handlers.
+            </summary>
+            <value>
+            The handlers.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.IWebModule.Server">
+            <summary>
+            Gets the associated Web Server object.
+            This property is automatically set when the module is registered
+            </summary>
+            <value>
+            The server.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.IWebModule.IsWatchdogEnabled">
+            <summary>
+            Gets or sets a value indicating whether this instance is watchdog enabled.
+            </summary>
+            <value>
+              <c>true</c> if this instance is watchdog enabled; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.IWebModule.WatchdogInterval">
+            <summary>
+            Gets or sets the watchdog interval.
+            </summary>
+            <value>
+            The watchdog interval.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.IWebModule.CancellationToken">
+            <summary>
+            Gets or sets the cancellation token.
+            </summary>
+            <value>
+            The cancellation token.
+            </value>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.IWebModule.AddHandler(System.String,Unosquare.Labs.EmbedIO.Constants.HttpVerbs,System.Func{Unosquare.Net.HttpListenerContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Boolean}})">
+            <summary>
+            Adds a handler that gets called when a path and verb are matched.
+            </summary>
+            <param name="path">The path.</param>
+            <param name="verb">The verb.</param>
+            <param name="handler">The handler.</param>
+            <exception cref="T:System.ArgumentNullException">
+            path
+            or
+            handler
+            </exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.IWebModule.Start(System.Threading.CancellationToken)">
+            <summary>
+            Starts the webmodule.
+            </summary>
+            <param name="ct">The cancellation token.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.IWebModule.RunWatchdog">
+            <summary>
+            Runs the watchdog.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.ModuleMap">
+            <inheritdoc />
+            <summary>
+            Represents a list which binds Paths and their corresponding HTTP Verbs to Method calls
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.ModuleMap.AnyPath">
+            <summary>
+            Defines the path used to bind to all paths
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Map">
+            <summary>
+            Represents a binding of path and verb to a given method call (delegate)
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Map.Path">
+            <summary>
+            The HTTP resource path
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Map.Verb">
+            <summary>
+            The HTTP Verb of this Map
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Map.ResponseHandler">
+            <summary>
+            The delegate to call for the given path and verb.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.AuthModule">
+            <summary>
+            Simple authorisation module that requests http auth from client
+            Will return 401 + WWW-Authenticate header if request isn't authorised
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.AuthModule.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.AuthModule"/> class.
+            </summary>
+            <param name="username">The username.</param>
+            <param name="password">The password.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.AuthModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.AuthModule"/> class.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.AuthModule.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.AuthModule.IsAuthorized(Unosquare.Net.HttpListenerRequest)">
+            <summary>
+            Validates request and returns true if that account data registred in this module and request has auth data  
+            </summary>
+            <param name="request">HttpListenerRequest</param>
+            <returns>
+            true if request authorised
+            </returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.AuthModule.AddAccount(System.String,System.String)">
+            <summary>
+            Add new account
+            </summary>
+            <param name="username">account username</param>
+            <param name="password">account password</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.AuthModule.GetAccountData(Unosquare.Net.HttpListenerRequest)">
+            <summary>
+            Parses request for account data
+            </summary>
+            <param name="request">HttpListenerRequest</param>
+            <returns>user-password KeyValuePair from request</returns>
+            <exception>
+            if request isn't authorised
+            </exception>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.CorsModule">
+            <summary>
+            CORS control Module
+            Cross-origin resource sharing (CORS) is a mechanism that allows restricted resources (e.g. fonts) 
+            on a web page to be requested from another domain outside the domain from which the resource originated.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.CorsModule.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.CorsModule"/> class.
+            </summary>
+            <param name="origins">The origins.</param>
+            <param name="headers">The headers.</param>
+            <param name="methods">The methods.</param>
+            <exception cref="T:System.ArgumentNullException">
+            origins
+            or
+            headers
+            or
+            methods
+            </exception>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.CorsModule.Name">
+            <inheritdoc />
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.FallbackModule">
+            <summary>
+            Represents a module to fallback any request.
+            </summary>
+            <seealso cref="T:Unosquare.Labs.EmbedIO.WebModuleBase" />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.FallbackModule.#ctor(System.Func{Unosquare.Net.HttpListenerContext,System.Threading.CancellationToken,System.Boolean})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.FallbackModule" /> class.
+            </summary>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.FallbackModule.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.FallbackModule"/> class.
+            </summary>
+            <param name="redirectUrl">The redirect URL.</param>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.FallbackModule.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.FallbackModule.RedirectUrl">
+            <summary>
+            Gets the redirect URL.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.FileModuleBase.MaxGzipInputLength">
+            <summary>
+            The maximum gzip input length
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.FileModuleBase.ChunkSize">
+            <summary>
+            The chunk size for sending files
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.FileModuleBase.MimeTypes">
+            <summary>
+            Gets the collection holding the MIME types.
+            </summary>
+            <value>
+            The MIME types.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.FileModuleBase.DefaultHeaders">
+            <summary>
+            The default headers
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.FileModuleBase.UseGzip">
+            <summary>
+            Gets or sets a value indicating whether [use gzip].
+            </summary>
+            <value>
+              <c>true</c> if [use gzip]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.FileModuleBase.WriteFileAsync(System.Boolean,System.String,System.Int64,Unosquare.Net.HttpListenerContext,System.IO.Stream,System.Threading.CancellationToken)">
+            <summary>
+            Writes the file asynchronous.
+            </summary>
+            <param name="usingPartial">if set to <c>true</c> [using partial].</param>
+            <param name="partialHeader">The partial header.</param>
+            <param name="fileSize">Size of the file.</param>
+            <param name="context">The context.</param>
+            <param name="buffer">The buffer.</param>
+            <param name="ct">The ct.</param>
+            <returns>A task representing the write action.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.FileModuleBase.SetDefaultCacheHeaders(Unosquare.Net.HttpListenerResponse)">
+            <summary>
+            Sets the default cache headers.
+            </summary>
+            <param name="response">The response.</param>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule">
+            <summary>
+            A simple module to handle in-memory sessions. Do not use for distributed applications.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.SessionCookieName">
+            <summary>
+            Defines the session cookie name
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule._sessions">
+            <summary>
+            The concurrent dictionary holding the sessions
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule._sessionsSyncLock">
+            <summary>
+            The sessions dictionary synchronization lock
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule"/> class.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.Sessions">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.Expiration">
+            <summary>
+            Gets or sets the expiration.
+            By default, expiration is 30 minutes
+            </summary>
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.CookiePath">
+            <summary>
+            Gets or sets the cookie path.
+            If left empty, a cookie will be created for each path. The default value is "/"
+            If a route is specified, then session cookies will be created only for the given path.
+            Examples of this are:
+                "/"
+                "/app1/"
+            </summary>
+            <value>
+            The cookie path.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:Unosquare.Labs.EmbedIO.SessionInfo"/> with the specified cookie value.
+            Returns null when the session is not found.
+            </summary>
+            <value>
+            The <see cref="T:Unosquare.Labs.EmbedIO.SessionInfo"/>.
+            </value>
+            <param name="cookieValue">The cookie value.</param>
+            <returns>Session info with the specified cookie value</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.RunWatchdog">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.GetSession(Unosquare.Net.HttpListenerContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.GetSession(Unosquare.Net.WebSocketContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.DeleteSession(Unosquare.Net.HttpListenerContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.DeleteSession(Unosquare.Labs.EmbedIO.SessionInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.CreateSession">
+            <summary>
+            Creates a session ID, registers the session info in the Sessions collection, and returns the appropriate session cookie.
+            </summary>
+            <returns>The sessions.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.LocalSessionModule.FixupSessionCookie(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Fixes the session cookie to match the correct value.
+            System.Net.Cookie.Value only supports a single value and we need to pick the one that potentially exists.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.RamCache.RamCacheEntry">
+            <summary>
+            Represents a RAM Cache dictionary entry
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.ResourceFilesModule">
+            <summary>
+            Represents a simple module to server resource files from the .NET assembly.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.ResourceFilesModule.#ctor(System.Reflection.Assembly,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.ResourceFilesModule" /> class.
+            </summary>
+            <param name="sourceAssembly">The source assembly.</param>
+            <param name="resourcePath">The resource path.</param>
+            <param name="headers">The headers.</param>
+            <exception cref="T:System.ArgumentNullException">sourceAssembly</exception>
+            <exception cref="T:System.ArgumentException">Path ' + fileSystemPath + ' does not exist.</exception>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.ResourceFilesModule.Name">
+            <inheritdoc />
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule">
+            <summary>
+            Represents a simple module to server static files from the file system.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.DefaultDocumentName">
+            <summary>
+            Default document constant to "index.html"
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.MaxEntryLength">
+            <summary>
+            Maximal length of entry in DirectoryBrowser
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.SizeIndent">
+            <summary>
+            How many characters used after time in DirectoryBrowser
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.#ctor(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule"/> class.
+            </summary>
+            <param name="paths">The paths.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule" /> class.
+            </summary>
+            <param name="fileSystemPath">The file system path.</param>
+            <param name="useDirectoryBrowser">if set to <c>true</c> [use directory browser].</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Collections.Generic.Dictionary{System.String,System.String},System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule" /> class.
+            </summary>
+            <param name="fileSystemPath">The file system path.</param>
+            <param name="headers">The headers to set in every request.</param>
+            <param name="additionalPaths">The additional paths.</param>
+            <param name="useDirectoryBrowser">if set to <c>true</c> [use directory browser].</param>
+            <exception cref="T:System.ArgumentException">Path ' + fileSystemPath + ' does not exist.</exception>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.MaxRamCacheFileSize">
+            <summary>
+            Gets or sets the maximum size of the ram cache file. The default value is 250kb.
+            </summary>
+            <value>
+            The maximum size of the ram cache file.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.DefaultDocument">
+            <summary>
+            Gets or sets the default document.
+            Defaults to "index.html"
+            Example: "root.xml"
+            </summary>
+            <value>
+            The default document.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.DefaultExtension">
+            <summary>
+            Gets or sets the default extension.
+            Defaults to null
+            Example: ".html"
+            </summary>
+            <value>
+            The default extension.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.FileSystemPath">
+            <summary>
+            Gets the file system path from which files are retrieved.
+            </summary>
+            <value>
+            The file system path.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.UseRamCache">
+            <summary>
+            Gets or sets a value indicating whether or not to use the RAM Cache feature
+            RAM Cache will only cache files that are MaxRamCacheSize in bytes or less
+            </summary>
+            <value>
+              <c>true</c> if [use ram cache]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.VirtualPaths">
+            <summary>
+            Gets the virtual paths.
+            </summary>
+            <value>
+            The virtual paths.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.RamCache">
+            <summary>
+            Private collection holding the contents of the RAM Cache.
+            </summary>
+            <value>
+            The ram cache.
+            </value>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.RegisterVirtualPath(System.String,System.String)">
+            <summary>
+            Registers the virtual path.
+            </summary>
+            <param name="virtualPath">The virtual path.</param>
+            <param name="physicalPath">The physical path.</param>
+            <exception cref="T:System.InvalidOperationException">
+            Is thrown when a method call is invalid for the object's current state
+            </exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.UnregisterVirtualPath(System.String)">
+            <summary>
+            Unregisters the virtual path.
+            </summary>
+            <param name="virtualPath">The virtual path.</param>
+            <exception cref="T:System.InvalidOperationException">
+            Is thrown when a method call is invalid for the object's current state
+            </exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.StaticFilesModule.ClearRamCache">
+            <summary>
+            Clears the RAM cache.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.VirtualPaths.VirtualPathStatus.Invalid">
+            <summary>
+            The invalid
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.VirtualPaths.VirtualPathStatus.Forbidden">
+            <summary>
+            The forbidden
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.VirtualPaths.VirtualPathStatus.File">
+            <summary>
+            The file
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.VirtualPaths.VirtualPathStatus.Directory">
+            <summary>
+            The directory
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.WebApiHandlerAttribute">
+            <summary>
+            Decorate methods within controllers with this attribute in order to make them callable from the Web API Module
+            Method Must match the WebServerModule.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiHandlerAttribute.#ctor(Unosquare.Labs.EmbedIO.Constants.HttpVerbs,System.String[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.WebApiHandlerAttribute"/> class.
+            </summary>
+            <param name="verb">The verb.</param>
+            <param name="paths">The paths.</param>
+            <exception cref="T:System.ArgumentException">The argument 'paths' must be specified.</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiHandlerAttribute.#ctor(Unosquare.Labs.EmbedIO.Constants.HttpVerbs,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.WebApiHandlerAttribute"/> class.
+            </summary>
+            <param name="verb">The verb.</param>
+            <param name="path">The path.</param>
+            <exception cref="T:System.ArgumentException">The argument 'path' must be specified.</exception>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebApiHandlerAttribute.Verb">
+            <summary>
+            Gets or sets the verb.
+            </summary>
+            <value>
+            The verb.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebApiHandlerAttribute.Paths">
+            <summary>
+            Gets or sets the paths.
+            </summary>
+            <value>
+            The paths.
+            </value>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.ResponseHandler">
+            <summary>
+            A delegate that handles certain action in a module given a path and a verb
+            </summary>
+            <param name="server">The server.</param>
+            <param name="context">The context.</param>
+            <returns><b>true</b> if the response was completed, otherwise <b>false</b></returns>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.AsyncResponseHandler">
+            <summary>
+            An async delegate that handles certain action in a module given a path and a verb
+            </summary>
+            <param name="server">The server.</param>
+            <param name="context">The context.</param>
+            <returns>A task with <b>true</b> if the response was completed, otherwise <b>false</b></returns>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.WebApiModule">
+            <summary>
+            A very simple module to register class methods as handlers.
+            Public instance methods that match the WebServerModule.ResponseHandler signature, and have the WebApi handler attribute
+            will be used to respond to web server requests
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.WebApiModule"/> class.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebApiModule.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebApiModule.ControllersCount">
+            <summary>
+            Gets the number of controller objects registered in this API
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiModule.RegisterController``1">
+            <summary>
+            Registers the controller.
+            </summary>
+            <typeparam name="T">The type of register controller</typeparam>
+            <exception cref="T:System.ArgumentException">Controller types must be unique within the module</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiModule.RegisterController``1(System.Func{``0})">
+            <summary>
+            Registers the controller.
+            </summary>
+            <typeparam name="T">The type of register controller</typeparam>
+            <param name="controllerFactory">The controller factory method</param>
+            <exception cref="T:System.ArgumentException">Controller types must be unique within the module</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiModule.RegisterController(System.Type)">
+            <summary>
+            Registers the controller.
+            </summary>
+            <param name="controllerType">Type of the controller.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiModule.RegisterController(System.Type,System.Func{System.Object})">
+            <summary>
+            Registers the controller.
+            </summary>
+            <param name="controllerType">Type of the controller.</param>
+            <param name="controllerFactory">The controller factory method.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiModule.NormalizeRegexPath(Unosquare.Labs.EmbedIO.Constants.HttpVerbs,Unosquare.Net.HttpListenerContext,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Normalizes a path meant for Regex matching, extracts the route parameters, and returns the registered
+            path in the internal delegate map.
+            </summary>
+            <param name="verb">The verb.</param>
+            <param name="context">The context.</param>
+            <param name="routeParams">The route parameters.</param>
+            <returns>A string that represents the registered path in the internal delegate map</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiModule.NormalizeWildcardPath(Unosquare.Labs.EmbedIO.Constants.HttpVerbs,Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Normalizes a URL request path meant for Wildcard matching and returns the registered
+            path in the internal delegate map.
+            </summary>
+            <param name="verb">The verb.</param>
+            <param name="context">The context.</param>
+            <returns>A string that represents the registered path</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebApiModule.IsMethodNotAllowed(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Looks for a path that matches the one provided by the context.
+            </summary>
+            <param name="context"> The HttpListener context</param>
+            <returns><c>true</c> if the path is found, otherwise <c>false</c></returns>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.WebApiController">
+            <summary>
+            Inherit from this class and define your own Web API methods
+            You must RegisterController in the Web API Module to make it active
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.WebSocketHandlerAttribute">
+            <summary>
+            Decorate methods within controllers with this attribute in order to make them callable from the Web API Module
+            Method Must match the WebServerModule.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketHandlerAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.WebSocketHandlerAttribute"/> class.
+            </summary>
+            <param name="path">The path.</param>
+            <exception cref="T:System.ArgumentException">The argument 'paths' must be specified.</exception>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebSocketHandlerAttribute.Path">
+            <summary>
+            Gets or sets the path.
+            </summary>
+            <value>
+            The paths.
+            </value>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule">
+            <summary>
+            A WebSockets module conforming to RFC 6455
+            Works only on Chrome 16+, Firefox 11+ and IE 10+
+            This module is experimental and still needs extensive testing.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule._serverMap">
+            <summary>
+            Holds the collection of paths and WebSockets Servers registered
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule" /> class.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule.Name">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule.RegisterWebSocketsServer``1">
+            <summary>
+            Registers the web sockets server given a WebSocketsServer Type.
+            </summary>
+            <typeparam name="T">The type of WebSocket server.</typeparam>
+            <exception cref="T:System.ArgumentException">Argument 'path' cannot be null;path</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule.RegisterWebSocketsServer(System.Type)">
+            <summary>
+            Registers the web sockets server given a WebSocketsServer Type.
+            </summary>
+            <param name="socketType">Type of the socket.</param>
+            <exception cref="T:System.ArgumentNullException">socketType</exception>
+            <exception cref="T:System.ArgumentException">Argument 'socketType' needs a WebSocketHandlerAttribute - socketType</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule.RegisterWebSocketsServer``1(System.String)">
+            <summary>
+            Registers the web sockets server given a WebSocketsServer Type.
+            </summary>
+            <typeparam name="T">The type of WebSocket server</typeparam>
+            <param name="path">The path. For example: '/echo'</param>
+            <exception cref="T:System.ArgumentException">Argument 'path' cannot be null;path</exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule.RegisterWebSocketsServer``1(System.String,``0)">
+            <summary>
+            Registers the web sockets server.
+            </summary>
+            <typeparam name="T">The type of WebSocket server</typeparam>
+            <param name="path">The path. For example: '/echo'</param>
+            <param name="server">The server.</param>
+            <exception cref="T:System.ArgumentNullException">
+            path
+            or
+            server
+            </exception>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule.RunWatchdog">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsModule.NormalizeRegexPath(Unosquare.Net.HttpListenerContext)">
+            <summary>
+            Normalizes a path meant for Regex matching returns the registered
+            path in the internal map.
+            </summary>
+            <param name="context">The context.</param>
+            <returns>A string that represents the registered path in the internal map</returns>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer">
+            <summary>
+            A base class that defines how to handle WebSockets connections.
+            It keeps a list of connected WebSockets and has the basic logic to handle connections
+            and data transmission
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.#ctor(System.Boolean,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer" /> class.
+            </summary>
+            <param name="enableConnectionWatchdog">if set to <c>true</c> [enable connection watchdog].</param>
+            <param name="maxMessageSize">Maximum size of the message in bytes. Enter 0 or negative number to prevent checks.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer"/> class. With dead connection watchdog and no message size checks.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.WebSockets">
+            <summary>
+            Gets the Currently-Connected WebSockets.
+            </summary>
+            <value>
+            The web sockets.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.CancellationToken">
+            <summary>
+            Gets or sets the cancellation token.
+            </summary>
+            <value>
+            The cancellation token.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.ServerName">
+            <summary>
+            Gets the name of the server.
+            </summary>
+            <value>
+            The name of the server.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.Encoding">
+            <summary>
+            Gets the Encoding used to use the Send method to send a string. The default is UTF8 per the WebSocket specification.
+            </summary>
+            <value>
+            The Encoding to be used.
+            </value>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.AcceptWebSocket(Unosquare.Net.HttpListenerContext,System.Threading.CancellationToken)">
+            <summary>
+            Accepts the WebSocket connection.
+            This is a blocking call so it must be called within an independent thread.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="ct">The cancellation token.</param>
+            <returns>A task that represents the asynchronous of websocket connection operation.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.Send(Unosquare.Net.WebSocketContext,System.String)">
+            <summary>
+            Sends a UTF-8 payload
+            </summary>
+            <param name="webSocket">The web socket.</param>
+            <param name="payload">The payload.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.Send(Unosquare.Net.WebSocketContext,System.Byte[])">
+            <summary>
+            Sends a binary payload
+            </summary>
+            <param name="webSocket">The web socket.</param>
+            <param name="payload">The payload.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.Broadcast(System.Byte[])">
+            <summary>
+            Broadcasts the specified payload to all connected WebSockets clients.
+            </summary>
+            <param name="payload">The payload.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.Broadcast(System.String)">
+            <summary>
+            Broadcasts the specified payload to all connected WebSockets clients.
+            </summary>
+            <param name="payload">The payload.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.Close(Unosquare.Net.WebSocketContext)">
+            <summary>
+            Closes the specified web socket, removes it and disposes it.
+            </summary>
+            <param name="webSocket">The web socket.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.OnMessageReceived(Unosquare.Net.WebSocketContext,System.Byte[],Unosquare.Net.WebSocketReceiveResult)">
+            <summary>
+            Called when this WebSockets Server receives a full message (EndOfMessage) form a WebSockets client.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="rxBuffer">The response buffer.</param>
+            <param name="rxResult">The response result.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.OnFrameReceived(Unosquare.Net.WebSocketContext,System.Byte[],Unosquare.Net.WebSocketReceiveResult)">
+            <summary>
+            Called when this WebSockets Server receives a message frame regardless if the frame represents the EndOfMessage.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="rxBuffer">The response buffer.</param>
+            <param name="rxResult">The response result.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.OnClientConnected(Unosquare.Net.WebSocketContext)">
+            <summary>
+            Called when this WebSockets Server accepts a new WebSockets client.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.OnClientDisconnected(Unosquare.Net.WebSocketContext)">
+            <summary>
+            Called when the server has removed a WebSockets connected client for any reason.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.Dispose(System.Boolean)">
+            <summary>
+            Releases unmanaged and - optionally - managed resources.
+            </summary>
+            <param name="disposeAll"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.RunConnectionWatchdog">
+            <summary>
+            Runs the connection watchdog.
+            Removes and disposes stale WebSockets connections every 10 minutes.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.RemoveWebSocket(Unosquare.Net.WebSocketContext)">
+            <summary>
+            Removes and disposes the web socket.
+            </summary>
+            <param name="webSocketContext">The web socket context.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.Modules.WebSocketsServer.CollectDisconnected">
+            <summary>
+            Removes and disposes all disconnected sockets
+            </summary>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.SessionInfo">
+            <summary>
+            Represents the contents of an HTTP Session
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.SessionInfo.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.SessionInfo"/> class.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.SessionInfo.SessionId">
+            <summary>
+            Current Session Identifier
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.SessionInfo.DateCreated">
+            <summary>
+            Gets or sets the date created.
+            </summary>
+            <value>
+            The date created.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.SessionInfo.LastActivity">
+            <summary>
+            Gets or sets the last activity.
+            </summary>
+            <value>
+            The last activity.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.SessionInfo.Data">
+            <summary>
+            Current Session Data Repository
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.SessionInfo.Item(System.String)">
+            <summary>
+            Retrieve an item or set an item. If the key does not exist, it returns null.
+            This is an indexer providing a shortcut to the underlying Data dictionary
+            </summary>
+            <param name="key">The key as an indexer</param>
+            <returns>An object that represents current session data repository</returns>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.WebModuleBase">
+            <summary>
+            Base class to define custom web modules.
+            Inherit from this class and use the AddHandler Method to register your method calls.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebModuleBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.WebModuleBase"/> class.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebModuleBase.Name">
+            <inheritdoc/>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebModuleBase.Handlers">
+            <inheritdoc/>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebModuleBase.Server">
+            <inheritdoc/>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebModuleBase.IsWatchdogEnabled">
+            <inheritdoc/>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebModuleBase.WatchdogInterval">
+            <inheritdoc/>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebModuleBase.CancellationToken">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebModuleBase.AddHandler(System.String,Unosquare.Labs.EmbedIO.Constants.HttpVerbs,System.Func{Unosquare.Net.HttpListenerContext,System.Threading.CancellationToken,System.Threading.Tasks.Task{System.Boolean}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebModuleBase.Start(System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebModuleBase.RunWatchdog">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unosquare.Labs.EmbedIO.WebServer">
+            <summary>
+            Represents our tiny web server used to handle requests
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.WebServer"/> class.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.#ctor(System.Int32,Unosquare.Labs.EmbedIO.Constants.RoutingStrategy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.WebServer"/> class.
+            </summary>
+            <param name="port">The port.</param>
+            <param name="strategy">The strategy.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.#ctor(System.String,Unosquare.Labs.EmbedIO.Constants.RoutingStrategy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.WebServer" /> class.
+            </summary>
+            <param name="urlPrefix">The URL prefix.</param>
+            <param name="strategy">The strategy.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.#ctor(System.String[],Unosquare.Labs.EmbedIO.Constants.RoutingStrategy)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Labs.EmbedIO.WebServer"/> class.
+            NOTE: urlPrefix must be specified as something similar to: http://localhost:9696/
+            Please notice the ending slash. -- It is important
+            </summary>
+            <param name="urlPrefixes">The URL prefix.</param>
+            <param name="routingStrategy">The routing strategy</param>
+            <exception cref="T:System.InvalidOperationException">The HTTP Listener is not supported in this OS</exception>
+            <exception cref="T:System.ArgumentException">Argument urlPrefix must be specified</exception>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebServer.OnMethodNotAllowed">
+            <summary>
+            The on method not allowed
+            </summary>
+            <value>
+            The on method not allowed.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebServer.OnNotFound">
+            <summary>
+            The on not found
+            </summary>
+            <value>
+            The on not found.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebServer.Listener">
+            <summary>
+            Gets the underlying HTTP listener.
+            </summary>
+            <value>
+            The listener.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebServer.UrlPrefixes">
+            <summary>
+            Gets the URL Prefix for which the server is serving requests.
+            </summary>
+            <value>
+            The URL prefix.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebServer.Modules">
+            <summary>
+            Gets a list of registered modules
+            </summary>
+            <value>
+            The modules.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebServer.SessionModule">
+            <summary>
+            Gets registered the ISessionModule.
+            </summary>
+            <value>
+            The session module.
+            </value>
+        </member>
+        <member name="P:Unosquare.Labs.EmbedIO.WebServer.RoutingStrategy">
+            <summary>
+            Gets the URL RoutingStrategy used in this instance.
+            By default it is set to Wildcard, but Regex is the recommended value.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.Create(System.String)">
+            <summary>
+            Static method to create webserver instance
+            </summary>
+            <param name="urlPrefix">The URL prefix.</param>
+            <returns>The webserver instance.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.Create(System.String,Unosquare.Labs.EmbedIO.Constants.RoutingStrategy)">
+            <summary>
+            Static method to create webserver instance
+            </summary>
+            <param name="urlPrefix">The URL prefix.</param>
+            <param name="routingStrategy">Matching/Parsing of URL: choose from: Wildcard, Regex, Simple </param>
+            <returns>The webserver instance.</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.Module``1">
+            <summary>
+            Gets the module registered for the given type.
+            Returns null if no module matches the given type.
+            </summary>
+            <typeparam name="T">The type of module</typeparam>
+            <returns>Module registered for the given type</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.RegisterModule(Unosquare.Labs.EmbedIO.IWebModule)">
+            <summary>
+            Registers an instance of a web module. Only 1 instance per type is allowed.
+            </summary>
+            <param name="module">The module.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.UnregisterModule(System.Type)">
+            <summary>
+            Unregisters the module identified by its type.
+            </summary>
+            <param name="moduleType">Type of the module.</param>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.ProcessRequest(Unosquare.Net.HttpListenerContext,System.Threading.CancellationToken)">
+            <summary>
+            Process HttpListener Request and returns true if it was handled
+            </summary>
+            <param name="context">The HttpListenerContext</param>
+            <param name="ct">The cancellation token.</param>
+            <returns>True if it was handled; otherwise, false</returns>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.RunAsync(System.Threading.CancellationToken)">
+            <summary>
+            Starts the listener and the registered modules
+            </summary>
+            <param name="ct">The cancellation token; when cancelled, the server cancels all pending requests and stops.</param>
+            <returns>
+            Returns the task that the HTTP listener is running inside of, so that it can be waited upon after it's been canceled.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">The method was already called.</exception>
+            <exception cref="T:System.OperationCanceledException">Cancellation was requested.</exception>
+            <remarks>
+            Both the server and client requests are queued separately on the thread pool,
+            so it is safe to call <see cref="M:System.Threading.Tasks.Task.Wait" /> in a synchronous method.
+            </remarks>
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Labs.EmbedIO.WebServer.HandleClientRequest(Unosquare.Net.HttpListenerContext,System.Threading.CancellationToken)">
+            <summary>
+            Handles the client request.
+            </summary>
+            <param name="context">The context.</param>
+            <param name="ct">The cancellation token.</param>
+            <returns>A task that represents the asynchronous of client request</returns>
+        </member>
+        <member name="T:Unosquare.Net.CloseEventArgs">
+            <summary>
+            Represents the event data for the <see cref="E:Unosquare.Net.WebSocket.OnClose"/> event.
+            </summary>
+            <remarks>
+              <para>
+              That event occurs when the WebSocket connection has been closed.
+              </para>
+              <para>
+              If you would like to get the reason for the close, you should access
+              the <see cref="P:Unosquare.Net.CloseEventArgs.Code"/> or <see cref="P:Unosquare.Net.CloseEventArgs.Reason"/> property.
+              </para>
+            </remarks>
+        </member>
+        <member name="P:Unosquare.Net.CloseEventArgs.Code">
+            <summary>
+            Gets the status code for the close.
+            </summary>
+            <value>
+            A <see cref="T:System.UInt16"/> that represents the status code for the close if any.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.CloseEventArgs.Reason">
+            <summary>
+            Gets the reason for the close.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> that represents the reason for the close if any.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.CloseEventArgs.WasClean">
+            <summary>
+            Gets a value indicating whether the connection has been closed cleanly.
+            </summary>
+            <value>
+            <c>true</c> if the connection has been closed cleanly; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Unosquare.Net.ConnectionFailureEventArgs">
+            <summary>
+            The event arguments for connection failure events
+            </summary>
+            <seealso cref="T:System.EventArgs" />
+        </member>
+        <member name="M:Unosquare.Net.ConnectionFailureEventArgs.#ctor(System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Net.ConnectionFailureEventArgs"/> class.
+            </summary>
+            <param name="ex">The ex.</param>
+        </member>
+        <member name="P:Unosquare.Net.ConnectionFailureEventArgs.Error">
+            <summary>
+            Gets the error.
+            </summary>
+            <value>
+            The error.
+            </value>
+        </member>
+        <member name="T:Unosquare.Net.CloseStatusCode">
+            <summary>
+            Indicates the status code for the WebSocket connection close.
+            </summary>
+            <remarks>
+              <para>
+              The values of this enumeration are defined in
+              <see href="http://tools.ietf.org/html/rfc6455#section-7.4">Section 7.4</see> of RFC 6455.
+              </para>
+              <para>
+              "Reserved value" must not be set as a status code in a connection close frame by
+              an endpoint. It's designated for use in applications expecting a status code to
+              indicate that the connection was closed due to the system grounds.
+              </para>
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.Normal">
+            <summary>
+            Equivalent to close status 1000. Indicates normal close.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.Away">
+            <summary>
+            Equivalent to close status 1001. Indicates that an endpoint is going away.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.ProtocolError">
+            <summary>
+            Equivalent to close status 1002. Indicates that an endpoint is terminating
+            the connection due to a protocol error.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.UnsupportedData">
+            <summary>
+            Equivalent to close status 1003. Indicates that an endpoint is terminating
+            the connection because it has received a type of data that it cannot accept.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.Undefined">
+            <summary>
+            Equivalent to close status 1004. Still undefined. A Reserved value.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.NoStatus">
+            <summary>
+            Equivalent to close status 1005. Indicates that no status code was actually present.
+            A Reserved value.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.Abnormal">
+            <summary>
+            Equivalent to close status 1006. Indicates that the connection was closed abnormally.
+            A Reserved value.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.InvalidData">
+            <summary>
+            Equivalent to close status 1007. Indicates that an endpoint is terminating
+            the connection because it has received a message that contains data that
+            isn't consistent with the type of the message.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.PolicyViolation">
+            <summary>
+            Equivalent to close status 1008. Indicates that an endpoint is terminating
+            the connection because it has received a message that violates its policy.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.TooBig">
+            <summary>
+            Equivalent to close status 1009. Indicates that an endpoint is terminating
+            the connection because it has received a message that is too big to process.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.MandatoryExtension">
+            <summary>
+            Equivalent to close status 1010. Indicates that a client is terminating
+            the connection because it has expected the server to negotiate one or more extension,
+            but the server didn't return them in the handshake response.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.ServerError">
+            <summary>
+            Equivalent to close status 1011. Indicates that a server is terminating
+            the connection because it has encountered an unexpected condition that
+            prevented it from fulfilling the request.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.CloseStatusCode.TlsHandshakeFailure">
+            <summary>
+            Equivalent to close status 1015. Indicates that the connection was closed
+            due to a failure to perform a TLS handshake. A Reserved value.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.CookieCollection">
+            <summary>
+            Represents Cookie collection
+            </summary>
+            <seealso cref="T:System.Collections.ICollection" />
+        </member>
+        <member name="P:Unosquare.Net.CookieCollection.Count">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Net.CookieCollection.IsReadOnly">
+            <summary>
+            Gets a value indicating whether the collection is read-only.
+            </summary>
+            <value>
+            <c>true</c> if the collection is read-only; otherwise, <c>false</c>.
+            The default value is <c>true</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.CookieCollection.IsSynchronized">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Net.CookieCollection.SyncRoot">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Net.CookieCollection.Item(System.Int32)">
+            <summary>
+            Gets the <see cref="T:System.Net.Cookie"/> at the specified <paramref name="index"/> from
+            the collection.
+            </summary>
+            <value>
+            A <see cref="T:System.Net.Cookie"/> at the specified <paramref name="index"/> in the collection.
+            </value>
+            <param name="index">
+            An <see cref="T:System.Int32"/> that represents the zero-based index of the <see cref="T:System.Net.Cookie"/>
+            to find.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="index"/> is out of allowable range of indexes for the collection.
+            </exception>
+        </member>
+        <member name="P:Unosquare.Net.CookieCollection.Item(System.String)">
+            <summary>
+            Gets the <see cref="T:System.Net.Cookie"/> with the specified <paramref name="name"/> from
+            the collection.
+            </summary>
+            <value>
+            A <see cref="T:System.Net.Cookie"/> with the specified <paramref name="name"/> in the collection.
+            </value>
+            <param name="name">
+            A <see cref="T:System.String"/> that represents the name of the <see cref="T:System.Net.Cookie"/> to find.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="name"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.CookieCollection.Add(System.Net.Cookie)">
+            <summary>
+            Adds the specified <paramref name="cookie"/> to the collection.
+            </summary>
+            <param name="cookie">
+            A <see cref="T:System.Net.Cookie"/> to add.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="cookie"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.CookieCollection.Add(Unosquare.Net.CookieCollection)">
+            <summary>
+            Adds the specified <paramref name="cookies"/> to the collection.
+            </summary>
+            <param name="cookies">
+            A <see cref="T:Unosquare.Net.CookieCollection"/> that contains the cookies to add.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="cookies"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.CookieCollection.CopyTo(System.Array,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.CookieCollection.CopyTo(System.Net.Cookie[],System.Int32)">
+            <summary>
+            Copies the elements of the collection to the specified array of <see cref="T:System.Net.Cookie"/>,
+            starting at the specified <paramref name="index"/> in the <paramref name="array"/>.
+            </summary>
+            <param name="array">
+            An array of <see cref="T:System.Net.Cookie"/> that represents the destination of the elements
+            copied from the collection.
+            </param>
+            <param name="index">
+            An <see cref="T:System.Int32"/> that represents the zero-based index in <paramref name="array"/>
+            at which copying begins.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="array"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="index"/> is less than zero.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            The number of elements in the collection is greater than the available space from
+            <paramref name="index"/> to the end of the destination <paramref name="array"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.CookieCollection.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="T:Unosquare.Net.HttpListener">
+            <summary>
+            The MONO implementation of the standard Http Listener class
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="M:Unosquare.Net.HttpListener.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Net.HttpListener"/> class.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListener.IsSupported">
+            <summary>
+            Gets a value indicating whether this instance is supported.
+            </summary>
+            <value>
+              <c>true</c> if this instance is supported; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListener.IgnoreWriteExceptions">
+            <summary>
+            Gets or sets a value indicating whether the listener should ignore write exceptions.
+            </summary>
+            <value>
+            <c>true</c> if [ignore write exceptions]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListener.IsListening">
+            <summary>
+            Gets a value indicating whether this instance is listening.
+            </summary>
+            <value>
+              <c>true</c> if this instance is listening; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListener.Prefixes">
+            <summary>
+            Gets the prefixes.
+            </summary>
+            <value>
+            The prefixes.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListener.Realm">
+            <summary>
+            Gets or sets the realm.
+            </summary>
+            <value>
+            The realm.
+            </value>
+        </member>
+        <member name="M:Unosquare.Net.HttpListener.Abort">
+            <summary>
+            Aborts this listener.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListener.Close">
+            <summary>
+            Closes this listener.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListener.Start">
+            <summary>
+            Starts this listener.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListener.Stop">
+            <summary>
+            Stops this listener.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListener.GetContextAsync">
+            <summary>
+            Gets the HTTP context asynchronously.
+            </summary>
+            <returns>A task that represents the time delay for the httpListenerContext</returns>
+        </member>
+        <member name="T:Unosquare.Net.HttpListenerContext">
+            <summary>
+            Provides access to the request and response objects used by the HttpListener class. This class cannot be inherited.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerContext.Request">
+            <summary>
+            Gets the request.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerContext.Response">
+            <summary>
+            Gets the response.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerContext.AcceptWebSocketAsync">
+            <summary>
+            Accepts a WebSocket handshake request.
+            </summary>
+            <returns>
+            A <see cref="T:Unosquare.Net.WebSocketContext" /> that represents
+            the WebSocket handshake request.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">This method has already been called.</exception>
+        </member>
+        <member name="T:Unosquare.Net.HttpListenerException">
+            <summary>
+            Represents an HTTP Listener's exception
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerException.ErrorCode">
+            <summary>
+            Gets the error code.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.HttpListenerPrefixCollection">
+            <summary>
+            Represents a collection of HTTP listener prefixes
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerPrefixCollection.Add(System.String)">
+            <summary>
+            Adds the specified URI prefix.
+            </summary>
+            <param name="uriPrefix">The URI prefix.</param>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerPrefixCollection.Clear">
+            <summary>
+            Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerPrefixCollection.Remove(System.String)">
+            <summary>
+            Removes the specified URI prefix.
+            </summary>
+            <param name="uriPrefix">The URI prefix.</param>
+            <returns>True if "uriPrefix" was removed; otherwise, false</returns>
+            <exception cref="T:System.ArgumentNullException">uriPrefix</exception>
+        </member>
+        <member name="T:Unosquare.Net.HttpListenerRequest">
+            <summary>
+            Represents an HTTP Listener's request
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.AcceptTypes">
+            <summary>
+            Gets the MIME accept types.
+            </summary>
+            <value>
+            The accept types.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.ContentEncoding">
+            <summary>
+            Gets the content encoding.
+            </summary>
+            <value>
+            The content encoding.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.ContentLength64">
+            <summary>
+            Gets the content length in a 64-bit integer
+            </summary>
+            <value>
+            The content length64.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.ContentType">
+            <summary>
+            Gets the MIME type of the content.
+            </summary>
+            <value>
+            The type of the content.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.Cookies">
+            <summary>
+            Gets the cookies collection.
+            </summary>
+            <value>
+            The cookies.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.HasEntityBody">
+            <summary>
+            Gets a value indicating whether this instance has entity body.
+            </summary>
+            <value>
+            <c>true</c> if this instance has entity body; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.Headers">
+            <summary>
+            Gets the request headers.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.HttpMethod">
+            <summary>
+            Gets the HTTP method.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.InputStream">
+            <summary>
+            Gets the input stream.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.IsAuthenticated">
+            <summary>
+            Gets a value indicating whether this request is authenticated.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.IsLocal">
+            <summary>
+            Gets a value indicating whether this request is local.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.KeepAlive">
+            <summary>
+            Gets the Keep-Alive value for this request
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.LocalEndPoint">
+            <summary>
+            Gets the local endpoint.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.ProtocolVersion">
+            <summary>
+            Gets the protocol version.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.QueryString">
+            <summary>
+            Gets the query string.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.RawUrl">
+            <summary>
+            Gets the raw URL.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.RemoteEndPoint">
+            <summary>
+            Gets the remote endpoint.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.RequestTraceIdentifier">
+            <summary>
+            Gets the request trace identifier.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.Url">
+            <summary>
+            Gets the URL.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.UrlReferrer">
+            <summary>
+            Gets the URL referrer.
+            </summary>
+            <value>
+            The URL referrer.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.UserAgent">
+            <summary>
+            Gets the user agent.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.UserHostAddress">
+            <summary>
+            Gets the user host address.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.UserHostName">
+            <summary>
+            Gets the name of the user host.
+            </summary>
+            <value>
+            The name of the user host.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.UserLanguages">
+            <summary>
+            Gets the user languages.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.ServiceName">
+            <summary>
+            Gets the name of the service.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerRequest.IsWebSocketRequest">
+            <summary>
+            Gets a value indicating whether this request is a web socket request.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.HttpVersion">
+            <summary>
+            Define HTTP Versions
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.HttpVersion.Version10">
+            <summary>
+            The version 1.0
+            </summary>
+            <devdoc>[To be supplied.]</devdoc>
+        </member>
+        <member name="F:Unosquare.Net.HttpVersion.Version11">
+            <summary>
+            The version 1.1
+            </summary>
+            <devdoc>[To be supplied.]</devdoc>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerRequestUriBuilder.AddSlashToAsteriskOnlyPath(System.String)">
+            <summary>
+            Adds the slash to asterisk only path.
+            If a request like "OPTIONS * HTTP/1.1" is sent to the listener, then the request Uri
+            should be "http[s]://server[:port]/*" to be compatible with pre-4.0 behavior.
+            </summary>
+            <param name="path">The path.</param>
+            <returns>The path with asterisk</returns>
+        </member>
+        <member name="T:Unosquare.Net.HttpListenerResponse">
+            <summary>
+            Represents an HTTP Listener's response
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.ContentEncoding">
+            <summary>
+            Gets or sets the content encoding.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.ContentLength64">
+            <summary>
+            Gets or sets the content length.
+            </summary>
+            <value>
+            The content length64.
+            </value>
+            <exception cref="T:System.ObjectDisposedException">
+            Is thrown when you try to access a member of an object that implements the 
+            IDisposable interface, and that object has been disposed
+            </exception>
+            <exception cref="T:System.InvalidOperationException">Cannot be changed after headers are sent.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Must be >= 0 - value</exception>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.ContentType">
+            <summary>
+            Gets or sets the MIME type of the content.
+            </summary>
+            <value>
+            The type of the content.
+            </value>
+            <exception cref="T:System.ObjectDisposedException">
+            Is thrown when you try to access a member of an object that implements the IDisposable 
+            interface, and that object has been disposed
+            </exception>
+            <exception cref="T:System.InvalidOperationException">Cannot be changed after headers are sent.</exception>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.Cookies">
+            <summary>
+            Gets or sets the cookies collection.
+            </summary>
+            <value>
+            The cookies.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.Headers">
+            <summary>
+            Gets or sets the headers.
+            </summary>
+            <value>
+            The headers.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.KeepAlive">
+            <summary>
+            Gets or sets the Keep-Alive value.
+            </summary>
+            <value>
+              <c>true</c> if [keep alive]; otherwise, <c>false</c>.
+            </value>
+            <exception cref="T:System.ObjectDisposedException">
+            Is thrown when you try to access a member of an object that 
+            implements the IDisposable interface, and that object has been disposed
+            </exception>
+            <exception cref="T:System.InvalidOperationException">Cannot be changed after headers are sent.</exception>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.OutputStream">
+            <summary>
+            Gets the output stream.
+            </summary>
+            <value>
+            The output stream.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.ProtocolVersion">
+            <summary>
+            Gets the protocol version.
+            </summary>
+            <value>
+            The protocol version.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.SendChunked">
+            <summary>
+            Gets or sets a value indicating whether [send chunked].
+            </summary>
+            <value>
+              <c>true</c> if [send chunked]; otherwise, <c>false</c>.
+            </value>
+            <exception cref="T:System.ObjectDisposedException">
+            Is thrown when you try to access a member of an object that implements the 
+            IDisposable interface, and that object has been disposed
+            </exception>
+            <exception cref="T:System.InvalidOperationException">Cannot be changed after headers are sent.</exception>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.StatusCode">
+            <summary>
+            Gets or sets the status code.
+            </summary>
+            <value>
+            The status code.
+            </value>
+            <exception cref="T:System.ObjectDisposedException">
+            Is thrown when you try to access a member of an object that implements the 
+            IDisposable interface, and that object has been disposed
+            </exception>
+            <exception cref="T:System.InvalidOperationException">Cannot be changed after headers are sent.</exception>
+            <exception cref="T:System.Net.ProtocolViolationException">StatusCode must be between 100 and 999.</exception>
+        </member>
+        <member name="P:Unosquare.Net.HttpListenerResponse.StatusDescription">
+            <summary>
+            Gets or sets the status description.
+            </summary>
+            <value>
+            The status description.
+            </value>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerResponse.Abort">
+            <summary>
+            Aborts this instance.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerResponse.AddHeader(System.String,System.String)">
+            <summary>
+            Adds the header.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <exception cref="T:System.ArgumentNullException">
+            Is thrown when a null reference is passed to a 
+            method that does not accept it as a valid argument
+            </exception>
+            <exception cref="T:System.ArgumentException">'name' cannot be empty</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Is thrown when the value of an argument is outside the 
+            allowable range of values as defined by the invoked method
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerResponse.Close">
+            <summary>
+            Closes this instance.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.HttpListenerResponse.SetCookie(System.Net.Cookie)">
+            <summary>
+            Sets the cookie.
+            </summary>
+            <param name="cookie">The cookie.</param>
+            <exception cref="T:System.ArgumentNullException">
+             Is thrown when a null reference is passed to a method
+             that does not accept it as a valid argument
+            </exception>
+            <exception cref="T:System.ArgumentException">The cookie already exists.</exception>
+        </member>
+        <member name="M:Unosquare.Net.HttpResponse.SetCookies(Unosquare.Net.CookieCollection)">
+            <summary>
+            Sets the cookies.
+            </summary>
+            <param name="cookies">The cookies.</param>
+        </member>
+        <member name="M:Unosquare.Net.HttpResponse.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:Unosquare.Net.MessageEventArgs">
+            <summary>
+            Represents the event data for the <see cref="E:Unosquare.Net.WebSocket.OnMessage"/> event.
+            </summary>
+            <remarks>
+              <para>
+              That event occurs when the <see cref="T:Unosquare.Net.WebSocket"/> receives
+              a message or a ping if the <see cref="P:Unosquare.Net.WebSocket.EmitOnPing"/>
+              property is set to <c>true</c>.
+              </para>
+              <para>
+              If you would like to get the message data, you should access
+              the <see cref="P:Unosquare.Net.MessageEventArgs.Data"/> or <see cref="P:Unosquare.Net.MessageEventArgs.RawData"/> property.
+              </para>
+            </remarks>
+        </member>
+        <member name="P:Unosquare.Net.MessageEventArgs.Data">
+            <summary>
+            Gets the message data as a <see cref="T:System.String"/>.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> that represents the message data if its type is
+            text or ping and if decoding it to a string has successfully done;
+            otherwise, <see langword="null"/>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.MessageEventArgs.IsBinary">
+            <summary>
+            Gets a value indicating whether the message type is binary.
+            </summary>
+            <value>
+            <c>true</c> if the message type is binary; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.MessageEventArgs.IsPing">
+            <summary>
+            Gets a value indicating whether the message type is ping.
+            </summary>
+            <value>
+            <c>true</c> if the message type is ping; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.MessageEventArgs.IsText">
+            <summary>
+            Gets a value indicating whether the message type is text.
+            </summary>
+            <value>
+            <c>true</c> if the message type is text; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.MessageEventArgs.RawData">
+            <summary>
+            Gets the message data as an array of <see cref="T:System.Byte"/>.
+            </summary>
+            <value>
+            An array of <see cref="T:System.Byte"/> that represents the message data.
+            </value>
+        </member>
+        <member name="T:Unosquare.Net.NetExtensions">
+            <summary>
+            Represents some System.NET custom extensions
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.Opcode">
+            <summary>
+            Indicates the WebSocket frame type.
+            </summary>
+            <remarks>
+            The values of this enumeration are defined in
+            <see href="http://tools.ietf.org/html/rfc6455#section-5.2">
+            Section 5.2</see> of RFC 6455.
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Net.Opcode.Cont">
+            <summary>
+            Equivalent to numeric value 0. Indicates continuation frame.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.Opcode.Text">
+            <summary>
+            Equivalent to numeric value 1. Indicates text frame.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.Opcode.Binary">
+            <summary>
+            Equivalent to numeric value 2. Indicates binary frame.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.Opcode.Close">
+            <summary>
+            Equivalent to numeric value 8. Indicates connection close frame.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.Opcode.Ping">
+            <summary>
+            Equivalent to numeric value 9. Indicates ping frame.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.Opcode.Pong">
+            <summary>
+            Equivalent to numeric value 10. Indicates pong frame.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.ResponseStream">
+            <summary>
+            Represents a Response stream
+            </summary>
+            <seealso cref="T:System.IO.Stream" />
+        </member>
+        <member name="P:Unosquare.Net.ResponseStream.CanRead">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Net.ResponseStream.CanSeek">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Net.ResponseStream.CanWrite">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Net.ResponseStream.Length">
+            <inheritdoc />
+        </member>
+        <member name="P:Unosquare.Net.ResponseStream.Position">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.ResponseStream.Close">
+            <summary>
+            Closes this instance.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.ResponseStream.Flush">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.ResponseStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.ResponseStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.ResponseStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.ResponseStream.SetLength(System.Int64)">
+            <inheritdoc />
+        </member>
+        <member name="T:Unosquare.Net.WebHeaderCollection">
+            <summary>
+            Provides a collection of the HTTP headers associated with a request or response.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.WebHeaderCollection.Item(System.Net.HttpRequestHeader)">
+            <summary>
+            Gets or sets the specified request <paramref name="header"/> in the collection.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> that represents the value of the request <paramref name="header"/>.
+            </value>
+            <param name="header">
+            One of the HttpRequestHeader enum values, represents
+            the request header to get or set.
+            </param>
+            <exception cref="T:System.ArgumentException">
+              <para>
+              <paramref name="header"/> is a restricted header.
+              </para>
+              <para>
+              -or-
+              </para>
+              <para>
+              <paramref name="value"/> contains invalid characters.
+              </para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            The length of <paramref name="value"/> is greater than 65,535 characters.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the request <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="P:Unosquare.Net.WebHeaderCollection.Item(System.Net.HttpResponseHeader)">
+            <summary>
+            Gets or sets the specified response <paramref name="header"/> in the collection.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> that represents the value of the response <paramref name="header"/>.
+            </value>
+            <param name="header">
+            One of the HttpResponseHeader enum values, represents
+            the response header to get or set.
+            </param>
+            <exception cref="T:System.ArgumentException">
+              <para>
+              <paramref name="header"/> is a restricted header.
+              </para>
+              <para>
+              -or-
+              </para>
+              <para>
+              <paramref name="value"/> contains invalid characters.
+              </para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            The length of <paramref name="value"/> is greater than 65,535 characters.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the response <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.AddWithoutValidate(System.String,System.String)">
+            <summary>
+            Adds a header to the collection without checking if the header is on
+            the restricted header list.
+            </summary>
+            <param name="headerName">
+            A <see cref="T:System.String"/> that represents the name of the header to add.
+            </param>
+            <param name="headerValue">
+            A <see cref="T:System.String"/> that represents the value of the header to add.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="headerName"/> is <see langword="null"/> or empty.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="headerName"/> or <paramref name="headerValue"/> contains invalid characters.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            The length of <paramref name="headerValue"/> is greater than 65,535 characters.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the <paramref name="headerName"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Add(System.String)">
+            <summary>
+            Adds the specified <paramref name="header"/> to the collection.
+            </summary>
+            <param name="header">
+            A <see cref="T:System.String"/> that represents the header with the name and value separated by
+            a colon (<c>':'</c>).
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+            <paramref name="header"/> is <see langword="null"/>, empty, or the name part of
+            <paramref name="header"/> is empty.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+              <para>
+              <paramref name="header"/> doesn't contain a colon.
+              </para>
+              <para>
+              -or-
+              </para>
+              <para>
+              <paramref name="header"/> is a restricted header.
+              </para>
+              <para>
+              -or-
+              </para>
+              <para>
+              The name or value part of <paramref name="header"/> contains invalid characters.
+              </para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            The length of the value part of <paramref name="header"/> is greater than 65,535 characters.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Add(System.Net.HttpRequestHeader,System.String)">
+            <summary>
+            Adds the specified request <paramref name="header"/> with
+            the specified <paramref name="value"/> to the collection.
+            </summary>
+            <param name="header">
+            One of theHttpRequestHeader enum values, represents
+            the request header to add.
+            </param>
+            <param name="value">
+            A <see cref="T:System.String"/> that represents the value of the header to add.
+            </param>
+            <exception cref="T:System.ArgumentException">
+              <para>
+              <paramref name="header"/> is a restricted header.
+              </para>
+              <para>
+              -or-
+              </para>
+              <para>
+              <paramref name="value"/> contains invalid characters.
+              </para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            The length of <paramref name="value"/> is greater than 65,535 characters.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the request <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Add(System.Net.HttpResponseHeader,System.String)">
+            <summary>
+            Adds the specified response <paramref name="header"/> with
+            the specified <paramref name="value"/> to the collection.
+            </summary>
+            <param name="header">
+            One of the <see cref="T:System.Net.HttpResponseHeader"/> enum values, represents
+            the response header to add.
+            </param>
+            <param name="value">
+            A <see cref="T:System.String"/> that represents the value of the header to add.
+            </param>
+            <exception cref="T:System.ArgumentException">
+              <para>
+              <paramref name="header"/> is a restricted header.
+              </para>
+              <para>
+              -or-
+              </para>
+              <para>
+              <paramref name="value"/> contains invalid characters.
+              </para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            The length of <paramref name="value"/> is greater than 65,535 characters.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the response <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Add(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Clear">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.GetValues(System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.GetValues(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Remove(System.Net.HttpRequestHeader)">
+            <summary>
+            Removes the specified request <paramref name="header"/> from the collection.
+            </summary>
+            <param name="header">
+            One of theHttpRequestHeader enum values, represents
+            the request header to remove.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="header"/> is a restricted header.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the request <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Remove(System.Net.HttpResponseHeader)">
+            <summary>
+            Removes the specified response <paramref name="header"/> from the collection.
+            </summary>
+            <param name="header">
+            One of the <see cref="T:System.Net.HttpResponseHeader"/> enum values, represents
+            the response header to remove.
+            </param>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="header"/> is a restricted header.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the response <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Remove(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Set(System.Net.HttpRequestHeader,System.String)">
+            <summary>
+            Sets the specified request <paramref name="header"/> to the specified value.
+            </summary>
+            <param name="header">
+            One of theHttpRequestHeader enum values, represents
+            the request header to set.
+            </param>
+            <param name="value">
+            A <see cref="T:System.String"/> that represents the value of the request header to set.
+            </param>
+            <exception cref="T:System.ArgumentException">
+              <para>
+              <paramref name="header"/> is a restricted header.
+              </para>
+              <para>
+              -or-
+              </para>
+              <para>
+              <paramref name="value"/> contains invalid characters.
+              </para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            The length of <paramref name="value"/> is greater than 65,535 characters.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the request <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Set(System.Net.HttpResponseHeader,System.String)">
+            <summary>
+            Sets the specified response <paramref name="header"/> to the specified value.
+            </summary>
+            <param name="header">
+            One of the <see cref="T:System.Net.HttpResponseHeader"/> enum values, represents
+            the response header to set.
+            </param>
+            <param name="value">
+            A <see cref="T:System.String"/> that represents the value of the response header to set.
+            </param>
+            <exception cref="T:System.ArgumentException">
+              <para>
+              <paramref name="header"/> is a restricted header.
+              </para>
+              <para>
+              -or-
+              </para>
+              <para>
+              <paramref name="value"/> contains invalid characters.
+              </para>
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            The length of <paramref name="value"/> is greater than 65,535 characters.
+            </exception>
+            <exception cref="T:System.InvalidOperationException">
+            The current <see cref="T:Unosquare.Net.WebHeaderCollection"/> instance doesn't allow
+            the response <paramref name="header"/>.
+            </exception>
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.Set(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:Unosquare.Net.WebHeaderCollection.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents the current
+            <see cref="T:Unosquare.Net.WebHeaderCollection"/>.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents the current <see cref="T:Unosquare.Net.WebHeaderCollection"/>.
+            </returns>
+        </member>
+        <member name="F:Unosquare.Net.HttpHeaderType.Unspecified">
+            <summary>
+            The unspecified
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.HttpHeaderType.Request">
+            <summary>
+            The request
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.HttpHeaderType.Response">
+            <summary>
+            The response
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.HttpHeaderType.Restricted">
+            <summary>
+            The restricted
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.HttpHeaderType.MultiValue">
+            <summary>
+            The multi-value
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.HttpHeaderType.MultiValueInRequest">
+            <summary>
+            The multi-value in request
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.HttpHeaderType.MultiValueInResponse">
+            <summary>
+            The multi-value in response
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.WebSocket">
+            <summary>
+            Implements the WebSocket interface.
+            </summary>
+            <remarks>
+            The WebSocket class provides a set of methods and properties for two-way communication using
+            the WebSocket protocol (<see href="http://tools.ietf.org/html/rfc6455">RFC 6455</see>).
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Net.WebSocket.EmptyBytes">
+            <summary>
+            Represents the empty array of <see cref="T:System.Byte"/> used internally.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.WebSocket.FragmentLength">
+            <summary>
+            Represents the length used to determine whether the data should be fragmented in sending.
+            </summary>
+            <remarks>
+              <para>
+              The data will be fragmented if that length is greater than the value of this field.
+              </para>
+              <para>
+              If you would like to change the value, you must set it to a value between <c>125</c> and
+              <c>Int32.MaxValue - 14</c> inclusive.
+              </para>
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Net.WebSocket.RandomNumber">
+            <summary>
+            Represents the random number generator used internally.
+            </summary>
+        </member>
+        <member name="M:Unosquare.Net.WebSocket.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unosquare.Net.WebSocket" /> class with
+            the specified WebSocket URL.
+            </summary>
+            <param name="url">A <see cref="T:System.String" /> that represents the WebSocket URL to connect.</param>
+            <exception cref="T:System.ArgumentNullException">url</exception>
+            <exception cref="T:System.ArgumentException">
+            An empty string. - url
+            or
+            url
+            or
+            protocols
+            </exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="url" /> is <see langword="null" />.</exception>
+            <exception cref="T:System.ArgumentException"><para>
+              <paramref name="url" /> is invalid.
+            </para>
+            <para>
+            -or-
+            </para></exception>
+        </member>
+        <member name="E:Unosquare.Net.WebSocket.OnClose">
+            <summary>
+            Occurs when the WebSocket connection has been closed.
+            </summary>
+        </member>
+        <member name="E:Unosquare.Net.WebSocket.OnError">
+            <summary>
+            Occurs when the <see cref="T:Unosquare.Net.WebSocket"/> gets an error.
+            </summary>
+        </member>
+        <member name="E:Unosquare.Net.WebSocket.OnMessage">
+            <summary>
+            Occurs when the <see cref="T:Unosquare.Net.WebSocket"/> receives a message.
+            </summary>
+        </member>
+        <member name="E:Unosquare.Net.WebSocket.OnOpen">
+            <summary>
+            Occurs when the WebSocket connection has been established.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.Compression">
+            <summary>
+            Gets or sets the compression method used to compress a message on the WebSocket connection.
+            </summary>
+            <value>
+            One of the <see cref="T:Unosquare.Labs.EmbedIO.Constants.CompressionMethod"/> enum values, specifies the compression method
+            used to compress a message. The default value is <see cref="F:Unosquare.Labs.EmbedIO.Constants.CompressionMethod.None"/>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.Cookies">
+            <summary>
+            Gets the HTTP cookies included in the WebSocket handshake request and response.
+            </summary>
+            <value>
+            An <see cref="T:System.Collections.Generic.IEnumerable{WebSocketSharp.Net.Cookie}"/>
+            instance that provides an enumerator which supports the iteration over the collection of
+            the cookies.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.EmitOnPing">
+            <summary>
+            Gets or sets a value indicating whether the <see cref="T:Unosquare.Net.WebSocket"/> emits
+            a <see cref="E:Unosquare.Net.WebSocket.OnMessage"/> event when receives a ping.
+            </summary>
+            <value>
+            <c>true</c> if the <see cref="T:Unosquare.Net.WebSocket"/> emits a <see cref="E:Unosquare.Net.WebSocket.OnMessage"/> event
+            when receives a ping; otherwise, <c>false</c>. The default value is <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.EnableRedirection">
+            <summary>
+            Gets or sets a value indicating whether the <see cref="T:Unosquare.Net.WebSocket"/> redirects
+            the handshake request to the new URL located in the handshake response.
+            </summary>
+            <value>
+            <c>true</c> if the <see cref="T:Unosquare.Net.WebSocket"/> redirects the handshake request to
+            the new URL; otherwise, <c>false</c>. The default value is <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.Extensions">
+            <summary>
+            Gets the WebSocket extensions selected by the server.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> that represents the extensions if any.
+            The default value is <see cref="F:System.String.Empty"/>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.IsAlive">
+            <summary>
+            Gets a value indicating whether the WebSocket connection is alive.
+            </summary>
+            <value>
+            <c>true</c> if the connection is alive; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.Origin">
+            <summary>
+            Gets or sets the value of the HTTP Origin header to send with
+            the WebSocket handshake request to the server.
+            </summary>
+            <remarks>
+            The <see cref="T:Unosquare.Net.WebSocket"/> sends the Origin header if this property has any.
+            </remarks>
+            <value>
+              <para>
+              A <see cref="T:System.String"/> that represents the value of
+              the <see href="http://tools.ietf.org/html/rfc6454#section-7">Origin</see> header to send.
+              The default value is <see langword="null"/>.
+              </para>
+              <para>
+              The Origin header has the following syntax:
+              <c>&lt;scheme&gt;://&lt;host&gt;[:&lt;port&gt;]</c>
+              </para>
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.State">
+            <summary>
+            Gets the state of the WebSocket connection.
+            </summary>
+            <value>
+            One of the <see cref="T:Unosquare.Net.WebSocketState"/> enum values, indicates the state of the connection.
+            The default value is <see cref="F:Unosquare.Net.WebSocketState.Connecting"/>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.Url">
+            <summary>
+            Gets the WebSocket URL used to connect, or accepted.
+            </summary>
+            <value>
+            A <see cref="T:System.Uri"/> that represents the URL used to connect, or accepted.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocket.WaitTime">
+            <summary>
+            Gets or sets the wait time for the response to the Ping or Close.
+            </summary>
+            <value>
+            A <see cref="T:System.TimeSpan"/> that represents the wait time. The default value is the same as
+            5 seconds, or 1 second if the <see cref="T:Unosquare.Net.WebSocket"/> is used in a server.
+            </value>
+        </member>
+        <member name="M:Unosquare.Net.WebSocket.CloseAsync(Unosquare.Net.CloseStatusCode,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Closes the WebSocket connection asynchronously, and releases
+            all associated resources.
+            </summary>
+            <param name="code">The code.</param>
+            <param name="reason">The reason.</param>
+            <param name="ct">The cancellation token.</param>
+            <returns>
+            A task that represents the asynchronous closes websocket connection
+            </returns>
+        </member>
+        <member name="M:Unosquare.Net.WebSocket.ConnectAsync(System.Threading.CancellationToken)">
+            <summary>
+            Establishes a WebSocket connection asynchronously.
+            </summary>
+            <param name="ct">The cancellation token.</param>
+            <returns>
+            If CheckIfAvailable statement terminates execution of the method; otherwise, 
+            establishes a WebSocket connection
+            </returns>
+            <remarks>
+            <para>
+            This method doesn't wait for the connect to be complete.
+            </para>
+            <para>
+            This method isn't available in a server.
+            </para></remarks>
+        </member>
+        <member name="M:Unosquare.Net.WebSocket.PingAsync">
+            <summary>
+            Sends a ping using the WebSocket connection.
+            </summary>
+            <returns>
+            <c>true</c> if the <see cref="T:Unosquare.Net.WebSocket"/> receives a pong to this ping in a time;
+            otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Unosquare.Net.WebSocket.PingAsync(System.String)">
+            <summary>
+            Sends a ping with the specified <paramref name="message"/> using the WebSocket connection.
+            </summary>
+            <returns>
+            <c>true</c> if the <see cref="T:Unosquare.Net.WebSocket"/> receives a pong to this ping in a time;
+            otherwise, <c>false</c>.
+            </returns>
+            <param name="message">
+            A <see cref="T:System.String"/> that represents the message to send.
+            </param>
+        </member>
+        <member name="M:Unosquare.Net.WebSocket.SendAsync(System.Byte[],Unosquare.Net.Opcode,System.Threading.CancellationToken)">
+            <summary>
+            Sends binary <paramref name="data" /> using the WebSocket connection.
+            </summary>
+            <param name="data">An array of <see cref="T:System.Byte" /> that represents the binary data to send.</param>
+            <param name="opcode">The opcode.</param>
+            <param name="ct">The cancellation token.</param>
+            <returns>
+            A task that represents the asynchronous of send 
+            binary data using websocket
+            </returns>
+        </member>
+        <member name="M:Unosquare.Net.WebSocket.SetCookie(System.Net.Cookie)">
+            <summary>
+            Sets an HTTP <paramref name="cookie"/> to send with
+            the WebSocket handshake request to the server.
+            </summary>
+            <param name="cookie">
+            A <see cref="T:System.Net.Cookie"/> that represents a cookie to send.
+            </param>
+        </member>
+        <member name="M:Unosquare.Net.WebSocket.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Unosquare.Net.WebSocketContext">
+            <summary>
+            Provides the properties used to access the information in
+            a WebSocket handshake request received by the <see cref="T:Unosquare.Net.HttpListener"/>.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.CookieCollection">
+            <summary>
+            Gets the HTTP cookies included in the request.
+            </summary>
+            <value>
+            A <see cref="P:Unosquare.Net.WebSocketContext.CookieCollection"/> that contains the cookies.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.Headers">
+            <summary>
+            Gets the HTTP headers included in the request.
+            </summary>
+            <value>
+            A <see cref="T:System.Collections.Specialized.NameValueCollection"/> that contains the headers.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.Host">
+            <summary>
+            Gets the value of the Host header included in the request.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> that represents the value of the Host header.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.IsLocal">
+            <summary>
+            Gets a value indicating whether the client connected from the local computer.
+            </summary>
+            <value>
+            <c>true</c> if the client connected from the local computer; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.IsWebSocketRequest">
+            <summary>
+            Gets a value indicating whether the request is a WebSocket handshake request.
+            </summary>
+            <value>
+            <c>true</c> if the request is a WebSocket handshake request; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.Origin">
+            <summary>
+            Gets the value of the Origin header included in the request.
+            </summary>
+            <value>
+            A <see cref="T:System.String"/> that represents the value of the Origin header.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.QueryString">
+            <summary>
+            Gets the query string included in the request.
+            </summary>
+            <value>
+            A <see cref="T:System.Collections.Specialized.NameValueCollection"/> that contains the query string parameters.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.RequestUri">
+            <summary>
+            Gets the URI requested by the client.
+            </summary>
+            <value>
+            A <see cref="T:System.Uri"/> that represents the requested URI.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.SecWebSocketKey">
+            <summary>
+            Gets the value of the Sec-WebSocket-Key header included in the request.
+            </summary>
+            <remarks>
+            This property provides a part of the information used by the server to prove that
+            it received a valid WebSocket handshake request.
+            </remarks>
+            <value>
+            A <see cref="T:System.String"/> that represents the value of the Sec-WebSocket-Key header.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.SecWebSocketVersion">
+            <summary>
+            Gets the value of the Sec-WebSocket-Version header included in the request.
+            </summary>
+            <remarks>
+            This property represents the WebSocket protocol version.
+            </remarks>
+            <value>
+            A <see cref="T:System.String"/> that represents the value of the Sec-WebSocket-Version header.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.ServerEndPoint">
+            <summary>
+            Gets the server endpoint as an IP address and a port number.
+            </summary>
+            <value>
+            A <see cref="T:System.Net.IPEndPoint"/> that represents the server endpoint.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.UserEndPoint">
+            <summary>
+            Gets the client endpoint as an IP address and a port number.
+            </summary>
+            <value>
+            A <see cref="T:System.Net.IPEndPoint"/> that represents the client endpoint.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketContext.WebSocket">
+            <summary>
+            Gets the <see cref="P:Unosquare.Net.WebSocketContext.WebSocket"/> instance used for
+            two-way communication between client and server.
+            </summary>
+            <value>
+            A <see cref="P:Unosquare.Net.WebSocketContext.WebSocket"/>.
+            </value>
+        </member>
+        <member name="M:Unosquare.Net.WebSocketContext.ToString">
+            <summary>
+            Returns a <see cref="T:System.String" /> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String" /> that represents this instance.
+            </returns>
+        </member>
+        <member name="T:Unosquare.Net.WebSocketException">
+            <summary>
+            The exception that is thrown when a <see cref="T:Unosquare.Net.WebSocket"/> gets a fatal error.
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketException.Code">
+            <summary>
+            Gets the status code indicating the cause of the exception.
+            </summary>
+            <value>
+            One of the <see cref="T:Unosquare.Net.CloseStatusCode"/> enum values, represents the status code
+            indicating the cause of the exception.
+            </value>
+        </member>
+        <member name="T:Unosquare.Net.Fin">
+            <summary>
+            Indicates whether a WebSocket frame is the final frame of a message.
+            </summary>
+            <remarks>
+            The values of this enumeration are defined in
+            <see href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</see> of RFC 6455.
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Net.Fin.More">
+            <summary>
+            Equivalent to numeric value 0. Indicates more frames of a message follow.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.Fin.Final">
+            <summary>
+            Equivalent to numeric value 1. Indicates the final frame of a message.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.Mask">
+            <summary>
+            Indicates whether the payload data of a WebSocket frame is masked.
+            </summary>
+            <remarks>
+            The values of this enumeration are defined in
+            <see href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</see> of RFC 6455.
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Net.Mask.Off">
+            <summary>
+            Equivalent to numeric value 0. Indicates not masked.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.Mask.On">
+            <summary>
+            Equivalent to numeric value 1. Indicates masked.
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.Rsv">
+            <summary>
+            Indicates whether each RSV (RSV1, RSV2, and RSV3) of a WebSocket frame is non-zero.
+            </summary>
+            <remarks>
+            The values of this enumeration are defined in
+            <see href="http://tools.ietf.org/html/rfc6455#section-5.2">Section 5.2</see> of RFC 6455.
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Net.Rsv.Off">
+            <summary>
+            Equivalent to numeric value 0. Indicates zero.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.Rsv.On">
+            <summary>
+            Equivalent to numeric value 1. Indicates non-zero.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.WebSocketFrame.EmptyPingBytes">
+            <summary>
+            Represents the ping frame without the payload data as an array of <see cref="T:System.Byte"/>.
+            </summary>
+            <remarks>
+            The value of this field is created from a non masked frame, so it can only be used to
+            send a ping from a server.
+            </remarks>
+        </member>
+        <member name="T:Unosquare.Net.WebSocketReceiveResult">
+            <summary>
+            Represents a WS Receive result
+            </summary>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketReceiveResult.Count">
+            <summary>
+            Gets the count.
+            </summary>
+            <value>
+            The count.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketReceiveResult.EndOfMessage">
+            <summary>
+            Gets a value indicating whether [end of message].
+            </summary>
+            <value>
+              <c>true</c> if [end of message]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Unosquare.Net.WebSocketReceiveResult.MessageType">
+            <summary>
+            Gets the type of the message.
+            </summary>
+            <value>
+            The type of the message.
+            </value>
+        </member>
+        <member name="T:Unosquare.Net.WebSocketMessageType">
+            <summary>
+            Enums WS Message Type
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.WebSocketMessageType.Text">
+            <summary>
+            The text
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.WebSocketMessageType.Binary">
+            <summary>
+            The binary
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.WebSocketMessageType.Close">
+            <summary>
+            The close
+            </summary>
+        </member>
+        <member name="T:Unosquare.Net.WebSocketState">
+            <summary>
+            Indicates the state of a WebSocket connection.
+            </summary>
+            <remarks>
+            The values of this enumeration are defined in
+            <see href="http://www.w3.org/TR/websockets/#dom-websocket-readystate">The WebSocket API</see>.
+            </remarks>
+        </member>
+        <member name="F:Unosquare.Net.WebSocketState.Connecting">
+            <summary>
+            Equivalent to numeric value 0. Indicates that the connection hasn't yet been established.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.WebSocketState.Open">
+            <summary>
+            Equivalent to numeric value 1. Indicates that the connection has been established,
+            and the communication is possible.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.WebSocketState.Closing">
+            <summary>
+            Equivalent to numeric value 2. Indicates that the connection is going through
+            the closing handshake, or the <c>WebSocket.Close</c> method has been invoked.
+            </summary>
+        </member>
+        <member name="F:Unosquare.Net.WebSocketState.Closed">
+            <summary>
+            Equivalent to numeric value 3. Indicates that the connection has been closed or
+            couldn't be established.
+            </summary>
+        </member>
+    </members>
+</doc>

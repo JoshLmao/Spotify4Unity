@@ -4,9 +4,9 @@
 [Bb]uild/
 [Bb]uilds/
 
-Spotify4Unity/Assets/AssetStoreTools*
-Spotify4Unity/Spotify4Unity/[Bb]in*
-Spotify4Unity/Spotify4Unity/obj*
+Assets/AssetStoreTools*
+Spotify4Unity/[Bb]in*
+Spotify4Unity/obj*
 
 # Visual Studio cache directory
 .vs/

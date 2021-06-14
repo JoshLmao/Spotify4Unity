@@ -2,32 +2,103 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SpotifyAPI.Web;
+using System.IO;
+using Newtonsoft.Json;
+using SpotifyAPI.Web.Auth;
+using System;
+using System.Threading.Tasks;
 
 public class SpotifyService : Singleton<SpotifyService>
 {
     // Spotify Dashboard client id
-    public string SPOTIFY_CLIENT_ID = "8c42bb0a9bd8483986929038af40ed4a";
+    public string ClientID;
+    public string AuthPath = "PKCE-Credentials.json";
 
-    public SpotifyService()
+    public event Action<SpotifyClient> OnClientConnected;
+
+    private SpotifyClient _client;
+
+    private static readonly EmbedIOAuthServer _server = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
+
+    private void Start()
     {
         StartService();
     }
 
-    void Start()
+    private void StartService()
     {
-        
+        if (File.Exists(AuthPath))
+        {
+            string previousToken = File.ReadAllText(AuthPath);
+            var token = JsonConvert.DeserializeObject<PKCETokenResponse>(previousToken);
+
+            PKCEAuthenticator pkceAuthenticator = new PKCEAuthenticator(ClientID, token);
+            pkceAuthenticator.TokenRefreshed += this.OnTokenRefreshed;
+
+            SpotifyClientConfig config = SpotifyClientConfig.CreateDefault().WithAuthenticator(pkceAuthenticator);
+
+            SpotifyClient client = new SpotifyClient(config);
+
+            if (client != null)
+            {
+                _client = client;
+                OnClientConnected?.Invoke(_client);
+
+                Debug.Log("Successfully connected using PKCE authentification");
+            }
+            else
+            {
+                Debug.LogError("Error creating SpotifyAPI client!");
+            }
+        }
+        else
+        {
+            StartAuthentication();
+        }
     }
 
-    void Update()
+    private void OnTokenRefreshed(object sender, PKCETokenResponse token)
     {
-        
+        string json = JsonConvert.SerializeObject(token);
+        File.WriteAllText(AuthPath, json);
     }
 
-    private async void StartService()
+    private async void StartAuthentication()
     {
-        var client = new SpotifyClient(SPOTIFY_CLIENT_ID);
+        var (verifier, challenge) = PKCEUtil.GenerateCodes();
 
-        var me = await client.UserProfile.Current();
-        Debug.Log(me.DisplayName);
+        await _server.Start();
+        _server.AuthorizationCodeReceived += async (sender, response) =>
+        {
+            await _server.Stop();
+            PKCETokenResponse token = await new OAuthClient().RequestToken(
+                new PKCETokenRequest(ClientID, response.Code, _server.BaseUri, verifier)
+            );
+
+            File.WriteAllText(AuthPath, JsonConvert.SerializeObject(token));
+            StartService();
+        };
+
+        LoginRequest request = new LoginRequest(_server.BaseUri, ClientID, LoginRequest.ResponseType.Code)
+        {
+            CodeChallenge = challenge,
+            CodeChallengeMethod = "S256",
+            Scope = new List<string> { Scopes.UserReadEmail, Scopes.UserReadPrivate, Scopes.PlaylistReadPrivate, Scopes.PlaylistReadCollaborative }
+        };
+
+        Uri uri = request.ToUri();
+        try
+        {
+            BrowserUtil.Open(uri);
+        }
+        catch(Exception e)
+        {
+            Debug.LogError($"Exception opening browser for auth: '{e.ToString()}'");
+        }
+    }
+
+    public SpotifyClient GetSpotifyClient()
+    {
+        return _client;
     }
 }

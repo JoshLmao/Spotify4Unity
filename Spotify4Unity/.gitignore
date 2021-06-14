@@ -4,10 +4,6 @@
 [Bb]uild/
 [Bb]uilds/
 
-Assets/AssetStoreTools*
-Spotify4Unity/[Bb]in*
-Spotify4Unity/obj*
-
 # Visual Studio cache directory
 .vs/
 
@@ -39,4 +35,8 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-tools/wiki-tool/Spotify4Unity.wiki/
+Assets/AssetStoreTools*
+Spotify4Unity/[Bb]in*
+Spotify4Unity/obj*
+
+PKCE-credentials.json

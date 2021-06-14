@@ -12,7 +12,7 @@ public class SpotifyService : Singleton<SpotifyService>
 {
     // Spotify Dashboard client id
     public string ClientID;
-    public string AuthPath = "PKCE-Credentials.json";
+    public string AuthPath = "PKCE-credentials.json";
 
     public event Action<SpotifyClient> OnClientConnected;
 

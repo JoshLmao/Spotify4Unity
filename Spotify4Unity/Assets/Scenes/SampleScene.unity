@@ -1097,7 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClientID: 8c42bb0a9bd8483986929038af40ed4a
-  AuthPath: PKCE-Credentials.json
+  AuthPath: PKCE-credentials.json
 --- !u!4 &779872343
 Transform:
   m_ObjectHideFlags: 0

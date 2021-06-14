@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class S4UUtility : MonoBehaviour
+public class S4UUtility
 {
     /// <summary>
     /// Loads an image from a url and runs an action on load
@@ -35,6 +36,33 @@ public class S4UUtility : MonoBehaviour
                 onLoaded.Invoke(sprite);
             }
         }
+    }
+
+    /// <summary>
+    /// Converts milliseconds into a formatted time string like "00:00"
+    /// </summary>
+    /// <param name="milliseconds">Time in milliseconds</param>
+    /// <returns></returns>
+    public static string MsToTimeString(int milliseconds)
+    {
+        if (milliseconds < 0)
+        {
+            return "00:00";
+        }
+
+        int totalSeconds = milliseconds / 1000;
+
+        int currentSeconds = totalSeconds % 60;
+        int minutes = totalSeconds / 60;
+
+        string secondsStr = "";
+        if (currentSeconds < 10)
+        {
+            secondsStr = "0";
+        }
+        secondsStr += currentSeconds.ToString();
+
+        return $"{minutes}:{secondsStr}";
     }
 
     /// <summary>

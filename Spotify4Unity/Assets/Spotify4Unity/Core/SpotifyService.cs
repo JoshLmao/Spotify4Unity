@@ -8,7 +8,7 @@ using SpotifyAPI.Web.Auth;
 using System;
 using System.Threading.Tasks;
 
-public class SpotifyService : Singleton<SpotifyService>
+public class SpotifyService : SceneSingleton<SpotifyService>
 {
     // Spotify Dashboard client id
     public string ClientID;

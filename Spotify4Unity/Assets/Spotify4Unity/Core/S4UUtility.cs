@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -34,5 +35,25 @@ public class S4UUtility : MonoBehaviour
                 onLoaded.Invoke(sprite);
             }
         }
+    }
+
+    /// <summary>
+    /// Gets all entries in a paging list and returns the result
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="client">The current SpotifyClient instance</param>
+    /// <param name="startingPageList">The beginning of a paging list (first 20/X entries)</param>
+    /// <returns></returns>
+    public static async Task<IEnumerable<T>> GetAllOfPagingAsync<T>(SpotifyAPI.Web.SpotifyClient client, SpotifyAPI.Web.Paging<T> startingPageList) where T : class
+    {
+        List<T> list = new List<T>();
+        while (startingPageList.Next != null)
+        {
+            // Add current range and await next set of items
+            list.AddRange(startingPageList.Items);
+            startingPageList = await client.NextPage(startingPageList);
+        }
+        // Return final list once complete
+        return list;
     }
 }

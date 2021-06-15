@@ -8,7 +8,7 @@ using UnityEngine;
 /// <summary>
 /// Listener class for providing callbacks about the Spotify Player
 /// </summary>
-public class SpotifyPlayerListener : UIListener
+public class SpotifyPlayerListener : SpotifyServiceListener
 {
     /// <summary>
     /// Amount of milliseconds for the internal player updater to poll at
@@ -27,9 +27,9 @@ public class SpotifyPlayerListener : UIListener
 
     private bool _isInvoking = false;
 
-    protected override void OnSpotifyConnected(SpotifyClient client)
+    protected override void OnSpotifyConnectionChanged(SpotifyClient client)
     {
-        base.OnSpotifyConnected(client);
+        base.OnSpotifyConnectionChanged(client);
 
         _client = client;
 

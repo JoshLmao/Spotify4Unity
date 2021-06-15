@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using System.Linq;
 using Image = UnityEngine.UI.Image;
 
-public class ArtistWidgetController : UIListener
+public class ArtistWidgetController : SpotifyServiceListener
 {
     [Tooltip("Id of the artist to display in thw widget. ")]
     public string ArtistId;
@@ -22,9 +22,9 @@ public class ArtistWidgetController : UIListener
 
     private FullArtist _artistInfo;
 
-    protected override async void OnSpotifyConnected(SpotifyClient client)
+    protected override async void OnSpotifyConnectionChanged(SpotifyClient client)
     {
-        base.OnSpotifyConnected(client);
+        base.OnSpotifyConnectionChanged(client);
 
         _artistInfo = await client.Artists.Get(ArtistId);
 

@@ -5,7 +5,7 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 
-public class PlaylistWidgetController : UIListener
+public class PlaylistWidgetController : SpotifyServiceListener
 {
     [SerializeField]
     private GameObject _playlistPrefab;
@@ -25,9 +25,9 @@ public class PlaylistWidgetController : UIListener
         }
     }
 
-    protected override async void OnSpotifyConnected(SpotifyClient client)
+    protected override async void OnSpotifyConnectionChanged(SpotifyClient client)
     {
-        base.OnSpotifyConnected(client);
+        base.OnSpotifyConnectionChanged(client);
 
         // Get first page from client
         Paging<SimplePlaylist> page = await client.Playlists.CurrentUsers();

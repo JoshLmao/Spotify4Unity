@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
-public class UserWidgetController : UIListener
+public class UserWidgetController : SpotifyServiceListener
 {
     [Tooltip("User Id of the spotify user you wish to display in this widget. If none supplied, will display the current signed in user. Can accept username's like 'wizzler' or URI id's like '1121645175. Hold Ctrl or Cmd and click '...' on a user's page toget their URI")]
     public string UserId;
@@ -24,9 +24,9 @@ public class UserWidgetController : UIListener
     // Public user information available to everyone from user id
     private PublicUser _publicUserInfo = null;
 
-    protected override async void OnSpotifyConnected(SpotifyClient client)
+    protected override async void OnSpotifyConnectionChanged(SpotifyClient client)
     {
-        base.OnSpotifyConnected(client);
+        base.OnSpotifyConnectionChanged(client);
 
         if (string.IsNullOrEmpty(UserId))
         {

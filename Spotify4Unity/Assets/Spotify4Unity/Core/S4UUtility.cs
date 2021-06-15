@@ -1,3 +1,4 @@
+using SpotifyAPI.Web;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,5 +100,35 @@ public class S4UUtility
         {
             return string.Join(separator, artists.Select(x => x.Name));
         }
+    }
+
+    /// <summary>
+    /// Gets all possible API scopes for the Spotify API
+    /// </summary>
+    /// <returns></returns>
+    public static List<string> GetAllScopes()
+    {
+        return new List<string>()
+        {
+            Scopes.AppRemoteControl,
+            Scopes.PlaylistModifyPrivate,
+            Scopes.PlaylistModifyPublic,
+            Scopes.PlaylistReadCollaborative,
+            Scopes.PlaylistReadPrivate,
+            Scopes.Streaming,
+            Scopes.UgcImageUpload,
+            Scopes.UserFollowModify,
+            Scopes.UserFollowRead,
+            Scopes.UserLibraryModify,
+            Scopes.UserLibraryRead,
+            Scopes.UserModifyPlaybackState,
+            Scopes.UserReadCurrentlyPlaying,
+            Scopes.UserReadEmail,
+            Scopes.UserReadPlaybackPosition,
+            Scopes.UserReadPlaybackState,
+            Scopes.UserReadPrivate,
+            Scopes.UserReadRecentlyPlayed,
+            Scopes.UserTopRead,
+        };
     }
 }

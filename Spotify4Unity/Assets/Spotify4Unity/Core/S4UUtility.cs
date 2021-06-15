@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -83,5 +83,21 @@ public class S4UUtility
         }
         // Return final list once complete
         return list;
+    }
+
+    /// <summary>
+    /// Converts a list of artists to a string with a separator
+    /// </summary>
+    /// <returns></returns>
+    public static string ArtistsToSeparatedString(string separator, List<SpotifyAPI.Web.SimpleArtist> artists)
+    {
+        if (artists == null || (artists != null && artists.Count <= 0))
+        {
+            return string.Empty;
+        }
+        else
+        {
+            return string.Join(separator, artists.Select(x => x.Name));
+        }
     }
 }

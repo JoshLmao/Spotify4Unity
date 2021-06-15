@@ -97,6 +97,10 @@ public class SpotifyService : SceneSingleton<SpotifyService>
         }
     }
 
+    /// <summary>
+    /// Gets the current SpotifyClient service from SpotifyAPI.NET. Can return null if not connected
+    /// </summary>
+    /// <returns></returns>
     public SpotifyClient GetSpotifyClient()
     {
         return _client;

@@ -5,16 +5,27 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+/// <summary>
+/// Listener class for providing callbacks about the Spotify Player
+/// </summary>
 public class SpotifyPlayerListener : UIListener
 {
+    /// <summary>
+    /// Amount of milliseconds for the internal player updater to poll at
+    /// </summary>
     public float UpdateFrequencyMS = 1000;
 
-    public event Action<FullTrack> OnTrackChanged;
+    /// <summary>
+    /// Triggered when a new Track or Episode is playing in the player
+    /// </summary>
+    public event Action<IPlayableItem> OnPlayingItemChanged;
 
     private SpotifyClient _client;
 
     private CurrentlyPlayingContext _currentContext;
-    private FullTrack _currentTrack;
+    private IPlayableItem _currentItem;
+
+    private bool _isInvoking = false;
 
     protected override void OnSpotifyConnected(SpotifyClient client)
     {
@@ -22,14 +33,17 @@ public class SpotifyPlayerListener : UIListener
 
         _client = client;
 
-        if (_client != null)
+        // Start internal update loop
+        if (_client != null && UpdateFrequencyMS > 0)
         {
-            InvokeRepeating("FetchLatestPlayer", 0, UpdateFrequencyMS / 1000);
+            InvokeRepeating(nameof(FetchLatestPlayer), 0, UpdateFrequencyMS / 1000);
+            _isInvoking = true;
         }
-    }
-
-    private void OnDestroy()
-    {
+        else if (_client == null && _isInvoking)
+        {
+            CancelInvoke(nameof(FetchLatestPlayer));
+            _isInvoking = false;
+        }
     }
 
     private async void FetchLatestPlayer()
@@ -39,25 +53,63 @@ public class SpotifyPlayerListener : UIListener
             // get the current context on this run
             CurrentlyPlayingContext newContext = await _client.Player.GetCurrentPlayback();
 
-            // Check if not null and is a track
-            if (newContext != null && newContext.Item.Type == ItemType.Track)
+            // Check if not null
+            if (newContext != null)
             {
-                FullTrack itm = newContext.Item as FullTrack;
-
-                // No previous track, set to newest track
-                if (_currentTrack == null)
+                if (newContext.Item != null)
                 {
-                    _currentTrack = itm;
-                    OnTrackChanged?.Invoke(itm);
+                    // Check and cast the item to the correct type
+                    if (newContext.Item.Type == ItemType.Track)
+                    {
+                        FullTrack currentTrack = newContext.Item as FullTrack;
+
+                        // No previous track or previous item was different type 
+                        if (_currentItem == null || (_currentItem != null && _currentItem is FullEpisode episode))
+                        {
+                            Debug.Log($"No episode or new type | -> '{currentTrack.Name}'");
+                            _currentItem = currentTrack;
+                            OnPlayingItemChanged?.Invoke(_currentItem);
+                        }
+                        else if (_currentItem != null && _currentItem is FullTrack lastTrack)
+                        {
+                            // Check if track name & artists aren't the same
+                            if (lastTrack.Name != currentTrack.Name || IsArtistsChanged(lastTrack.Artists, currentTrack.Artists))
+                            {
+                                Debug.Log($"Track to new Track | '{lastTrack.Name}' -> '{currentTrack.Name}'");
+                                _currentItem = currentTrack;
+                                OnPlayingItemChanged?.Invoke(_currentItem);
+                            }
+                        }
+                    }
+                    else if (newContext.Item.Type == ItemType.Episode)
+                    {
+                        FullEpisode currentEpisode = newContext.Item as FullEpisode;
+
+                        // If no previous item or current item is different type
+                        if (_currentItem == null || (_currentItem != null && _currentItem is FullTrack track))
+                        {
+                            Debug.Log($"No episode or new type | -> '{currentEpisode.Name}'");
+                            _currentItem = currentEpisode;
+                            OnPlayingItemChanged?.Invoke(_currentItem);
+                        }
+                        else if (_currentItem != null && _currentItem is FullEpisode lastEpisode)
+                        {
+                            if (lastEpisode.Name != currentEpisode.Name || lastEpisode.Show?.Publisher != currentEpisode.Show?.Publisher)
+                            {
+                                Debug.Log($"Episode to new Episode | '{lastEpisode.Name}' -> '{currentEpisode.Name}'");
+                                _currentItem = currentEpisode;
+                                OnPlayingItemChanged?.Invoke(_currentItem);
+                            }
+                        }
+                    }
                 }
                 else
                 {
-                    // Check if track name & artists aren't the same
-                    if (_currentTrack.Name != itm.Name || IsArtistsChanged(_currentTrack.Artists, itm.Artists))
+                    if (_currentItem != null)
                     {
-                        Debug.Log($"Context track changed: '{_currentTrack.Name}' -> '{itm.Name}'");
-                        _currentTrack = itm;
-                        OnTrackChanged?.Invoke(itm);
+                        Debug.Log($"Item to no item | '{(_currentItem.Type == ItemType.Track ? (_currentItem as FullTrack).Name : (_currentItem as FullEpisode).Name )}' -> ?");
+                        _currentItem = null;
+                        OnPlayingItemChanged?.Invoke(null);
                     }
                 }
             }
@@ -89,6 +141,10 @@ public class SpotifyPlayerListener : UIListener
         return false;
     }
 
+    /// <summary>
+    /// Gets the current context of the spotify player
+    /// </summary>
+    /// <returns></returns>
     protected CurrentlyPlayingContext GetCurrentContext()
     {
         return _currentContext;

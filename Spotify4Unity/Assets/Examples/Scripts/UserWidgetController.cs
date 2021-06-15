@@ -28,13 +28,21 @@ public class UserWidgetController : SpotifyServiceListener
     {
         base.OnSpotifyConnectionChanged(client);
 
-        if (string.IsNullOrEmpty(UserId))
+        if (client != null)
         {
-            _privateUserInfo = await client.UserProfile.Current();
+            if (string.IsNullOrEmpty(UserId))
+            {
+                _privateUserInfo = await client.UserProfile.Current();
+            }
+            else
+            {
+                _publicUserInfo = await client.UserProfile.Get(UserId);
+            }
         }
         else
         {
-            _publicUserInfo = await client.UserProfile.Get(UserId);
+            _privateUserInfo = null;
+            _publicUserInfo = null;
         }
 
         UpdateUI();
@@ -89,6 +97,19 @@ public class UserWidgetController : SpotifyServiceListener
                     }
                 });
             }
+        }
+        else
+        {
+            // Both null, not loaded
+            UpdateTextElement(_nameText, string.Empty);
+            UpdateTextElement(_followersText, string.Empty);
+            UpdateTextElement(_typeText, string.Empty);
+            UpdateTextElement(_uriText, string.Empty);
+            UpdateTextElement(_idText, string.Empty);
+            UpdateTextElement(_countryText, string.Empty);
+            UpdateTextElement(_productText, string.Empty);
+            _icon.sprite = null;
+
         }
     }
 

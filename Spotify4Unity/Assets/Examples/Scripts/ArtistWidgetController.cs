@@ -26,7 +26,14 @@ public class ArtistWidgetController : SpotifyServiceListener
     {
         base.OnSpotifyConnectionChanged(client);
 
-        _artistInfo = await client.Artists.Get(ArtistId);
+        if (client != null)
+        {
+            _artistInfo = await client.Artists.Get(ArtistId);
+        }
+        else
+        {
+            _artistInfo = null;
+        }
 
         UpdateUI();
     }
@@ -44,6 +51,17 @@ public class ArtistWidgetController : SpotifyServiceListener
             UpdateTextElement(_genresText, $"Genres: {string.Join(", ", _artistInfo.Genres.ToArray())}");
             UpdateTextElement(_popularityText, $"Popularity: {_artistInfo.Popularity}");
             UpdateTextElement(_typeText, $"Type: {_artistInfo.Type}");
+        }
+        else
+        {
+            UpdateTextElement(_nameText, string.Empty);
+            UpdateTextElement(_idText, string.Empty);
+            UpdateTextElement(_uriText, string.Empty);
+            UpdateTextElement(_followersText, string.Empty);
+            UpdateTextElement(_genresText, string.Empty);
+            UpdateTextElement(_popularityText, string.Empty);
+            UpdateTextElement(_typeText, string.Empty);
+            _icon.sprite = null;
         }
 
         // If follow btn set, add listener to on click to follow the current artist
@@ -64,7 +82,7 @@ public class ArtistWidgetController : SpotifyServiceListener
 
     private void UpdateTextElement(Text element, string content)
     {
-        if (element != null && !string.IsNullOrEmpty(content))
+        if (element != null)
         {
             element.text = content;
         }

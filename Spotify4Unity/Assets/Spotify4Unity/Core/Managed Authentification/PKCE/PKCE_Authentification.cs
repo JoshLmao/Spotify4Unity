@@ -42,35 +42,37 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
 
     public void StartAuthentification()
     {
+        // Check if previous auth
         if (HasPreviousAuthentification())
         {
+            // Load and set
             _pkceToken = LoadPKCEToken(PKCEConfig?.TokenPath);
             if (_pkceToken != null)
             {
-                // Check if loaded token isn't expired
-                if (_pkceToken.IsExpired)
-                {
-                    // testing
-                    Debug.LogError("PKCE Auth is expired");
-                }
-
                 SetAuthenticator(_pkceToken);
             }
         }
         else
         {
+            // No previous auth, first time, get new
             GetFreshAuth();
         }
     }
 
     private void OnTokenRefreshed(object sender, PKCETokenResponse token)
     {
+        bool triggerEvent = _pkceToken.IsExpired && !token.IsExpired;
         _pkceToken = token;
 
         if (PKCEConfig != null)
         {
             string json = JsonConvert.SerializeObject(token);
             File.WriteAllText(PKCEConfig.TokenPath, json);
+        }
+
+        if (triggerEvent)
+        {
+            OnAuthenticatorComplete?.Invoke(_pkceAuthenticator);
         }
     }
 

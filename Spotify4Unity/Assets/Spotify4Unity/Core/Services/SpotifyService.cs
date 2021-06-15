@@ -4,6 +4,7 @@ using SpotifyAPI.Web.Auth;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using UnityEngine;
 
 /// <summary>
@@ -46,6 +47,13 @@ public class SpotifyService : SceneSingleton<SpotifyService>
     // Current authenticator type
     private IServiceAuthenticator _authenticator;
 
+    private static SpotifyClientConfig _defaultConfig = SpotifyClientConfig.CreateDefault();
+
+    /// <summary>
+    /// List of actions to run on the main thread
+    /// </summary>
+    private List<Action> _dispatcher = new List<Action>();
+
     #region Mono Behaviour Methods
 
     protected virtual void Awake()
@@ -75,6 +83,19 @@ public class SpotifyService : SceneSingleton<SpotifyService>
         if (AuthorizeUserOnStart)
         {
             StartService();
+        }
+    }
+
+    protected virtual void Update()
+    {
+        // Run any actions on main thread and clear once complete
+        if (_dispatcher.Count > 0)
+        {
+            foreach(Action actn in _dispatcher)
+            {
+                actn.Invoke();
+            }
+            _dispatcher.Clear();
         }
     }
 
@@ -125,26 +146,40 @@ public class SpotifyService : SceneSingleton<SpotifyService>
         OnClientConnectionChanged?.Invoke(_client);
     }
 
-    private void OnAuthenticatorComplete(SpotifyAPI.Web.IAuthenticator apiAuthenticator)
+    private void OnAuthenticatorComplete(IAuthenticator apiAuthenticator)
     {
         if (apiAuthenticator != null)
         {
             // Get config from authenticator
-            SpotifyClientConfig config = SpotifyClientConfig.CreateDefault().WithAuthenticator(apiAuthenticator);
+            _defaultConfig = SpotifyClientConfig.CreateDefault().WithAuthenticator(apiAuthenticator);
 
             // Create the Spotify client
-            SpotifyClient client = new SpotifyClient(config);
+            SpotifyClient client = new SpotifyClient(_defaultConfig);
 
             if (client != null)
             {
                 _client = client;
-                OnClientConnectionChanged?.Invoke(_client);
 
-                Debug.Log("Successfully connected using PKCE authentification");
+                Action clientCompleteAction = () =>
+                {
+                    OnClientConnectionChanged?.Invoke(_client);
+                    Debug.Log($"Successfully connected to Spotify using '{AuthType}' authentificiation");
+                };
+
+                // If authenticator completed on another thread, add event to dispatcher to run on main thread
+                if (Thread.CurrentThread.IsBackground)
+                {
+                    _dispatcher.Add(clientCompleteAction);
+                }
+                else
+                {
+                    // Is main thread, invoke now
+                    clientCompleteAction.Invoke();
+                }
             }
             else
             {
-                Debug.LogError("Unknown error creating SpotifyAPI client!");
+                Debug.LogError("Unknown error creating SpotifyAPI client");
             }
         }
         else

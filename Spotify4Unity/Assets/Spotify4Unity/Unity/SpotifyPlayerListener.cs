@@ -43,6 +43,9 @@ public class SpotifyPlayerListener : SpotifyServiceListener
         {
             CancelInvoke(nameof(FetchLatestPlayer));
             _isInvoking = false;
+
+            // Invoke playing item changed, no more client, no more context
+            OnPlayingItemChanged?.Invoke(null);
         }
     }
 
@@ -66,7 +69,7 @@ public class SpotifyPlayerListener : SpotifyServiceListener
                         // No previous track or previous item was different type 
                         if (_currentItem == null || (_currentItem != null && _currentItem is FullEpisode episode))
                         {
-                            Debug.Log($"No episode or new type | -> '{currentTrack.Name}'");
+                            Debug.Log($"No prev track or new type | -> '{S4UUtility.GetTrackString(currentTrack)}'");
                             _currentItem = currentTrack;
                             OnPlayingItemChanged?.Invoke(_currentItem);
                         }
@@ -75,7 +78,7 @@ public class SpotifyPlayerListener : SpotifyServiceListener
                             // Check if track name & artists aren't the same
                             if (lastTrack.Name != currentTrack.Name || IsArtistsChanged(lastTrack.Artists, currentTrack.Artists))
                             {
-                                Debug.Log($"Track to new Track | '{lastTrack.Name}' -> '{currentTrack.Name}'");
+                                Debug.Log($"Track to new Track | '{S4UUtility.GetTrackString(lastTrack)}' -> '{S4UUtility.GetTrackString(currentTrack)}'");
                                 _currentItem = currentTrack;
                                 OnPlayingItemChanged?.Invoke(_currentItem);
                             }
@@ -88,7 +91,7 @@ public class SpotifyPlayerListener : SpotifyServiceListener
                         // If no previous item or current item is different type
                         if (_currentItem == null || (_currentItem != null && _currentItem is FullTrack track))
                         {
-                            Debug.Log($"No episode or new type | -> '{currentEpisode.Name}'");
+                            Debug.Log($"No prev episode or new type | -> '{currentEpisode.Show.Publisher} {currentEpisode.Name}'");
                             _currentItem = currentEpisode;
                             OnPlayingItemChanged?.Invoke(_currentItem);
                         }
@@ -96,7 +99,7 @@ public class SpotifyPlayerListener : SpotifyServiceListener
                         {
                             if (lastEpisode.Name != currentEpisode.Name || lastEpisode.Show?.Publisher != currentEpisode.Show?.Publisher)
                             {
-                                Debug.Log($"Episode to new Episode | '{lastEpisode.Name}' -> '{currentEpisode.Name}'");
+                                Debug.Log($"Episode to new Episode | '{lastEpisode.Show.Publisher} {lastEpisode.Name}' -> '{currentEpisode.Show.Publisher} {currentEpisode.Name}'");
                                 _currentItem = currentEpisode;
                                 OnPlayingItemChanged?.Invoke(_currentItem);
                             }

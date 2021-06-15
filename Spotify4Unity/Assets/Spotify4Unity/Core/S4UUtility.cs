@@ -25,7 +25,7 @@ public class S4UUtility
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log(www.error);
+            Debug.Log($"LoadImg error '{url}' - {www.error}");
         }
         else
         {
@@ -130,5 +130,16 @@ public class S4UUtility
             Scopes.UserReadRecentlyPlayed,
             Scopes.UserTopRead,
         };
+    }
+
+    /// <summary>
+    /// Gets a string to display a song and it's properties, separated with a dash. For example, "BLACKPINK - Don't Know What To Do"
+    /// </summary>
+    /// <param name="currentTrack"></param>
+    /// <returns></returns>
+    public static string GetTrackString(FullTrack track)
+    {
+        string artists = S4UUtility.ArtistsToSeparatedString(",", track.Artists);
+        return artists + " - " + track.Name;
     }
 }

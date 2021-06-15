@@ -31,9 +31,11 @@ public class SpotifyPlayerController : SpotifyPlayerListener
     [SerializeField]
     private Button _addToLibraryButton;
 
+    // Is the current track in the user's library?
     private bool _currentItemIsInLibrary;
-
+    // Did the user mouse down on the progress slider to edit the progress
     private bool _progressStartDrag = false;
+    // Current progress value when user is sliding the progress
     private float _progressDragNewValue = -1.0f;
 
     protected override void Awake()
@@ -80,8 +82,9 @@ public class SpotifyPlayerController : SpotifyPlayerListener
         // Configure progress slider
         if (_currentProgressSlider != null)
         {
-            // Enable only whole numbers
+            // Enable only whole numbers, interaction
             _currentProgressSlider.wholeNumbers = true;
+            _currentProgressSlider.interactable = true;
 
             // Listen to value change on slider
             _currentProgressSlider.onValueChanged.AddListener(this.OnProgressSliderValueChanged);
@@ -147,8 +150,12 @@ public class SpotifyPlayerController : SpotifyPlayerListener
     {
         if (newPlayingItem == null)
         {
-            // No new item playing, timeout
+            // No new item playing, reset UI
             UpdatePlayerInfo("-", "-", "");
+            SetLibraryBtnIsLiked(false);
+
+            _currentProgressSlider.value = 0;
+            _totalProgressText.text = _currentProgressText.text = "00:00";
         }
         else
         {
@@ -195,13 +202,18 @@ public class SpotifyPlayerController : SpotifyPlayerListener
         }
         if (_trackIcon != null)
         {
-            // Disable icon if no url given
-            _trackIcon.gameObject.SetActive(!string.IsNullOrEmpty(artUrl));
             // Load sprite from url
-            StartCoroutine(S4UUtility.LoadImageFromUrl(artUrl, (loadedSprite) =>
+            if (string.IsNullOrEmpty(artUrl))
             {
-                _trackIcon.sprite = loadedSprite;
-            }));
+                _trackIcon.sprite = null;
+            }
+            else
+            {
+                StartCoroutine(S4UUtility.LoadImageFromUrl(artUrl, (loadedSprite) =>
+                {
+                    _trackIcon.sprite = loadedSprite;
+                }));
+            }
         }
     }
     

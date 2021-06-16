@@ -9,7 +9,17 @@ using UnityEngine;
 /// </summary>
 public enum AuthenticationType
 {
+    /// <summary>
+    /// Proof Key for Code Exchange method.
+    /// Authenticates once, saves to file locally, can be refreshed.
+    /// </summary>
     PKCE = 0,
+
+    /// <summary>
+    /// Implicit grant method.
+    /// Gets single token, lasts 60 minutes, cannot be refreshed
+    /// </summary>
+    ImplicitGrant = 1,
 }
 
 /// <summary>
@@ -67,6 +77,10 @@ public class SpotifyService : SceneSingleton<SpotifyService>
         {
             case AuthenticationType.PKCE:
                 _authenticator = this.gameObject.AddComponent<PKCE_Authentification>();
+                _authenticator.Configure(_authMethodConfig);
+                break;
+            case AuthenticationType.ImplicitGrant:
+                _authenticator = this.gameObject.AddComponent<ImplicitGrant_Authentification>();
                 _authenticator.Configure(_authMethodConfig);
                 break;
             default:
@@ -147,12 +161,24 @@ public class SpotifyService : SceneSingleton<SpotifyService>
         OnClientConnectionChanged?.Invoke(_client);
     }
 
-    private async void OnAuthenticatorComplete(IAuthenticator apiAuthenticator)
+    private async void OnAuthenticatorComplete(object authObject)
     {
-        if (apiAuthenticator != null)
+        if (authObject != null)
         {
             // Get config from authenticator
-            _defaultConfig = SpotifyClientConfig.CreateDefault().WithAuthenticator(apiAuthenticator);
+            if (authObject is IAuthenticator apiAuthenticator)
+            {
+                _defaultConfig = SpotifyClientConfig.CreateDefault().WithAuthenticator(apiAuthenticator);
+            }
+            else if (authObject is string authToken)
+            {
+                _defaultConfig = SpotifyClientConfig.CreateDefault().WithToken(authToken);
+            }
+            else
+            {
+                Debug.LogError("Auth complete object is unknown. Authentification failed.");
+                return;
+            }
             
             // Create the Spotify client
             _client = new SpotifyClient(_defaultConfig);

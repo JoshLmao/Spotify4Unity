@@ -7,14 +7,11 @@ using System;
 public interface IServiceAuthenticator 
 {
     // Triggered when authentification has been successfully loaded or retrieved from the user
-    public event Action<IAuthenticator> OnAuthenticatorComplete;
+    public event Action<object> OnAuthenticatorComplete;
 
 
     // Configures the authenticator with it's own custom config class
     void Configure(object config);
-
-    // Gets the current SpotifyAPI.Web.IAuthenticator instance, can return null
-    IAuthenticator GetAPIAuthenticator();
 
     // Check if previous authentification exists and loads into memory
     bool HasPreviousAuthentification();

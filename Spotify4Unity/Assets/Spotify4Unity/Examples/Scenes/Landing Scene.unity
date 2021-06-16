@@ -1563,7 +1563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AuthorizeUserOnStart: 0
-  AuthType: 0
+  AuthType: 1
   _authMethodConfig: {fileID: 0}
 --- !u!4 &779872343
 Transform:

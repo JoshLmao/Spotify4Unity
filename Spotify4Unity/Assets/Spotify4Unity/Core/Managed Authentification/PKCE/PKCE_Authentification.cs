@@ -12,7 +12,7 @@ using UnityEngine;
 /// </summary>
 public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
 {
-    public event Action<IAuthenticator> OnAuthenticatorComplete;
+    public event Action<object> OnAuthenticatorComplete;
 
     // Custom config for PKCE
     public PKCE_AuthConfig PKCEConfig;
@@ -27,13 +27,16 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
     private PKCEAuthenticator _pkceAuthenticator;
 
     // Local EmbedIO authorization server
-    private static readonly EmbedIOAuthServer _server = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
+    private static EmbedIOAuthServer _server;
 
     public void Configure(object config)
     {
         if (config is AuthorizationConfig authConfig)
         {
             _clientID = authConfig.ClientID;
+
+            // Start server with config values
+            _server = new EmbedIOAuthServer(new Uri(authConfig.RedirectUri), authConfig.ServerPort);
         }
 
         if (config is PKCE_AuthConfig pkceConfig)
@@ -232,15 +235,6 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
     public PKCETokenResponse GetPKCEToken()
     {
         return _pkceToken;
-    }
-
-    /// <summary>
-    /// Gets the main API authenticator
-    /// </summary>
-    /// <returns></returns>
-    public IAuthenticator GetAPIAuthenticator()
-    {
-        return _pkceAuthenticator;
     }
 
     private DateTime GetTokenExpireDT(DateTime createdAt, int expiresIn)

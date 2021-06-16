@@ -29,6 +29,14 @@ public class UserWidgetController : SpotifyServiceListener
     // Public user information available to everyone from user id
     private PublicUser _publicUserInfo = null;
 
+    private void Start()
+    {
+        if (_icon != null)
+        {
+            _icon.gameObject.SetActive(false);
+        }
+    }
+
     protected override async void OnSpotifyConnectionChanged(SpotifyClient client)
     {
         base.OnSpotifyConnectionChanged(client);
@@ -57,7 +65,12 @@ public class UserWidgetController : SpotifyServiceListener
     {
         if (_privateUserInfo != null)
         {
-            DownloadUpdateSprite(_icon, _privateUserInfo.Images);
+            if (_icon != null)
+            {
+                _icon.gameObject.SetActive(true);
+
+                DownloadUpdateSprite(_icon, _privateUserInfo.Images);
+            }
 
             UpdateTextElement(_nameText, $"Name: {_privateUserInfo.DisplayName}");
             UpdateTextElement(_followersText, $"Followers: {_privateUserInfo.Followers.Total.ToString()}");
@@ -75,7 +88,12 @@ public class UserWidgetController : SpotifyServiceListener
         }
         else if (_publicUserInfo != null)
         {
-            DownloadUpdateSprite(_icon, _publicUserInfo.Images);
+            if (_icon != null)
+            {
+                _icon.gameObject.SetActive(true);
+
+                DownloadUpdateSprite(_icon, _publicUserInfo.Images);
+            }
 
             UpdateTextElement(_nameText, $"Name: {_publicUserInfo.DisplayName}");
             UpdateTextElement(_followersText, $"Followers: {_publicUserInfo.Followers.Total.ToString()}");
@@ -113,8 +131,12 @@ public class UserWidgetController : SpotifyServiceListener
             UpdateTextElement(_idText, string.Empty);
             UpdateTextElement(_countryText, string.Empty);
             UpdateTextElement(_productText, string.Empty);
-            _icon.sprite = null;
 
+            if (_icon != null)
+            {
+                _icon.sprite = null;
+                _icon.gameObject.SetActive(false);
+            }
         }
     }
 

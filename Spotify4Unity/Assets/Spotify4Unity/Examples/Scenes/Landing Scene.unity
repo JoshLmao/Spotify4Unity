@@ -1542,7 +1542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779872343}
   - component: {fileID: 779872342}
-  - component: {fileID: 779872344}
+  - component: {fileID: 779872345}
   m_Layer: 0
   m_Name: Spotify Service
   m_TagString: Untagged
@@ -1563,7 +1563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AuthorizeUserOnStart: 0
-  AuthType: 1
+  AuthType: 2
   _authMethodConfig: {fileID: 0}
 --- !u!4 &779872343
 Transform:
@@ -1579,7 +1579,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &779872344
+--- !u!114 &779872345
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1588,7 +1588,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 779872341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 075e842a5527e274595cba51e52001c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 2ab508c58bcd5cb43ba899a334629a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ClientID: 8c42bb0a9bd8483986929038af40ed4a
@@ -1612,9 +1612,9 @@ MonoBehaviour:
   - user-read-private
   - user-read-recently-played
   - user-top-read
-  Length: 100
-  Verifier: 
-  TokenPath: PKCE-credentials.json
+  RedirectUri: http://localhost:5000/callback
+  ServerPort: 5000
+  ClientSecret: dd9340c46b47403bb77318608aac4cee
 --- !u!1 &780863827
 GameObject:
   m_ObjectHideFlags: 0

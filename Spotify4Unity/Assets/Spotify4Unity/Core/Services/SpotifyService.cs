@@ -20,6 +20,12 @@ public enum AuthenticationType
     /// Gets single token, lasts 60 minutes, cannot be refreshed
     /// </summary>
     ImplicitGrant = 1,
+
+    /// <summary>
+    /// Client Credentials method.
+    /// Server-to-server authentification. Can't use scopes that access user information.
+    /// </summary>
+    ClientCredentials = 2,
 }
 
 /// <summary>
@@ -81,6 +87,10 @@ public class SpotifyService : SceneSingleton<SpotifyService>
                 break;
             case AuthenticationType.ImplicitGrant:
                 _authenticator = this.gameObject.AddComponent<ImplicitGrant_Authentification>();
+                _authenticator.Configure(_authMethodConfig);
+                break;
+            case AuthenticationType.ClientCredentials:
+                _authenticator = this.gameObject.AddComponent<ClientCredentials_Authorization>();
                 _authenticator.Configure(_authMethodConfig);
                 break;
             default:
@@ -250,5 +260,37 @@ public class SpotifyService : SceneSingleton<SpotifyService>
                 Debug.LogError($"Confirmation request exception: {e.ToString()}");
             }
         }
+    }
+
+    /// <summary>
+    /// Checks if the given scopes to see if they are authorized. Use SpotifyAPI.Web.Scopes to access each individual scope
+    /// </summary>
+    /// <param name="scopes">Scopes to check are authorized. </param>
+    public bool AreScopesAuthorized(params string[] scopes)
+    {
+        // ToDo: Way to check given scopes against the current authorization.
+        // This method assumes the APIScopes in config match the current authentification scopes
+
+        foreach (string checkScope in scopes)
+        {
+            bool contains = _authMethodConfig.APIScopes.Contains(checkScope);
+            // Check if requested scope is in api scopes
+            if (!contains)
+            {
+                return false;
+            }
+
+            // if AuthType is ClientCredentials, can't access user-read-private and user-read-email
+            if (AuthType == AuthenticationType.ClientCredentials)
+            {
+                if (checkScope == Scopes.UserReadPrivate || checkScope == Scopes.UserReadEmail || checkScope == Scopes.UserReadPlaybackState || checkScope == Scopes.PlaylistReadPrivate)
+                {
+                    return false;
+                }
+            }
+        }
+
+        // All passed contain check
+        return true;
     }
 }

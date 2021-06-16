@@ -36,8 +36,15 @@ public class SpotifyPlayerListener : SpotifyServiceListener
         // Start internal update loop
         if (_client != null && UpdateFrequencyMS > 0)
         {
-            InvokeRepeating(nameof(FetchLatestPlayer), 0, UpdateFrequencyMS / 1000);
-            _isInvoking = true;
+            if (SpotifyService.Instance.AreScopesAuthorized(Scopes.UserReadPlaybackState))
+            {
+                InvokeRepeating(nameof(FetchLatestPlayer), 0, UpdateFrequencyMS / 1000);
+                _isInvoking = true;
+            }
+            else
+            {
+                Debug.LogError($"Not authorized to access '{Scopes.UserReadPlaybackState}'");
+            }
         }
         else if (_client == null && _isInvoking)
         {

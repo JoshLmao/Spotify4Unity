@@ -43,9 +43,17 @@ public class UserWidgetController : SpotifyServiceListener
 
         if (client != null)
         {
+            // Check if we are authorized to read private profile information
             if (string.IsNullOrEmpty(UserId))
             {
-                _privateUserInfo = await client.UserProfile.Current();
+                if (SpotifyService.Instance.AreScopesAuthorized(Scopes.UserReadPrivate))
+                {
+                    _privateUserInfo = await client.UserProfile.Current();
+                }
+                else
+                {
+                    Debug.LogError($"Not authorized to access '{Scopes.UserReadPrivate}'");
+                }
             }
             else
             {

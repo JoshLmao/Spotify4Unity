@@ -28,11 +28,19 @@ public class PlaylistWidgetController : SpotifyServiceListener
     {
         base.OnSpotifyConnectionChanged(client);
 
-        // Get first page from client
-        Paging<SimplePlaylist> page = await client.Playlists.CurrentUsers();
-        // Get rest of pages from utility function and set variable to run on main thread
-        _allPlaylists = await S4UUtility.GetAllOfPagingAsync(client, page);
-        _isPopulated = false;
+        // Check if we have permission to access logged in user's playlists
+        if (SpotifyService.Instance.AreScopesAuthorized(Scopes.PlaylistReadPrivate))
+        {
+            // Get first page from client
+            Paging<SimplePlaylist> page = await client.Playlists.CurrentUsers();
+            // Get rest of pages from utility function and set variable to run on main thread
+            _allPlaylists = await S4UUtility.GetAllOfPagingAsync(client, page);
+            _isPopulated = false;
+        }
+        else
+        {
+            Debug.LogError($"Not authorized to access '{Scopes.PlaylistReadPrivate}'");
+        }
     }
 
     private void PopulateListUI()

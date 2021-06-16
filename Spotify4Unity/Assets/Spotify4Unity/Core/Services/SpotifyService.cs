@@ -146,19 +146,20 @@ public class SpotifyService : SceneSingleton<SpotifyService>
         OnClientConnectionChanged?.Invoke(_client);
     }
 
-    private void OnAuthenticatorComplete(IAuthenticator apiAuthenticator)
+    private async void OnAuthenticatorComplete(IAuthenticator apiAuthenticator)
     {
         if (apiAuthenticator != null)
         {
             // Get config from authenticator
             _defaultConfig = SpotifyClientConfig.CreateDefault().WithAuthenticator(apiAuthenticator);
-
+            
             // Create the Spotify client
-            SpotifyClient client = new SpotifyClient(_defaultConfig);
+            _client = new SpotifyClient(_defaultConfig);
 
-            if (client != null)
+            if (_client != null)
             {
-                _client = client;
+                // Make one test api request to validate/refresh auth
+                await SendValidationRequest();
 
                 Action clientCompleteAction = () =>
                 {
@@ -195,5 +196,32 @@ public class SpotifyService : SceneSingleton<SpotifyService>
     public SpotifyClient GetSpotifyClient()
     {
         return _client;
+    }
+
+    /// <summary>
+    /// Make a test api request to check client is working and to refresh auth if needed
+    /// </summary>
+    private async System.Threading.Tasks.Task SendValidationRequest()
+    {
+        if (_client != null)
+        {
+            try
+            {
+                var newReleases = await _client.Browse.GetNewReleases();
+                if (newReleases != null)
+                {
+                    //Debug.Log("Confirmation request success!");
+                    return;
+                }
+                else
+                {
+                    Debug.LogError("Confirmation request is null");
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Confirmation request exception: {e.ToString()}");
+            }
+        }
     }
 }

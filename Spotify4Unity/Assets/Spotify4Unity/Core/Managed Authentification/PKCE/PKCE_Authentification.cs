@@ -3,6 +3,7 @@ using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -16,6 +17,7 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
     // Custom config for PKCE
     public PKCE_Config PKCEConfig;
 
+    // Loaded client ID to use
     private string _clientID;
     
     // Current PKCE authorization token
@@ -45,11 +47,19 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         // Check if previous auth
         if (HasPreviousAuthentification())
         {
-            // Load and set
+            // Load local pkce saved token
             _pkceToken = LoadPKCEToken(PKCEConfig?.TokenPath);
             if (_pkceToken != null)
             {
+                // Set API authenticator
                 SetAuthenticator(_pkceToken);
+
+                // if not expired, output expire time
+                if (!_pkceToken.IsExpired)
+                {
+                    DateTime expireDT = GetTokenExpireDT(_pkceToken.CreatedAt, _pkceToken.ExpiresIn);
+                    Debug.Log($"PKCE token loaded | Expires at '{expireDT.ToLocalTime()}'");
+                }
             }
         }
         else
@@ -59,39 +69,15 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         }
     }
 
-    private void OnTokenRefreshed(object sender, PKCETokenResponse token)
-    {
-        bool triggerEvent = _pkceToken.IsExpired && !token.IsExpired;
-        _pkceToken = token;
-
-        if (PKCEConfig != null)
-        {
-            string json = JsonConvert.SerializeObject(token);
-            File.WriteAllText(PKCEConfig.TokenPath, json);
-        }
-
-        if (triggerEvent)
-        {
-            OnAuthenticatorComplete?.Invoke(_pkceAuthenticator);
-        }
-    }
-
-    /// <summary>
-    /// Gets the current PKCE token used to authorize the service
-    /// </summary>
-    /// <returns></returns>
-    public PKCETokenResponse GetPKCEToken()
-    {
-        return _pkceToken;
-    }
-
     public void RemoveAuthentification()
     {
+        // Delete any previous PKCE saved auth
         if (PKCEConfig != null && File.Exists(PKCEConfig.TokenPath))
         {
             File.Delete(PKCEConfig.TokenPath);
         }
 
+        // Dispose server
         if (_server != null)
         {
             _server.Dispose();
@@ -110,11 +96,6 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         return false;
     }
 
-    public IAuthenticator GetAPIAuthenticator()
-    {
-        return _pkceAuthenticator;
-    }
-
     private async void GetFreshAuth()
     {
         if (PKCEConfig == null)
@@ -128,19 +109,9 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         await _server.Start();
 
         // On auth is recieved, save and start service
-        _server.AuthorizationCodeReceived += async (sender, response) =>
-        {
-            await _server.Stop();
+        _server.AuthorizationCodeReceived += (sender, response) => this.OnAuthCodeRecieved(sender, response, verifier);
 
-            _pkceToken = await new OAuthClient().RequestToken(
-                new PKCETokenRequest(_clientID, response.Code, _server.BaseUri, verifier)
-            );
-
-            File.WriteAllText(PKCEConfig.TokenPath, JsonConvert.SerializeObject(_pkceToken));
-
-            SetAuthenticator(_pkceToken);
-        };
-
+        // Create login request
         LoginRequest request = new LoginRequest(_server.BaseUri, _clientID, LoginRequest.ResponseType.Code)
         {
             CodeChallenge = challenge,
@@ -148,6 +119,7 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
             Scope = PKCEConfig.APIScopes,
         };
 
+        // Build Uri and open in browser
         Uri uri = request.ToUri();
         try
         {
@@ -159,6 +131,25 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         }
     }
 
+    private async Task OnAuthCodeRecieved(object sender, AuthorizationCodeResponse response, string verifier)
+    {
+        // Check response and & is valid
+        if (response != null && !string.IsNullOrEmpty(response.Code))
+        {
+            await _server.Stop();
+
+            _pkceToken = await new OAuthClient().RequestToken(
+                new PKCETokenRequest(_clientID, response.Code, _server.BaseUri, verifier)
+            );
+
+            // Write to system locally, ready for next sign in
+            File.WriteAllText(PKCEConfig.TokenPath, JsonConvert.SerializeObject(_pkceToken));
+
+            Debug.Log("PKCE: Recieved Auth Code");
+            SetAuthenticator(_pkceToken);
+        }
+    }
+
     private void SetAuthenticator(PKCETokenResponse token)
     {
         // Set API authentification once recieved
@@ -166,6 +157,27 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         _pkceAuthenticator.TokenRefreshed += this.OnTokenRefreshed;
 
         OnAuthenticatorComplete?.Invoke(_pkceAuthenticator);
+    }
+
+    private void OnTokenRefreshed(object sender, PKCETokenResponse token)
+    {
+        DateTime expireDT = GetTokenExpireDT(token.CreatedAt, token.ExpiresIn);
+        Debug.Log($"PKCE token refreshed | Expires at '{expireDT.ToLocalTime()}'");
+
+        bool triggerEvent = _pkceToken.IsExpired && !token.IsExpired;
+        _pkceToken = token;
+
+        if (PKCEConfig != null)
+        {
+            string json = JsonConvert.SerializeObject(token);
+            File.WriteAllText(PKCEConfig.TokenPath, json);
+        }
+
+        if (triggerEvent)
+        {
+            Debug.Log("PKCE: Success in refreshing expired token into new token");
+            OnAuthenticatorComplete?.Invoke(_pkceAuthenticator);
+        }
     }
 
     /// <summary>
@@ -191,6 +203,11 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         return PKCEUtil.GenerateCodes();
     }
 
+    /// <summary>
+    /// Attempts to load the previous saved PKCE token from a given file path
+    /// </summary>
+    /// <param name="tokenFilePath">File path of the saved token</param>
+    /// <returns></returns>
     private PKCETokenResponse LoadPKCEToken(string tokenFilePath)
     {
         if (!string.IsNullOrEmpty(tokenFilePath))
@@ -206,5 +223,28 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
             }
         }
         return null;
+    }
+
+    /// <summary>
+    /// Gets the current PKCE token used to authorize the service
+    /// </summary>
+    /// <returns></returns>
+    public PKCETokenResponse GetPKCEToken()
+    {
+        return _pkceToken;
+    }
+
+    /// <summary>
+    /// Gets the main API authenticator
+    /// </summary>
+    /// <returns></returns>
+    public IAuthenticator GetAPIAuthenticator()
+    {
+        return _pkceAuthenticator;
+    }
+
+    private DateTime GetTokenExpireDT(DateTime createdAt, int expiresIn)
+    {
+        return createdAt.AddSeconds(expiresIn);
     }
 }

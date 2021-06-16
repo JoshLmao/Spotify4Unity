@@ -1,5 +1,4 @@
 using SpotifyAPI.Web;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,29 +6,39 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
+/// <summary>
+/// Spotify Player Controller script. Script to emulate the bottom player bar in Spotify
+/// This is an example script of how/what you could/should implement
+/// </summary>
 public class SpotifyPlayerController : SpotifyPlayerListener
 {
+    // Main track image
     [SerializeField]
     private Image _trackIcon;
-
+    // Current track name & artist text
     [SerializeField]
     private Text _trackName, _artistsNames;
+    // Button to add/remove track to user's library
+    [SerializeField]
+    private Button _addToLibraryButton;
 
+    // Player middle track progress left & right text
     [SerializeField]
     private Text _currentProgressText, _totalProgressText;
+    // Player middle track progress bar
     [SerializeField]
     private Slider _currentProgressSlider;
 
+    // Player middle media controls
     [SerializeField]
     private Button _playPauseButton, _previousButton, _nextButton, _shuffleButton, _repeatButton;
 
+    // Player right volume slider
     [SerializeField]
     private Slider _volumeSlider;
+    // Player right volume mute button
     [SerializeField]
     private Button _muteButton;
-
-    [SerializeField]
-    private Button _addToLibraryButton;
 
     // Is the current track in the user's library?
     private bool _currentItemIsInLibrary;

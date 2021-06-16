@@ -5,13 +5,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
+/// <summary>
+/// User widget for displaying a user's public/private information. 
+/// If a user id (not URI) is provided, it will get their public profile, else if no id is provided, will get the current signed in user's profile
+/// This is an example script of how/what you could/should implement
+/// </summary>
 public class UserWidgetController : SpotifyServiceListener
 {
     [Tooltip("User Id of the spotify user you wish to display in this widget. If none supplied, will display the current signed in user. Can accept username's like 'wizzler' or URI id's like '1121645175. Hold Ctrl or Cmd and click '...' on a user's page toget their URI")]
     public string UserId;
 
     [SerializeField]
-    private UnityEngine.UI.Image _icon;
+    private Image _icon;
 
     [SerializeField]
     private Button _followBtn;

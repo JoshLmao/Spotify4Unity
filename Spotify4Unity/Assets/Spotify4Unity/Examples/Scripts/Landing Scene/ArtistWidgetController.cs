@@ -6,6 +6,10 @@ using UnityEngine.UI;
 using System.Linq;
 using Image = UnityEngine.UI.Image;
 
+/// <summary>
+/// Artist widget for taking an artist's Spotify Id (not URI) and displaying their information
+/// This is an example script of how/what you could/should implement
+/// </summary>
 public class ArtistWidgetController : SpotifyServiceListener
 {
     [Tooltip("Id of the artist to display in thw widget. ")]

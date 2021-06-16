@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Simple controller script for signing in/out of Spotify using S4U
+/// This is an example script of how/what you could/should implement
+/// </summary>
 public class AccountStatusController : SpotifyServiceListener
 {
     public bool ServiceAuthOnStart = false;

@@ -1,12 +1,15 @@
 using SpotifyAPI.Web;
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class PlaylistWidgetController : SpotifyServiceListener
+public class PlaylistsNavigationController : SpotifyServiceListener
 {
+    [SerializeField]
+    private AppMainContentController _mainContentController;
+
     [SerializeField]
     private GameObject _playlistPrefab;
 
@@ -20,7 +23,7 @@ public class PlaylistWidgetController : SpotifyServiceListener
     {
         if (_allPlaylists != null && _allPlaylists.Count() > 0 && !_isPopulated)
         {
-            PopulateListUI();
+            UpdateUI();
             _isPopulated = true;
         }
     }
@@ -35,12 +38,12 @@ public class PlaylistWidgetController : SpotifyServiceListener
         _allPlaylists = await S4UUtility.GetAllOfPagingAsync(client, page);
     }
 
-    private void PopulateListUI()
+    private void UpdateUI()
     {
         // Destroy any previous children, blank list
         if (_listViewParent.transform.childCount > 0)
         {
-            foreach(Transform child in _listViewParent.transform)
+            foreach (Transform child in _listViewParent.transform)
             {
                 Destroy(child.gameObject);
             }
@@ -52,8 +55,10 @@ public class PlaylistWidgetController : SpotifyServiceListener
             GameObject playlistPrefabGO = Instantiate(_playlistPrefab, _listViewParent);
             playlistPrefabGO.name = $"Playlist {playlist.Name}";
 
-            SinglePlaylistController controller = playlistPrefabGO.GetComponent<SinglePlaylistController>();
+            SingleNavPlaylistController controller = playlistPrefabGO.GetComponent<SingleNavPlaylistController>();
             controller.SetPlaylist(playlist);
+
+            controller.OnPlaylistSelected += this.OnSetPlaylistMainContent;
         }
 
         if (_allPlaylists.Count() > 0)
@@ -65,17 +70,26 @@ public class PlaylistWidgetController : SpotifyServiceListener
 
             // Get GridLayout & parent rect
             RectTransform parentRect = _listViewParent.GetComponent<RectTransform>();
-            GridLayoutGroup group = _listViewParent.GetComponent<GridLayoutGroup>();
+            VerticalLayoutGroup group = _listViewParent.GetComponent<VerticalLayoutGroup>();
 
-            // Determine how many rows/cols there are
-            int amtInRow = (int)(parentRect.rect.width / (singlePrefabWidth + (group.spacing.x * 2)));
-            int amtOfRows = _allPlaylists.Count() / amtInRow;
-
-            // Add spacing to single height and multiple amount of rows
-            float height = (singlePrefabHeight + group.spacing.y) * amtOfRows;
+            // Height is amount of entries + spacing + padding
+            float allPaddingSpacingPixels = group.padding.top + group.padding.bottom + group.spacing;
+            float height = (singlePrefabHeight + allPaddingSpacingPixels) * _allPlaylists.Count();
 
             // Set parent's new height for scrolling
             parentRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
+        }
+    }
+
+    private void OnSetPlaylistMainContent(SimplePlaylist mainPlaylist)
+    {
+        // nav selected new playlist, change main content to display it
+
+        Debug.Log($"Spotify App | Set main content to playlist '{mainPlaylist.Name}'");
+
+        if (_mainContentController)
+        {
+            _mainContentController.SetContent(mainPlaylist);
         }
     }
 }

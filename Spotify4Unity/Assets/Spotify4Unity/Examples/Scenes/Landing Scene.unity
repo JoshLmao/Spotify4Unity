@@ -1542,6 +1542,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779872343}
   - component: {fileID: 779872342}
+  - component: {fileID: 779872344}
   m_Layer: 0
   m_Name: Spotify Service
   m_TagString: Untagged
@@ -1561,9 +1562,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89aa3cd9589e984391abe1cde2d76ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClientID: 8c42bb0a9bd8483986929038af40ed4a
   AuthorizeUserOnStart: 0
   AuthType: 0
+  _authMethodConfig: {fileID: 0}
 --- !u!4 &779872343
 Transform:
   m_ObjectHideFlags: 0
@@ -1578,6 +1579,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &779872344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779872341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075e842a5527e274595cba51e52001c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ClientID: 8c42bb0a9bd8483986929038af40ed4a
+  APIScopes:
+  - app-remote-control
+  - playlist-modify-private
+  - playlist-modify-public
+  - playlist-read-collaborative
+  - playlist-read-private
+  - streaming
+  - ugc-image-upload
+  - user-follow-modify
+  - user-follow-read
+  - user-library-modify
+  - user-library-read
+  - user-modify-playback-state
+  - user-read-currently-playing
+  - user-read-email
+  - user-read-playback-position
+  - user-read-playback-state
+  - user-read-private
+  - user-read-recently-played
+  - user-top-read
+  Length: 100
+  Verifier: 
+  TokenPath: PKCE-credentials.json
 --- !u!1 &780863827
 GameObject:
   m_ObjectHideFlags: 0

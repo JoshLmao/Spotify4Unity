@@ -15,7 +15,7 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
     public event Action<IAuthenticator> OnAuthenticatorComplete;
 
     // Custom config for PKCE
-    public PKCE_Config PKCEConfig;
+    public PKCE_AuthConfig PKCEConfig;
 
     // Loaded client ID to use
     private string _clientID;
@@ -31,12 +31,12 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
 
     public void Configure(object config)
     {
-        if (config is AuthConfig authConfig)
+        if (config is AuthorizationConfig authConfig)
         {
             _clientID = authConfig.ClientID;
         }
 
-        if (config is PKCE_Config pkceConfig)
+        if (config is PKCE_AuthConfig pkceConfig)
         {
             PKCEConfig = pkceConfig;
         }

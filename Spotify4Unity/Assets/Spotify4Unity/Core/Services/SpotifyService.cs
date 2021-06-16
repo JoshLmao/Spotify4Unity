@@ -1,9 +1,6 @@
-﻿using Newtonsoft.Json;
-using SpotifyAPI.Web;
-using SpotifyAPI.Web.Auth;
+﻿using SpotifyAPI.Web;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading;
 using UnityEngine;
 
@@ -22,8 +19,6 @@ public enum AuthenticationType
 /// </summary>
 public class SpotifyService : SceneSingleton<SpotifyService>
 {
-    // Spotify Dashboard client id
-    public string ClientID = "";
     // Should the service attempt to authorize the user on MonoBehaviour.Start()
     public bool AuthorizeUserOnStart = true;
 
@@ -31,6 +26,9 @@ public class SpotifyService : SceneSingleton<SpotifyService>
     /// Selected method of authentification to use
     /// </summary>
     public AuthenticationType AuthType = AuthenticationType.PKCE;
+
+    [HideInInspector]
+    public AuthorizationConfig _authMethodConfig;
 
     /// <summary>
     /// Is the service connected to Spotify with user authentification
@@ -58,15 +56,18 @@ public class SpotifyService : SceneSingleton<SpotifyService>
 
     protected virtual void Awake()
     {
+        _authMethodConfig = this.GetComponent<AuthorizationConfig>();
+        if (!_authMethodConfig)
+        {
+            Debug.LogError("No authorization config found on service! Is the selected auth method's config next to the service?");
+            return;
+        }
+
         switch(AuthType)
         {
             case AuthenticationType.PKCE:
                 _authenticator = this.gameObject.AddComponent<PKCE_Authentification>();
-                _authenticator.Configure(new PKCE_Config()
-                {
-                    ClientID = ClientID,
-                    APIScopes = S4UUtility.GetAllScopes(),
-                });
+                _authenticator.Configure(_authMethodConfig);
                 break;
             default:
                 break;

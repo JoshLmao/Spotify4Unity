@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViewControllerBase : MonoBehaviour
+public class ViewControllerBase : SpotifyServiceListener
 {
     
 }

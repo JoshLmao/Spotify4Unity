@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// Static methods that are useful when interfacing with the SpotifyAPI.NET library
+/// </summary>
 public class S4UUtility
 {
     /// <summary>
-    /// Loads an image from a url and runs an action on load
+    /// Loads an image from a url and runs an action on load. You need to call this method using StartCoroutine(LoadImageFromUrl(...))
     /// </summary>
     /// <param name="url">The url of the image</param>
     /// <param name="resolution">The target resolution to resize the image to</param>
@@ -73,7 +76,7 @@ public class S4UUtility
     /// <param name="client">The current SpotifyClient instance</param>
     /// <param name="startingPageList">The beginning of a paging list (first 20/X entries)</param>
     /// <returns></returns>
-    public static async Task<IEnumerable<T>> GetAllOfPagingAsync<T>(SpotifyAPI.Web.SpotifyClient client, SpotifyAPI.Web.Paging<T> startingPageList) where T : class
+    public static async Task<IEnumerable<T>> GetAllOfPagingAsync<T>(SpotifyClient client, Paging<T> startingPageList) where T : class
     {
         List<T> list = new List<T>();
         while (startingPageList.Next != null)
@@ -103,7 +106,7 @@ public class S4UUtility
     }
 
     /// <summary>
-    /// Gets all possible API scopes for the Spotify API
+    /// Gets all possible API scopes for the Spotify API. You can access individual scopes in the SpotifyAPI.Web.Scopes class
     /// </summary>
     /// <returns></returns>
     public static List<string> GetAllScopes()
@@ -141,5 +144,24 @@ public class S4UUtility
     {
         string artists = S4UUtility.ArtistsToSeparatedString(",", track.Artists);
         return artists + " - " + track.Name;
+    }
+
+    /// <summary>
+    /// Checks if the current user who provided authorization has Spotify Premium, allowing use to the Spotify API.
+    /// You still need to check the authorization scopes to see if you can access other areas of the API.
+    /// </summary>
+    /// <param name="client">The current client</param>
+    /// <returns>True if the user has premium, if the user's product property is "premium"</returns>
+    public static async Task<bool> IsUserPremium(SpotifyClient client)
+    {
+        if (client != null)
+        {
+            PrivateUser user = await client.UserProfile.Current();
+            if (user != null)
+            {
+                return user.Product == "premium";
+            }
+        }
+        return false;
     }
 }

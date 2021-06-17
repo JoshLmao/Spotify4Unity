@@ -36,11 +36,10 @@ public class LandingViewController : ViewControllerBase
 
         if (client != null)
         {
-            var user = await client.UserProfile.Current();
-            bool isFreeUser = user.Product == "open";
+            bool isPremium = await SpotifyService.IsUserPremium(client);
             _dispatcher.Add(() =>
             {
-                _freeUserWarningParent.SetActive(isFreeUser);
+                _freeUserWarningParent.SetActive(!isPremium);
             });
         }
     }

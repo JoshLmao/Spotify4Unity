@@ -36,7 +36,7 @@ public class LandingViewController : ViewControllerBase
 
         if (client != null)
         {
-            bool isPremium = await SpotifyService.IsUserPremium(client);
+            bool isPremium = await S4UUtility.IsUserPremium(client);
             _dispatcher.Add(() =>
             {
                 _freeUserWarningParent.SetActive(!isPremium);

@@ -46,6 +46,7 @@ public class SpotifyPlayerController : SpotifyPlayerListener
     private bool _progressStartDrag = false;
     // Current progress value when user is sliding the progress
     private float _progressDragNewValue = -1.0f;
+    private float _volumeLastValue = -1.0f;
 
     protected override void Awake()
     {
@@ -236,10 +237,14 @@ public class SpotifyPlayerController : SpotifyPlayerListener
             if (context.IsPlaying)
             {
                 client.Player.PausePlayback();
+
+                _playPauseButton.transform.GetComponentInChildren<Text>().text = ">";
             }
             else
             {
                 client.Player.ResumePlayback();
+
+                _playPauseButton.transform.GetComponentInChildren<Text>().text = "| |";
             }
         }
     }

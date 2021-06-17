@@ -11,20 +11,62 @@ public class PlaylistsNavigationController : SpotifyServiceListener
     private AppMainContentController _mainContentController;
 
     [SerializeField]
+    private Button _homeNavBtn, _searchNavBtn, _likedSongsNavBtn;
+
+    [SerializeField]
     private GameObject _playlistPrefab;
 
     [SerializeField]
     private Transform _listViewParent;
 
+    [SerializeField]
+    private GameObject _loadingSpinnerPrefab;
+
+    private GameObject _liveSpinner;
+
     private IEnumerable<SimplePlaylist> _allPlaylists = null;
-    bool _isPopulated = false;
+
+    private List<Action> _dispatcher = new List<Action>();
+
+    private void Start()
+    {
+        if (_homeNavBtn != null)
+        {
+            _homeNavBtn.onClick.AddListener(() =>
+            {
+                if (_mainContentController)
+                    _mainContentController.SetContent(Views.Landing);
+            });
+        }
+
+        if (_searchNavBtn != null)
+        {
+            _searchNavBtn.onClick.AddListener(() =>
+            {
+                if (_mainContentController)
+                    _mainContentController.SetContent(Views.Search);
+            });
+        }
+
+        if (_likedSongsNavBtn != null)
+        {
+            _likedSongsNavBtn.onClick.AddListener(() =>
+            {
+                if (_mainContentController)
+                    _mainContentController.SetContent(Views.LikedSongs);
+            });
+        }
+    }
 
     private void Update()
     {
-        if (_allPlaylists != null && _allPlaylists.Count() > 0 && !_isPopulated)
+        if (_dispatcher.Count > 0)
         {
-            UpdateUI();
-            _isPopulated = true;
+            foreach(Action actn in _dispatcher)
+            {
+                actn.Invoke();
+            }
+            _dispatcher.Clear();
         }
     }
 
@@ -32,10 +74,28 @@ public class PlaylistsNavigationController : SpotifyServiceListener
     {
         base.OnSpotifyConnectionChanged(client);
 
+        if (_loadingSpinnerPrefab != null)
+        {
+            _dispatcher.Add(() =>
+            {
+                // Create loading spinner
+                _liveSpinner = Instantiate(_loadingSpinnerPrefab, _listViewParent);
+            });
+        }
+
         // Get first page from client
         Paging<SimplePlaylist> page = await client.Playlists.CurrentUsers();
         // Get rest of pages from utility function and set variable to run on main thread
         _allPlaylists = await S4UUtility.GetAllOfPagingAsync(client, page);
+
+        _dispatcher.Add(() =>
+        {
+            // Delete loading spinner
+            if (_liveSpinner != null)
+                Destroy(_liveSpinner.gameObject);
+
+            UpdateUI();
+        });
     }
 
     private void UpdateUI()

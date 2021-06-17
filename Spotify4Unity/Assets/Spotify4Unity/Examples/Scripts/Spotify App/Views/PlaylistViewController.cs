@@ -1,4 +1,5 @@
 using SpotifyAPI.Web;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Image = UnityEngine.UI.Image;
 
-public class PlaylistViewController : MonoBehaviour
+public class PlaylistViewController : ViewControllerBase
 {
     public float HeaderHeight = 300;
 
@@ -18,38 +19,62 @@ public class PlaylistViewController : MonoBehaviour
     private Transform _listViewParent;
 
     [SerializeField]
+    private Transform _playlistHeaderParent;
+
+    [SerializeField]
     private Transform _tracksListParent;
+
+    [SerializeField]
+    private GameObject _loadSpinnerPrefab;
 
     [SerializeField]
     private Text _headerTitle, _headerDescription, _headerDetails, _headerType;
     [SerializeField]
     private Image _headerImg;
 
+    // Initial simple playlist provided
     private SimplePlaylist _playlist;
+    // Full playlist gathered from API
     private FullPlaylist _fullPlaylist;
 
-    bool _doUpdateUI = false;
+    // All loaded tracks from the FullPlaylist
     List<PlaylistTrack<IPlayableItem>> _allTracks;
+
+    private GameObject _instLoadSpinner;
+
+    // Local main thread dispatcher
+    private List<Action> _dispatcher = new List<Action>();
 
     private void Start()
     {
-        _doUpdateUI = false;
+        if (_playlistHeaderParent)
+            _playlistHeaderParent.gameObject.SetActive(false);
     }
 
     private void Update()
     {
-        // Update on main thread
-        if (_doUpdateUI)
+        if (_dispatcher.Count > 0)
         {
-            UpdateUI();
-
-            _doUpdateUI = false;
+            foreach(Action actn in _dispatcher)
+            {
+                actn.Invoke();
+            }
+            _dispatcher.Clear();
         }
     }
 
     public async void SetPlaylist(SimplePlaylist playlist)
     {
         _playlist = playlist;
+
+        // Add loading spinner on main thread
+        if (_loadSpinnerPrefab != null)
+        {
+            _dispatcher.Add(() =>
+            {
+                _instLoadSpinner = Instantiate(_loadSpinnerPrefab, _tracksListParent);
+            });
+        }
 
         SpotifyClient client = SpotifyService.Instance.GetSpotifyClient();
 
@@ -60,7 +85,16 @@ public class PlaylistViewController : MonoBehaviour
         _allTracks = await GetAllTracks(client);
 
         // Require ui update on main thread
-        _doUpdateUI = true;
+        _dispatcher.Add(() =>
+        {
+            if (_playlistHeaderParent)
+                _playlistHeaderParent.gameObject.SetActive(true);
+
+            UpdateUI();
+
+            if (_instLoadSpinner != null)
+                Destroy(_instLoadSpinner);
+        });
     }
 
     private void UpdateUI()

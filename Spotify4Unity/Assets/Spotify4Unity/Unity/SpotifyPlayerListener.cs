@@ -6,7 +6,8 @@ using System.Threading;
 using UnityEngine;
 
 /// <summary>
-/// Listener class for providing callbacks about the Spotify Player
+/// Listener class for listening to the current playing context on Spotify 
+/// and providing callbacks related to the context
 /// </summary>
 public class SpotifyPlayerListener : SpotifyServiceListener
 {
@@ -20,11 +21,14 @@ public class SpotifyPlayerListener : SpotifyServiceListener
     /// </summary>
     public event Action<IPlayableItem> OnPlayingItemChanged;
 
+    // Current connected spotify client
     private SpotifyClient _client;
 
+    // The last retrieved context from API
     private CurrentlyPlayingContext _currentContext;
+    // Current playing item within context
     private IPlayableItem _currentItem;
-
+    // Is the internal update loop being invoked?
     private bool _isInvoking = false;
 
     protected override void OnSpotifyConnectionChanged(SpotifyClient client)

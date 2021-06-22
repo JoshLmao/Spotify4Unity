@@ -68,91 +68,77 @@ public class SpotifyPlayerListener : SpotifyServiceListener
             CurrentlyPlayingContext newContext = await _client.Player.GetCurrentPlayback();
 
             // Check if not null
-            if (newContext != null)
+            if (newContext != null && newContext.Item != null)
             {
-                if (newContext.Item != null)
+                // Check and cast the item to the correct type
+                if (newContext.Item.Type == ItemType.Track)
                 {
-                    // Check and cast the item to the correct type
-                    if (newContext.Item.Type == ItemType.Track)
-                    {
-                        FullTrack currentTrack = newContext.Item as FullTrack;
+                    FullTrack currentTrack = newContext.Item as FullTrack;
 
-                        // No previous track or previous item was different type 
-                        if (_currentItem == null || (_currentItem != null && _currentItem is FullEpisode episode))
+                    // No previous track or previous item was different type 
+                    if (_currentItem == null || (_currentItem != null && _currentItem is FullEpisode episode))
+                    {
+                        Debug.Log($"No prev track or new type | -> '{S4UUtility.GetTrackString(currentTrack)}'");
+                        _currentItem = currentTrack;
+                        OnPlayingItemChanged?.Invoke(_currentItem);
+                    }
+                    else if (_currentItem != null && _currentItem is FullTrack lastTrack)
+                    {
+                        // Check if track name & artists aren't the same
+                        if (lastTrack.Name != currentTrack.Name || S4UUtility.HasArtistsChanged(lastTrack.Artists, currentTrack.Artists))
                         {
-                            Debug.Log($"No prev track or new type | -> '{S4UUtility.GetTrackString(currentTrack)}'");
+                            Debug.Log($"Track to new Track | '{S4UUtility.GetTrackString(lastTrack)}' -> '{S4UUtility.GetTrackString(currentTrack)}'");
                             _currentItem = currentTrack;
                             OnPlayingItemChanged?.Invoke(_currentItem);
                         }
-                        else if (_currentItem != null && _currentItem is FullTrack lastTrack)
-                        {
-                            // Check if track name & artists aren't the same
-                            if (lastTrack.Name != currentTrack.Name || IsArtistsChanged(lastTrack.Artists, currentTrack.Artists))
-                            {
-                                Debug.Log($"Track to new Track | '{S4UUtility.GetTrackString(lastTrack)}' -> '{S4UUtility.GetTrackString(currentTrack)}'");
-                                _currentItem = currentTrack;
-                                OnPlayingItemChanged?.Invoke(_currentItem);
-                            }
-                        }
                     }
-                    else if (newContext.Item.Type == ItemType.Episode)
-                    {
-                        FullEpisode currentEpisode = newContext.Item as FullEpisode;
+                }
+                else if (newContext.Item.Type == ItemType.Episode)
+                {
+                    FullEpisode currentEpisode = newContext.Item as FullEpisode;
 
-                        // If no previous item or current item is different type
-                        if (_currentItem == null || (_currentItem != null && _currentItem is FullTrack track))
+                    // If no previous item or current item is different type
+                    if (_currentItem == null || (_currentItem != null && _currentItem is FullTrack track))
+                    {
+                        Debug.Log($"No prev episode or new type | -> '{currentEpisode.Show.Publisher} {currentEpisode.Name}'");
+                        _currentItem = currentEpisode;
+                        OnPlayingItemChanged?.Invoke(_currentItem);
+                    }
+                    else if (_currentItem != null && _currentItem is FullEpisode lastEpisode)
+                    {
+                        if (lastEpisode.Name != currentEpisode.Name || lastEpisode.Show?.Publisher != currentEpisode.Show?.Publisher)
                         {
-                            Debug.Log($"No prev episode or new type | -> '{currentEpisode.Show.Publisher} {currentEpisode.Name}'");
+                            Debug.Log($"Episode to new Episode | '{lastEpisode.Show.Publisher} {lastEpisode.Name}' -> '{currentEpisode.Show.Publisher} {currentEpisode.Name}'");
                             _currentItem = currentEpisode;
                             OnPlayingItemChanged?.Invoke(_currentItem);
                         }
-                        else if (_currentItem != null && _currentItem is FullEpisode lastEpisode)
-                        {
-                            if (lastEpisode.Name != currentEpisode.Name || lastEpisode.Show?.Publisher != currentEpisode.Show?.Publisher)
-                            {
-                                Debug.Log($"Episode to new Episode | '{lastEpisode.Show.Publisher} {lastEpisode.Name}' -> '{currentEpisode.Show.Publisher} {currentEpisode.Name}'");
-                                _currentItem = currentEpisode;
-                                OnPlayingItemChanged?.Invoke(_currentItem);
-                            }
-                        }
                     }
                 }
-                else
+            }
+            else
+            {
+                // No context or null current playing item
+
+                // If previous item has been set
+                if (_currentItem != null)
                 {
-                    if (_currentItem != null)
-                    {
-                        Debug.Log($"Item to no item | '{(_currentItem.Type == ItemType.Track ? (_currentItem as FullTrack).Name : (_currentItem as FullEpisode).Name )}' -> ?");
-                        _currentItem = null;
-                        OnPlayingItemChanged?.Invoke(null);
-                    }
+                    Debug.Log($"Context null | '{(_currentItem.Type == ItemType.Track ? (_currentItem as FullTrack).Name : (_currentItem as FullEpisode).Name)}' -> ?");
+                    _currentItem = null;
+                    OnPlayingItemChanged?.Invoke(null);
                 }
             }
 
             _currentContext = newContext;
         }
-    }
-
-    /// <summary>
-    /// Checks if the two lists of artists have any difference in names
-    /// </summary>
-    /// <param name="a">First list of artists</param>
-    /// <param name="b">Second list of artists</param>
-    /// <returns></returns>
-    private bool IsArtistsChanged(List<SimpleArtist> a, List<SimpleArtist> b)
-    {
-        // If lists are different size, it's changed
-        if (a.Count != b.Count)
-            return true;
-
-        // Iterate through equal length lists for name difference
-        for(int i = 0; i < a.Count; i++)
+        else
         {
-            if (a[i].Name != b[i].Name)
-                return true;    // Name differs, changed
+            // If no client but has a previous item, invoke event
+            if (_currentItem != null)
+            {
+                _currentItem = null;
+                OnPlayingItemChanged?.Invoke(null);
+            }
         }
-
-        // No change
-        return false;
     }
 
     /// <summary>

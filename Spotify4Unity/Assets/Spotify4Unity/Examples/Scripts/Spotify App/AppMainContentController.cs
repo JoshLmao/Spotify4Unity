@@ -78,6 +78,10 @@ public class AppMainContentController : MonoBehaviour
 
             // Get view controller base, invoke any action
             _currentViewController = viewGO.GetComponent<ViewControllerBase>();
+            if (!_currentViewController)
+            {
+                Debug.LogError($"View '{viewEnum}' doesn't inherit from ViewControllerBase!");
+            }
             intermediateActn?.Invoke(_currentViewController);
 
             return _currentViewController;

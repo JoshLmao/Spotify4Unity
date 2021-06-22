@@ -40,13 +40,17 @@ public class SpotifyPlayerController : SpotifyPlayerListener
     [SerializeField]
     private Button _muteButton;
 
+    [SerializeField]
+    private Sprite _playSprite, _pauseSprite, _muteSprite, _unmuteSprite;
+
     // Is the current track in the user's library?
     private bool _currentItemIsInLibrary;
     // Did the user mouse down on the progress slider to edit the progress
     private bool _progressStartDrag = false;
     // Current progress value when user is sliding the progress
     private float _progressDragNewValue = -1.0f;
-    private float _volumeLastValue = -1.0f;
+    // Last volume value before mute/unmute
+    private int _volumeLastValue = -1;
 
     protected override void Awake()
     {
@@ -136,6 +140,20 @@ public class SpotifyPlayerController : SpotifyPlayerListener
                 _volumeSlider.value = context.Device.VolumePercent.Value;
             }
 
+            // Update play/pause btn sprite with correct play/pause sprite
+            if (_playPauseButton != null)
+            {
+                Image playPauseImg = _playPauseButton.transform.GetChild(0).GetComponent<Image>();
+                if (context.IsPlaying)
+                {
+                    playPauseImg.sprite = _pauseSprite;
+                }
+                else
+                {
+                    playPauseImg.sprite = _playSprite;
+                }
+            }
+
             FullTrack track = context.Item as FullTrack;
             if (track != null)
             {
@@ -161,7 +179,7 @@ public class SpotifyPlayerController : SpotifyPlayerListener
         if (newPlayingItem == null)
         {
             // No new item playing, reset UI
-            UpdatePlayerInfo("-", "-", "");
+            UpdatePlayerInfo("No track playing", "No track playing", "");
             SetLibraryBtnIsLiked(false);
 
             _currentProgressSlider.value = 0;
@@ -173,6 +191,7 @@ public class SpotifyPlayerController : SpotifyPlayerListener
             {
                 if (newPlayingItem is FullTrack track)
                 {
+                    // Update player information with track info
                     string allArtists = S4UUtility.ArtistsToSeparatedString(", ", track.Artists);
                     string firstArtUrl = track.Album.Images.FirstOrDefault()?.Url;
                     UpdatePlayerInfo(track.Name, allArtists, firstArtUrl);
@@ -234,17 +253,17 @@ public class SpotifyPlayerController : SpotifyPlayerListener
         SpotifyClient client = SpotifyService.Instance.GetSpotifyClient();
         if (context != null && client != null)
         {
+            // Get child image, update UI and set Spotify client to do action
+            Image playPauseImg = _playPauseButton.transform.GetChild(0).GetComponent<Image>();
             if (context.IsPlaying)
             {
                 client.Player.PausePlayback();
-
-                _playPauseButton.transform.GetComponentInChildren<Text>().text = ">";
+                playPauseImg.sprite = _playSprite;
             }
             else
             {
                 client.Player.ResumePlayback();
-
-                _playPauseButton.transform.GetComponentInChildren<Text>().text = "| |";
+                playPauseImg.sprite = _pauseSprite;
             }
         }
     }
@@ -322,16 +341,34 @@ public class SpotifyPlayerController : SpotifyPlayerListener
         {
             int? volume = context.Device.VolumePercent;
             int targetVolume;
+            Image muteImg = _muteButton.transform.GetChild(0).GetComponent<Image>();
             if (volume.HasValue && volume > 0)
             {
+                // Set target volume to 0, sprite to muted
                 targetVolume = 0;
+                muteImg.sprite = _muteSprite;
+                // Save current volume for unmute press
+                _volumeLastValue = volume.Value;
             }
             else
             {
-                // Default volume when un-muting
-                targetVolume = 50;
+                // Set target to last volume value before mute
+                if (_volumeLastValue > 0)
+                {
+                    targetVolume = _volumeLastValue;
+                    _volumeLastValue = -1;
+                }
+                else
+                {
+                    // If no value, use default value
+                    targetVolume = 25;
+                }
+
+                // Update sprite
+                muteImg.sprite = _unmuteSprite;
             }
 
+            // Send request
             PlayerVolumeRequest request = new PlayerVolumeRequest(targetVolume);
             client.Player.SetVolume(request);
         }

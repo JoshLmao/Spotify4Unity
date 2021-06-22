@@ -83,19 +83,28 @@ public class PlaylistsNavigationController : SpotifyServiceListener
             });
         }
 
-        // Get first page from client
-        Paging<SimplePlaylist> page = await client.Playlists.CurrentUsers();
-        // Get rest of pages from utility function and set variable to run on main thread
-        _allPlaylists = await S4UUtility.GetAllOfPagingAsync(client, page);
-
-        _dispatcher.Add(() =>
+        if (client != null)
         {
-            // Delete loading spinner
-            if (_liveSpinner != null)
-                Destroy(_liveSpinner.gameObject);
+            // Get first page from client
+            Paging<SimplePlaylist> page = await client.Playlists.CurrentUsers();
+            // Get rest of pages from utility function and set variable to run on main thread
+            _allPlaylists = await S4UUtility.GetAllOfPagingAsync(client, page);
 
+            _dispatcher.Add(() =>
+            {
+                // Delete loading spinner
+                if (_liveSpinner != null)
+                    Destroy(_liveSpinner.gameObject);
+
+                UpdateUI();
+            });
+        }
+        else
+        {
+            // No client, set playlists to empty
+            _allPlaylists = new List<SimplePlaylist>();
             UpdateUI();
-        });
+        }
     }
 
     private void UpdateUI()

@@ -10,7 +10,7 @@ using Image = UnityEngine.UI.Image;
 
 public class PlaylistViewController : ViewControllerBase
 {
-    public float HeaderHeight = 300;
+    public float HeaderHeight = 350;
 
     [SerializeField]
     private GameObject _singleTrackPrefab;
@@ -19,7 +19,7 @@ public class PlaylistViewController : ViewControllerBase
     private Transform _listViewParent;
 
     [SerializeField]
-    private Transform _playlistHeaderParent;
+    private Transform _headerParent, _chinParent;
 
     [SerializeField]
     private Transform _tracksListParent;
@@ -31,6 +31,8 @@ public class PlaylistViewController : ViewControllerBase
     private Text _headerTitle, _headerDescription, _headerDetails, _headerType;
     [SerializeField]
     private Image _headerImg;
+    [SerializeField]
+    private Button _headerPlayBtn;
 
     // Initial simple playlist provided
     private SimplePlaylist _playlist;
@@ -47,8 +49,15 @@ public class PlaylistViewController : ViewControllerBase
 
     private void Start()
     {
-        if (_playlistHeaderParent)
-            _playlistHeaderParent.gameObject.SetActive(false);
+        if (_headerParent)
+            _headerParent.gameObject.SetActive(false);
+        if (_chinParent)
+            _chinParent.gameObject.SetActive(false);
+
+        if (_headerPlayBtn != null)
+        {
+            _headerPlayBtn.onClick.AddListener(this.OnPlayPlaylist);
+        }
     }
 
     private void Update()
@@ -87,9 +96,6 @@ public class PlaylistViewController : ViewControllerBase
         // Require ui update on main thread
         _dispatcher.Add(() =>
         {
-            if (_playlistHeaderParent)
-                _playlistHeaderParent.gameObject.SetActive(true);
-
             UpdateUI();
 
             if (_instLoadSpinner != null)
@@ -101,12 +107,17 @@ public class PlaylistViewController : ViewControllerBase
     {
         UpdatePlaylistDetailsUI();
         UpdatePlaylistTracksUI();
+
+        if (_chinParent)
+            _chinParent.gameObject.SetActive(true);
     }
 
     private void UpdatePlaylistDetailsUI()
     {
         if (_playlist != null)
         {
+            if (_headerParent)
+                _headerParent.gameObject.SetActive(true);
             if (_headerImg != null)
             {
                 StartCoroutine(S4UUtility.LoadImageFromUrl(_playlist.Images.FirstOrDefault()?.Url, (loadedSprite) =>
@@ -161,7 +172,7 @@ public class PlaylistViewController : ViewControllerBase
 
 
             // Get height of prefab
-            RectTransform t = _tracksListParent.transform.GetChild(0).GetComponent<RectTransform>();
+            RectTransform t = _singleTrackPrefab.transform.GetComponent<RectTransform>();
             float singlePrefabHeight = t.rect.height;
 
             // Determine total new height of parent
@@ -193,5 +204,21 @@ public class PlaylistViewController : ViewControllerBase
         }
 
         return allTracks;
+    }
+
+    private void OnPlayPlaylist()
+    {
+        if (_fullPlaylist != null)
+        {
+            SpotifyClient client = SpotifyService.Instance.GetSpotifyClient();
+            if (client != null)
+            {
+                PlayerResumePlaybackRequest request = new PlayerResumePlaybackRequest()
+                {
+                    ContextUri = _fullPlaylist.Uri,
+                };
+                client.Player.ResumePlayback(request);
+            }
+        }
     }
 }

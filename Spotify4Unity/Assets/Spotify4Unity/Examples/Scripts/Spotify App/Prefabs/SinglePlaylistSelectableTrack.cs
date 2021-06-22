@@ -20,9 +20,6 @@ public class SinglePlaylistSelectableTrack : MonoBehaviour
     private string _contextUri;
     private FullTrack _track;
 
-    private bool _isInLibrary = false;
-    private bool _updateLibraryBtn = false;
-
     private void Start()
     {
         // Add btn listeners on start

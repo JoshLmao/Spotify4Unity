@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SearchViewController : MonoBehaviour
+public class SearchViewController : ViewControllerBase
 {
     [SerializeField]
     private InputField _searchField;

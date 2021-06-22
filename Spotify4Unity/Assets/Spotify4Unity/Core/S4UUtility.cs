@@ -75,8 +75,9 @@ public class S4UUtility
     /// <typeparam name="T"></typeparam>
     /// <param name="client">The current SpotifyClient instance</param>
     /// <param name="startingPageList">The beginning of a paging list (first 20/X entries)</param>
+    /// <param name="limit">Limit the amount of paging items to retrieve. Limit must be a multiple of 20</param>
     /// <returns></returns>
-    public static async Task<IEnumerable<T>> GetAllOfPagingAsync<T>(SpotifyClient client, Paging<T> startingPageList) where T : class
+    public static async Task<IEnumerable<T>> GetAllOfPagingAsync<T>(SpotifyClient client, Paging<T> startingPageList, int limit = -1) where T : class
     {
         List<T> list = new List<T>();
         while (startingPageList.Next != null)
@@ -84,6 +85,12 @@ public class S4UUtility
             // Add current range and await next set of items
             list.AddRange(startingPageList.Items);
             startingPageList = await client.NextPage(startingPageList);
+
+            // if a limit is given and list is more than the limit, break and return
+            if (limit > 0 && list.Count > limit)
+            {
+                break;
+            }
         }
         // Return final list once complete
         return list;
@@ -162,6 +169,29 @@ public class S4UUtility
                 return user.Product == "premium";
             }
         }
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if the two lists of artists have any difference, such as in name or length
+    /// </summary>
+    /// <param name="a">First list of artists</param>
+    /// <param name="b">Second list of artists</param>
+    /// <returns>If the two lists of artists differ</returns>
+    public static bool HasArtistsChanged(List<SimpleArtist> a, List<SimpleArtist> b)
+    {
+        // If lists are different size, it's changed
+        if (a.Count != b.Count)
+            return true;
+
+        // Iterate through equal length lists for name difference
+        for (int i = 0; i < a.Count; i++)
+        {
+            if (a[i].Name != b[i].Name)
+                return true;    // Name differs, changed
+        }
+
+        // No change
         return false;
     }
 }

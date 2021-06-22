@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Spotify4Unity/Examples/Scenes/Spotify App.unity
+    guid: 8e76123246cebb545917c7ce05bcfcab
   m_configObjects: {}

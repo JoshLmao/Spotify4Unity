@@ -1,65 +1,39 @@
-<h1 align="center">
-  <br>
-  Spotify4Unity
-  </br>
-</h1>
+#  Spotify4Unity
 
-
-<p align="right">
-  <a href="https://assetstore.unity.com/packages/tools/integration/spotify4unity-ui-tools-spotify-authorization-129028">
-    <img src="https://i.imgur.com/LFOGXkf.png" width="100px" align="right"></img>
-  </a>
-</p>
-
-<p align="center">
+<p align="left">
   <a href="https://twitter.com/JoshLmao">
     <img src="https://img.shields.io/badge/twitter-JoshLmao-blue.svg?style=flat-square" alt="twitter"/>
   </a>
    <a href="https://github.com/joshLmao/spotify4Unity/releases">
-    <img src="https://img.shields.io/badge/release-v1.5.0-green.svg?style=flat-square" alt="releases"/>
-  </a>
-   <a href="https://github.com/joshLmao/spotify4Unity/wiki">
-    <img src="https://img.shields.io/badge/documentation-online-brightgreen.svg?style=flat-square" alt="documentation"/>
+    <img src="https://img.shields.io/badge/release-v2.0.0-green.svg?style=flat-square" alt="releases"/>
   </a>
   <a href="https://assetstore.unity.com/packages/tools/integration/spotify4unity-ui-tools-spotify-authorization-129028">
     <img src="https://img.shields.io/badge/Review_S4U-Asset_Store-brightgreen.svg?style=flat-square" alt="releases"/>
   </a>
+  <a href="https://paypal.me/xjoshlmao">
+    <img src="https://img.shields.io/badge/Donate-Paypal-lightblue.svg?style=flat-square" alt="releases"/>
+  </a>
 </p>
 
-<p align="center">
-  <a href="#quick-start">Quick Start</a> •
-  <a href="#examples">Examples</a> •
-  Last Update: 15.01.20
-</p>
+## About
 
-**This repo is used to host the Wiki and any issues with my plugin. To access it, [download it on the Unity Asset Store](https://assetstore.unity.com/packages/tools/integration/spotify4unity-ui-tools-spotify-authorization-129028)**
+Spotify4Unity helps to add [JohnnyCrazy's](https://github.com/JohnnyCrazy) [SpotifyAPI.NET](https://github.com/JohnnyCrazy/SpotifyAPI-NET) library into Unity. The package comes with a central ```SpotifyService``` which is designed to act as a medium between Unity and Spotify. The package also comes with an example Spotify App built from the ground up using Unity UI and the Spotify4Unity service. For more information, check out the [Examples](#examples) section
 
-Spotify4Unity is a plugin which helps you integrate Spotify connectivity into you Unity game/application easily, allowing users to use basic track control functionality to viewing their whole library. This plugin relies heavily on JohnnyCrazy's [SpotifyAPI-NET](https://github.com/JohnnyCrazy/SpotifyAPI-NET)
+Spotify4Unity v2.0 currently only supports Windows, Linux and Mac
 
-Check out more and the full and maintained documentation [on the Wiki](https://github.com/JoshLmao/Spotify4Unity/wiki) _(Updated regularly)_
+![spotify-4-unity-preview.png](https://user-images.githubusercontent.com/22716832/123115027-b03cda80-d437-11eb-93b7-964a49ed211e.png)
 
-![Spotify4Unity Demo Video](repository_assets/demo.gif)
+## Installation
 
-## Requirements
+### UnityPackage
 
-1. Unity 2018.3.0f2 or above
-2. Scripting Runtime Version: .NET 4.6
-3. Can be used with Windows, Mac & Linux, Android or iOS
+1. Download the latest Spotify4Unity.unitypackage from the [releases section](https://github.com/joshlmao/spotify4unity/releases/)
+2. Double click to import it into your Unity 
 
-## Note about Free/Premium Users
+## Get Started
 
-**For you to set playback, the logged in user needs to be premium**. If the user isn't, the API only allows you to get what is publicly availble like songs, playlists, user information, etc. 
+Take a look at the [Wiki](https://github.com/JoshLmao/spotify4unity/wiki/), which is *smaller* and contains vital information on how to use the package.
 
-## Quick Start
+## Issues
 
-Check [the Home wiki page](https://github.com/JoshLmao/Spotify4Unity/wiki#Quick_Setup:) on how to quickly get started with Spotify4Unity!
-
-## Examples
-
-If anyone has an usage examples in any public projects, [send me a message on Twitter](https://twitter.com/JoshLmao) so I can fill this section with your work! _(With your permission, of course)_
-
-### Spotify Wallpaper
-
-Created by [Eyliess](https://github.com/Eyliess) for Wallpaper Engine, a music visualizer with spectrum and other audio-visual effects that also displays the current song and user information - **Download:** [Steam Community](https://steamcommunity.com/sharedfiles/filedetails/?id=1761151170&searchtext=spotify+wallpaper)
-
-[![](https://steamuserimages-a.akamaihd.net/ugc/786355365567612744/72EA96A669516A5250CE769C06A3FE7653798C0B/)](https://steamcommunity.com/sharedfiles/filedetails/?id=1761151170&searchtext=spotify+wallpaper)
+If you have any problems, feel free to open an [issue](https://github.com/joshlmao/spotify4unity/issues/) with your problem. Please supply as much detail as possible

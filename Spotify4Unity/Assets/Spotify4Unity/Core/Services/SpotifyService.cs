@@ -75,7 +75,7 @@ public class SpotifyService : SceneSingleton<SpotifyService>
         _authMethodConfig = this.GetComponent<AuthorizationConfig>();
         if (!_authMethodConfig)
         {
-            Debug.LogError("No authorization config found on service! Is the selected auth method's config next to the service?");
+            Debug.LogError("No authorization config found on Spotify Service! Is the selected authorization method's config next to the service?");
             return;
         }
 

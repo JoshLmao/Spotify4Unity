@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using SpotifyAPI.Web;
 using SpotifyAPI.Web.Auth;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -29,6 +30,19 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
     // Local EmbedIO authorization server
     private static EmbedIOAuthServer _server;
 
+    private List<Action> _dispatcher = new List<Action>();
+
+    private void Update()
+    {
+        if (_dispatcher.Count > 0)
+        {
+            foreach (Action actn in _dispatcher)
+                actn.Invoke();
+
+            _dispatcher.Clear();
+        }
+    }
+
     public void Configure(object config)
     {
         if (config is AuthorizationConfig authConfig)
@@ -51,7 +65,7 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         if (HasPreviousAuthentification())
         {
             // Load local pkce saved token
-            _pkceToken = LoadPKCEToken(PKCEConfig?.TokenPath);
+            _pkceToken = LoadPKCEToken();
             if (_pkceToken != null)
             {
                 // Set API authenticator
@@ -91,9 +105,9 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
 
     public bool HasPreviousAuthentification()
     {
-        if (PKCEConfig != null && File.Exists(PKCEConfig.TokenPath))
+        if (PKCEConfig != null)
         {
-            _pkceToken = LoadPKCEToken(PKCEConfig.TokenPath);
+            _pkceToken = LoadPKCEToken();
             return _pkceToken != null;
         }
         return false;
@@ -145,8 +159,8 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
                 new PKCETokenRequest(_clientID, response.Code, _server.BaseUri, verifier)
             );
 
-            // Write to system locally, ready for next sign in
-            File.WriteAllText(PKCEConfig.TokenPath, JsonConvert.SerializeObject(_pkceToken));
+            // Save PKCE token first
+            SavePKCEToken(_pkceToken);
 
             Debug.Log("PKCE: Recieved Auth Code");
             SetAuthenticator(_pkceToken);
@@ -172,8 +186,7 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
 
         if (PKCEConfig != null)
         {
-            string json = JsonConvert.SerializeObject(token);
-            File.WriteAllText(PKCEConfig.TokenPath, json);
+            SavePKCEToken(_pkceToken);
         }
 
         if (triggerEvent)
@@ -209,23 +222,64 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
     /// <summary>
     /// Attempts to load the previous saved PKCE token from a given file path
     /// </summary>
-    /// <param name="tokenFilePath">File path of the saved token</param>
     /// <returns></returns>
-    private PKCETokenResponse LoadPKCEToken(string tokenFilePath)
+    private PKCETokenResponse LoadPKCEToken()
     {
-        if (!string.IsNullOrEmpty(tokenFilePath))
+        if (PKCEConfig.TokenSaveType == PKCETokenSaveType.File)
         {
-            string previousToken = File.ReadAllText(tokenFilePath);
-            if (string.IsNullOrEmpty(previousToken))
+            // Load token from File
+            if (!string.IsNullOrEmpty(PKCEConfig.TokenPath))
+            {
+                string previousToken = File.ReadAllText(PKCEConfig.TokenPath);
+                if (string.IsNullOrEmpty(previousToken))
+                {
+                    return null;
+                }
+                else
+                {
+                    return JsonConvert.DeserializeObject<PKCETokenResponse>(previousToken);
+                }
+            }
+        }
+        else if (PKCEConfig.TokenSaveType == PKCETokenSaveType.PlayerPrefs)
+        {
+            // Load token from PlayerPrefs
+            string tokenStr = PlayerPrefs.GetString(PKCEConfig.PlayerPrefsKey);
+            if (string.IsNullOrEmpty(tokenStr))
             {
                 return null;
             }
             else
             {
-                return JsonConvert.DeserializeObject<PKCETokenResponse>(previousToken);
+                return JsonConvert.DeserializeObject<PKCETokenResponse>(tokenStr);
             }
         }
+
         return null;
+    }
+
+    /// <summary>
+    /// Saves the PKCE token using the current PKECTokenSaveType in config
+    /// </summary>
+    /// <param name="token">Current token to save</param>
+    private void SavePKCEToken(PKCETokenResponse token)
+    {
+        if (token != null)
+        {
+            string json = JsonConvert.SerializeObject(token);
+            if (PKCEConfig.TokenSaveType == PKCETokenSaveType.File)
+            {
+                File.WriteAllText(PKCEConfig.TokenPath, json);
+            }
+            else if (PKCEConfig.TokenSaveType == PKCETokenSaveType.PlayerPrefs)
+            {
+                // Save to player prefs on main thread
+                _dispatcher.Add(() =>
+                {
+                    PlayerPrefs.SetString(PKCEConfig.PlayerPrefsKey, json);
+                });
+            }
+        }
     }
 
     /// <summary>

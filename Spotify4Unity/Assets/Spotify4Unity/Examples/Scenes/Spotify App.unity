@@ -2135,7 +2135,9 @@ MonoBehaviour:
   ServerPort: 5000
   Length: 100
   Verifier: 
+  TokenSaveType: 1
   TokenPath: PKCE-credentials.json
+  PlayerPrefsKey: PKCEcredentials
 --- !u!1 &780863827
 GameObject:
   m_ObjectHideFlags: 0

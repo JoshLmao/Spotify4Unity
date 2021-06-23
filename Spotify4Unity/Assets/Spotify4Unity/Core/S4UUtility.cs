@@ -1,4 +1,5 @@
 using SpotifyAPI.Web;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -193,5 +194,54 @@ public class S4UUtility
 
         // No change
         return false;
+    }
+
+    /// <summary>
+    /// Able to determine the expire time, from a created at date time and expires in seconds time
+    /// </summary>
+    /// <param name="createdAt">DateTime the token was created</param>
+    /// <param name="expiresIn">The amount of seconds the token will expire in</param>
+    /// <returns></returns>
+    public static DateTime GetTokenExpiry(DateTime createdAt, int expiresIn)
+    {
+        return createdAt.AddSeconds(expiresIn);
+    }
+
+    /// <summary>
+    /// Gets the lowest resolution image stored in an array of images, but is still above the minimumWidth and minimumHeight.
+    /// </summary>
+    /// <param name="images">The list of images available</param>
+    /// <param name="minimumWidth">Minimum width of the target image</param>
+    /// <param name="minimumHeight">Minimum height of the target image</param>
+    /// <returns></returns>
+    public static Image GetLowestResolutionImage(List<Image> images, int minimumWidth = 50, int minimumHeight = 50)
+    {
+        if (images == null || images != null && images.Count <= 0)
+        {
+            return null;
+        }
+
+        Image lowest = null;
+        foreach(Image img in images)
+        {
+            if (lowest == null)
+            {
+                lowest = img;
+            }
+            else
+            {
+                // Check if current img width and height is less than current lowest
+                if (img.Width < lowest.Width && img.Height < lowest.Height)
+                {
+                    // Check that current is more than minimum width
+                    if (img.Width > minimumWidth && img.Height > minimumHeight)
+                    {
+                        lowest = img;
+                    }
+                }
+            }
+        }
+
+        return lowest;
     }
 }

@@ -21,4 +21,7 @@ public interface IServiceAuthenticator
     // Removes any previous authentification, either in memory or on system
     void RemoveAuthentification();
 
+    // Gets the DateTime of when the authorization will expire
+    DateTime GetExpiryDateTime();
+
 }

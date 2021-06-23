@@ -718,6 +718,10 @@ MonoBehaviour:
   _repeatButton: {fileID: 108040101}
   _volumeSlider: {fileID: 578361118}
   _muteButton: {fileID: 1348188131}
+  _playSprite: {fileID: 0}
+  _pauseSprite: {fileID: 0}
+  _muteSprite: {fileID: 0}
+  _unmuteSprite: {fileID: 0}
 --- !u!1 &316600020
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,7 +1546,7 @@ GameObject:
   m_Component:
   - component: {fileID: 779872343}
   - component: {fileID: 779872342}
-  - component: {fileID: 779872345}
+  - component: {fileID: 779872344}
   m_Layer: 0
   m_Name: Spotify Service
   m_TagString: Untagged
@@ -1563,7 +1567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AuthorizeUserOnStart: 0
-  AuthType: 2
+  AuthType: 0
   _authMethodConfig: {fileID: 0}
 --- !u!4 &779872343
 Transform:
@@ -1579,7 +1583,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &779872345
+--- !u!114 &779872344
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1588,10 +1592,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 779872341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab508c58bcd5cb43ba899a334629a2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 075e842a5527e274595cba51e52001c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClientID: 8c42bb0a9bd8483986929038af40ed4a
+  ClientID: 
   APIScopes:
   - app-remote-control
   - playlist-modify-private
@@ -1614,7 +1618,11 @@ MonoBehaviour:
   - user-top-read
   RedirectUri: http://localhost:5000/callback
   ServerPort: 5000
-  ClientSecret: dd9340c46b47403bb77318608aac4cee
+  Length: 100
+  Verifier: 
+  TokenSaveType: 0
+  TokenPath: PKCE-credentials.json
+  PlayerPrefsKey: PKCE-credentials
 --- !u!1 &780863827
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,7 +2634,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1925688942}
   m_Direction: 0
   m_Value: 1
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -293,4 +293,17 @@ public class SpotifyService : SceneSingleton<SpotifyService>
         // All passed contain check
         return true;
     }
+    
+    /// <summary>
+    /// Gets the DateTime that the current authentification will expire. If you are using an authentication method that can automatically renew auth, then the authenticator will automatically do so.
+    /// </summary>
+    /// <returns></returns>
+    public DateTime GetAuthExpiry()
+    {
+        if (_authenticator != null)
+        {
+            return _authenticator.GetExpiryDateTime();
+        }
+        return DateTime.MinValue;
+    }
 }

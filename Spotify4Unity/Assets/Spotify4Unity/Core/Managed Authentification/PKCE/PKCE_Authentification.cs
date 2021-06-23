@@ -74,7 +74,7 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
                 // if not expired, output expire time
                 if (!_pkceToken.IsExpired)
                 {
-                    DateTime expireDT = GetTokenExpireDT(_pkceToken.CreatedAt, _pkceToken.ExpiresIn);
+                    DateTime expireDT = S4UUtility.GetTokenExpiry(_pkceToken.CreatedAt, _pkceToken.ExpiresIn);
                     Debug.Log($"PKCE token loaded | Expires at '{expireDT.ToLocalTime()}'");
                 }
             }
@@ -89,9 +89,19 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
     public void RemoveAuthentification()
     {
         // Delete any previous PKCE saved auth
-        if (PKCEConfig != null && File.Exists(PKCEConfig.TokenPath))
+        if (PKCEConfig != null)
         {
-            File.Delete(PKCEConfig.TokenPath);
+            // Delete local file is set & exists
+            if (!string.IsNullOrEmpty(PKCEConfig.TokenPath) && File.Exists(PKCEConfig.TokenPath))
+            {
+                File.Delete(PKCEConfig.TokenPath);
+            }
+
+            // Delete player prefs if set & exists
+            if (!string.IsNullOrEmpty(PKCEConfig.PlayerPrefsKey) && !string.IsNullOrEmpty(PlayerPrefs.GetString(PKCEConfig.PlayerPrefsKey)))
+            {
+                PlayerPrefs.SetString(PKCEConfig.PlayerPrefsKey, string.Empty);
+            }
         }
 
         // Dispose server
@@ -126,7 +136,14 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         await _server.Start();
 
         // On auth is recieved, save and start service
-        _server.AuthorizationCodeReceived += (sender, response) => this.OnAuthCodeRecieved(sender, response, verifier);
+        try
+        {
+            _server.AuthorizationCodeReceived += (sender, response) => this.OnAuthCodeRecieved(sender, response, verifier);
+        }
+        catch(Exception e)
+        {
+            Debug.LogError(e.ToString());
+        }
 
         // Create login request
         LoginRequest request = new LoginRequest(_server.BaseUri, _clientID, LoginRequest.ResponseType.Code)
@@ -178,7 +195,7 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
 
     private void OnTokenRefreshed(object sender, PKCETokenResponse token)
     {
-        DateTime expireDT = GetTokenExpireDT(token.CreatedAt, token.ExpiresIn);
+        DateTime expireDT = S4UUtility.GetTokenExpiry(token.CreatedAt, token.ExpiresIn);
         Debug.Log($"PKCE token refreshed | Expires at '{expireDT.ToLocalTime()}'");
 
         bool triggerEvent = _pkceToken.IsExpired && !token.IsExpired;
@@ -291,8 +308,12 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         return _pkceToken;
     }
 
-    private DateTime GetTokenExpireDT(DateTime createdAt, int expiresIn)
+    public DateTime GetExpiryDateTime()
     {
-        return createdAt.AddSeconds(expiresIn);
+        if (_pkceToken != null)
+        {
+            return S4UUtility.GetTokenExpiry(_pkceToken.CreatedAt, _pkceToken.ExpiresIn);
+        }
+        return DateTime.MinValue;
     }
 }

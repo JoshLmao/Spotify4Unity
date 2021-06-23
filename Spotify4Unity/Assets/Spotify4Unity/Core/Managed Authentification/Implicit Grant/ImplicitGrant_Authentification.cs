@@ -14,7 +14,7 @@ public class ImplicitGrant_Authentification : MonoBehaviour, IServiceAuthenticat
     private AuthorizationConfig _authConfig;
 
     // Last gained auth token
-    private string _lastAuthToken;
+    private ImplictGrantResponse _lastAuthToken;
 
     // Server for local callback
     private static EmbedIOAuthServer _server;
@@ -65,7 +65,7 @@ public class ImplicitGrant_Authentification : MonoBehaviour, IServiceAuthenticat
         // Stop server
         await _server.Stop();
 
-        _lastAuthToken = response.AccessToken;
+        _lastAuthToken = response;
 
         // Trigger complete with auth token
         OnAuthenticatorComplete?.Invoke(_lastAuthToken);
@@ -78,9 +78,18 @@ public class ImplicitGrant_Authentification : MonoBehaviour, IServiceAuthenticat
             _server.Dispose();
         }
 
-        if (!string.IsNullOrEmpty(_lastAuthToken))
+        if (_lastAuthToken != null)
         {
-            _lastAuthToken = string.Empty;
+            _lastAuthToken = null;
         }
+    }
+
+    public DateTime GetExpiryDateTime()
+    {
+        if (_lastAuthToken != null)
+        {
+            return S4UUtility.GetTokenExpiry(_lastAuthToken.CreatedAt, _lastAuthToken.ExpiresIn);
+        }
+        return DateTime.MinValue;
     }
 }

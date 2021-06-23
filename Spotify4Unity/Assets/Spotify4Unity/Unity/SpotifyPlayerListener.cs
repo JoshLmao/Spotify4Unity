@@ -31,6 +31,13 @@ public class SpotifyPlayerListener : SpotifyServiceListener
     // Is the internal update loop being invoked?
     private bool _isInvoking = false;
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        this.OnPlayingItemChanged += PlayingItemChanged;
+    }
+
     protected override void OnSpotifyConnectionChanged(SpotifyClient client)
     {
         base.OnSpotifyConnectionChanged(client);
@@ -58,6 +65,11 @@ public class SpotifyPlayerListener : SpotifyServiceListener
             // Invoke playing item changed, no more client, no more context
             OnPlayingItemChanged?.Invoke(null);
         }
+    }
+
+    protected virtual void PlayingItemChanged(IPlayableItem item)
+    {
+        // Override me.
     }
 
     private async void FetchLatestPlayer()

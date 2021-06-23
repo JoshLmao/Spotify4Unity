@@ -39,9 +39,10 @@ public class AccountStatusController : SpotifyServiceListener
     private void OnSignIn()
     {
         SpotifyService service = SpotifyService.Instance;
+
         if (!service.IsConnected)
         {
-            service.StartService();
+            service.AuthorizeUser();
         }
         else
         {

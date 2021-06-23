@@ -86,7 +86,18 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
         }
     }
 
-    public void RemoveAuthentification()
+    public void DeauthorizeUser()
+    {
+        // Dispose server
+        if (_server != null)
+        {
+            _server.Dispose();
+        }
+
+        _pkceToken = null;
+    }
+
+    public void RemoveSavedAuth()
     {
         // Delete any previous PKCE saved auth
         if (PKCEConfig != null)
@@ -103,14 +114,6 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
                 PlayerPrefs.SetString(PKCEConfig.PlayerPrefsKey, string.Empty);
             }
         }
-
-        // Dispose server
-        if (_server != null)
-        {
-            _server.Dispose();
-        }
-
-        _pkceToken = null;
     }
 
     public bool HasPreviousAuthentification()

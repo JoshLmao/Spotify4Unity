@@ -71,7 +71,21 @@ public class ImplicitGrant_Authentification : MonoBehaviour, IServiceAuthenticat
         OnAuthenticatorComplete?.Invoke(_lastAuthToken);
     }
 
-    public void RemoveAuthentification()
+    public void RemoveSavedAuth()
+    {
+        // N/A
+    }
+
+    public DateTime GetExpiryDateTime()
+    {
+        if (_lastAuthToken != null)
+        {
+            return S4UUtility.GetTokenExpiry(_lastAuthToken.CreatedAt, _lastAuthToken.ExpiresIn);
+        }
+        return DateTime.MinValue;
+    }
+
+    public void DeauthorizeUser()
     {
         if (_server != null)
         {
@@ -82,14 +96,5 @@ public class ImplicitGrant_Authentification : MonoBehaviour, IServiceAuthenticat
         {
             _lastAuthToken = null;
         }
-    }
-
-    public DateTime GetExpiryDateTime()
-    {
-        if (_lastAuthToken != null)
-        {
-            return S4UUtility.GetTokenExpiry(_lastAuthToken.CreatedAt, _lastAuthToken.ExpiresIn);
-        }
-        return DateTime.MinValue;
     }
 }

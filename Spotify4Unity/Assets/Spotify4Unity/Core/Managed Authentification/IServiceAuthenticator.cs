@@ -18,8 +18,10 @@ public interface IServiceAuthenticator
 
     // Gets new authentification from this auth method. Either prompts user if no previous or init's the SpotifyAPI.Web.IAuthenticator
     void StartAuthentification();
+    // Deauthorizes the current user, removing any auth in memory.
+    void DeauthorizeUser();
     // Removes any previous authentification, either in memory or on system
-    void RemoveAuthentification();
+    void RemoveSavedAuth();
 
     // Gets the DateTime of when the authorization will expire
     DateTime GetExpiryDateTime();

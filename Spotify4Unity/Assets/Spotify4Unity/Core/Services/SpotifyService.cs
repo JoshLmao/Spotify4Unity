@@ -52,6 +52,11 @@ public class SpotifyService : SceneSingleton<SpotifyService>
     public bool IsConnected { get { return _client != null; } }
 
     /// <summary>
+    /// Is the service started, either awaiting authorization or live and connected
+    /// </summary>
+    public bool IsStarted { get { return _authenticator != null; } }
+
+    /// <summary>
     /// Triggered when the SpotifyService changes connection. For example, losing user authentification, calling DeauthorizeUser().
     /// </summary>
     public event Action<SpotifyClient> OnClientConnectionChanged;
@@ -79,35 +84,14 @@ public class SpotifyService : SceneSingleton<SpotifyService>
             return;
         }
 
-        switch(AuthType)
-        {
-            case AuthenticationType.PKCE:
-                _authenticator = this.gameObject.AddComponent<PKCE_Authentification>();
-                _authenticator.Configure(_authMethodConfig);
-                break;
-            case AuthenticationType.ImplicitGrant:
-                _authenticator = this.gameObject.AddComponent<ImplicitGrant_Authentification>();
-                _authenticator.Configure(_authMethodConfig);
-                break;
-            case AuthenticationType.ClientCredentials:
-                _authenticator = this.gameObject.AddComponent<ClientCredentials_Authorization>();
-                _authenticator.Configure(_authMethodConfig);
-                break;
-            default:
-                break;
-        }
-
-        if (_authenticator != null)
-        {
-            _authenticator.OnAuthenticatorComplete += this.OnAuthenticatorComplete;
-        }
+        StartService();
     }
 
     protected virtual void Start()
     {
         if (AuthorizeUserOnStart)
         {
-            StartService();
+            AuthorizeUser();
         }
     }
 
@@ -127,13 +111,37 @@ public class SpotifyService : SceneSingleton<SpotifyService>
     #endregion
 
     /// <summary>
-    /// Starts the service, either reusing previous authentification or gathering new authentification
+    /// Starts the service and prepares authentification ready for AuthorizeUser(). Option to prompt user for auth if prompAuth is true
+    /// <param name="promptAuth">Should user be promped for auth?</param>
     /// </summary>
-    public void StartService()
+    public void StartService(bool promptAuth = false)
     {
+        if (_authenticator == null)
+        {
+            switch (AuthType)
+            {
+                case AuthenticationType.PKCE:
+                    _authenticator = this.gameObject.AddComponent<PKCE_Authentification>();
+                    break;
+                case AuthenticationType.ImplicitGrant:
+                    _authenticator = this.gameObject.AddComponent<ImplicitGrant_Authentification>();
+                    break;
+                case AuthenticationType.ClientCredentials:
+                    _authenticator = this.gameObject.AddComponent<ClientCredentials_Authorization>();
+                    break;
+                default:
+                    break;
+            }
+
+            _authenticator.OnAuthenticatorComplete += this.OnAuthenticatorComplete;
+        }
+
         if (_authenticator != null)
         {
-            _authenticator.StartAuthentification();
+            _authenticator.Configure(_authMethodConfig);
+
+            if (promptAuth)
+                AuthorizeUser();
         }
     }
 
@@ -153,9 +161,10 @@ public class SpotifyService : SceneSingleton<SpotifyService>
     }
 
     /// <summary>
-    /// Signs the current user out, removes any saved authorization and requires user to re-authorize next time
+    /// Signs the current user out. Requires AuthorizeUser() to authorize again.
     /// </summary>
-    public void DeauthorizeUser()
+    /// <param name="removeSavedAuth">Should any saved auth be removed</param>
+    public void DeauthorizeUser(bool removeSavedAuth = false)
     {
         if (_client != null)
         {
@@ -164,11 +173,35 @@ public class SpotifyService : SceneSingleton<SpotifyService>
 
         if (_authenticator != null)
         {
-            _authenticator.RemoveAuthentification();
+            _authenticator.DeauthorizeUser();
+
+            if (removeSavedAuth)
+                _authenticator.RemoveSavedAuth();
         }
 
         // Client no longer connected
         OnClientConnectionChanged?.Invoke(_client);
+    }
+
+    /// <summary>
+    /// Deauthorizes the user if connected and cleans up service. Requires StartService() before being able to be used again
+    /// </summary>
+    /// <param name="removeAuth">Should any saved auth be removed, prompting the user for auth when service starts next</param>
+    public void EndService(bool removeSavedAuth = false)
+    {
+        if (_authenticator != null)
+        {
+            if (IsConnected)
+            {
+                DeauthorizeUser(removeSavedAuth);
+            }
+
+            _authenticator.OnAuthenticatorComplete -= this.OnAuthenticatorComplete;
+
+            Destroy(_authenticator as MonoBehaviour);
+
+            _authenticator = null;
+        }
     }
 
     private async void OnAuthenticatorComplete(object authObject)

@@ -34,12 +34,9 @@ public class ClientCredentials_Authorization : MonoBehaviour, IServiceAuthentica
         OnAuthenticatorComplete?.Invoke(_ccAuthenticator);
     }
 
-    public void RemoveAuthentification()
+    public void RemoveSavedAuth()
     {
-        if (_ccAuthenticator != null)
-        {
-            _ccAuthenticator = null;
-        }
+        // No saved auth, not valid
     }
 
     public DateTime GetExpiryDateTime()
@@ -49,5 +46,13 @@ public class ClientCredentials_Authorization : MonoBehaviour, IServiceAuthentica
             return S4UUtility.GetTokenExpiry(ccAuthenticator.Token.CreatedAt, ccAuthenticator.Token.ExpiresIn);
         }
         return DateTime.MinValue;
+    }
+
+    public void DeauthorizeUser()
+    {
+        if (_ccAuthenticator != null)
+        {
+            _ccAuthenticator = null;
+        }
     }
 }

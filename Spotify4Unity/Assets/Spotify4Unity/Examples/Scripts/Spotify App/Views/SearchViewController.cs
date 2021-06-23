@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class SearchViewController : ViewControllerBase
 {
@@ -15,6 +16,11 @@ public class SearchViewController : ViewControllerBase
     private Transform _tracksParent;
     [SerializeField]
     private GameObject _singleSearchTrackPrefab;
+
+    [SerializeField]
+    private Transform _artistsParent;
+    [SerializeField]
+    private GameObject _singleArtistPrefab;
 
     private SearchResponse _lastSearchResponse;
 
@@ -49,8 +55,6 @@ public class SearchViewController : ViewControllerBase
 
             _lastSearchResponse = await client.Search.Item(request);
 
-            Debug.Log($"Spotify app | Query '{query}' returned '{_lastSearchResponse.Tracks.Total.Value}'");
-
             _dispatcher.Add(() =>
             {
                 UpdateUI();
@@ -62,23 +66,70 @@ public class SearchViewController : ViewControllerBase
     {
         if (_tracksParent != null)
         {
-            if (_tracksParent.transform.childCount > 0)
-            {
-                foreach (Transform child in _tracksParent.transform)
-                    Destroy(child.gameObject);
-            }
-
-            foreach(FullTrack track in _lastSearchResponse.Tracks.Items)
-            {
-                GameObject instGO = Instantiate(_singleSearchTrackPrefab, _tracksParent);
-                instGO.GetComponent<SingleSearchTrackController>().SetTrack(track);
-            }
-
-            float singlePrefabHeight = _singleSearchTrackPrefab.GetComponent<RectTransform>().rect.height;
-            VerticalLayoutGroup group = _tracksParent.GetComponent<VerticalLayoutGroup>();
-            float totalHeight = (singlePrefabHeight + group.padding.top + group.padding.bottom + group.spacing) * _lastSearchResponse.Tracks.Items.Count;
-
-            _tracksParent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, totalHeight);
+            UpdateSongsList();
+            UpdateArtistsList();
         }
+    }
+
+    void UpdateSongsList()
+    {
+        UpdateScrollView(_lastSearchResponse.Tracks.Items, _singleSearchTrackPrefab, _tracksParent, RectTransform.Axis.Vertical, (instGO, dataObj) =>
+        {
+            instGO.GetComponent<SingleSearchTrackController>().SetTrack(dataObj);
+        });
+    }
+
+    void UpdateArtistsList()
+    {
+        var artistsFiltered = _lastSearchResponse.Artists.Items.Select((x) =>
+        {
+            if (x.Type == "artist")
+                return x;
+            return null;
+        }).ToList();
+
+        UpdateScrollView(artistsFiltered, _singleArtistPrefab, _artistsParent, RectTransform.Axis.Horizontal, (instGO, dataObj) =>
+        {
+            instGO.GetComponent<SingleArtistWidgetController>().SetArtist(dataObj);
+        });
+    }
+
+    void UpdateScrollView<T>(List<T> objList, GameObject prefab, Transform parent, RectTransform.Axis axis, Action<GameObject, T> afterPrefabInst) where T : class
+    {
+        if (parent.transform.childCount > 0)
+        {
+            foreach (Transform child in parent.transform)
+                Destroy(child.gameObject);
+        }
+
+        foreach (T obj in objList)
+        {
+            GameObject instGO = Instantiate(prefab, parent);
+            afterPrefabInst?.Invoke(instGO, obj);
+        }
+
+
+        // get width/height of prefab
+        float singlePrefabHeightOrWidth = prefab.GetComponent<RectTransform>().rect.height;
+        if (axis == RectTransform.Axis.Horizontal)
+            singlePrefabHeightOrWidth = prefab.GetComponent<RectTransform>().rect.width;
+
+        // Add on spacing + padding
+        HorizontalOrVerticalLayoutGroup group = parent.GetComponent<HorizontalOrVerticalLayoutGroup>();
+        float total = singlePrefabHeightOrWidth + +group.spacing;
+
+        // Padding on either top/bottom or right/left
+        if (axis == RectTransform.Axis.Horizontal)
+        {
+            total += group.padding.left + group.padding.right;
+        }
+        else if (axis == RectTransform.Axis.Vertical)
+        {
+            total += group.padding.top + group.padding.bottom;
+        }
+
+        total = total * objList.Count; 
+
+        parent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(axis, total);
     }
 }

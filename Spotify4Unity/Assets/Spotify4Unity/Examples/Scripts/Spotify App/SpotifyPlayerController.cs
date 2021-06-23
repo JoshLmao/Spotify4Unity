@@ -193,8 +193,8 @@ public class SpotifyPlayerController : SpotifyPlayerListener
                 {
                     // Update player information with track info
                     string allArtists = S4UUtility.ArtistsToSeparatedString(", ", track.Artists);
-                    string firstArtUrl = track.Album.Images.FirstOrDefault()?.Url;
-                    UpdatePlayerInfo(track.Name, allArtists, firstArtUrl);
+                    SpotifyAPI.Web.Image image = S4UUtility.GetLowestResolutionImage(track.Album.Images);
+                    UpdatePlayerInfo(track.Name, allArtists, image?.Url);
 
                     // Make request to see if track is part of user's library
                     var client = SpotifyService.Instance.GetSpotifyClient();
@@ -211,8 +211,8 @@ public class SpotifyPlayerController : SpotifyPlayerListener
                 if (newPlayingItem is FullEpisode episode)
                 {
                     string creators = episode.Show.Publisher;
-                    string firstArtUrl = episode.Images.FirstOrDefault()?.Url;
-                    UpdatePlayerInfo(episode.Name, creators, firstArtUrl);
+                    SpotifyAPI.Web.Image image = S4UUtility.GetLowestResolutionImage(episode.Images);
+                    UpdatePlayerInfo(episode.Name, creators, image?.Url);
                 }
             }
         }

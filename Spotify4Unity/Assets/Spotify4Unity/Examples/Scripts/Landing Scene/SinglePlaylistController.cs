@@ -41,10 +41,10 @@ public class SinglePlaylistController : MonoBehaviour
 
             if (_icon != null)
             {
-                string firstImg = _playlist.Images?.FirstOrDefault()?.Url;
-                if(!string.IsNullOrEmpty(firstImg))
+                SpotifyAPI.Web.Image image = S4UUtility.GetLowestResolutionImage(_playlist.Images);
+                if(image != null)
                 {
-                    StartCoroutine(S4UUtility.LoadImageFromUrl(firstImg, (loadedSprite) =>
+                    StartCoroutine(S4UUtility.LoadImageFromUrl(image.Url, (loadedSprite) =>
                     {
                         _icon.sprite = loadedSprite;
                     }));

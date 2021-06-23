@@ -2110,7 +2110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075e842a5527e274595cba51e52001c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClientID: 8c42bb0a9bd8483986929038af40ed4a
+  ClientID: 
   APIScopes:
   - app-remote-control
   - playlist-modify-private
@@ -2137,7 +2137,7 @@ MonoBehaviour:
   Verifier: 
   TokenSaveType: 1
   TokenPath: PKCE-credentials.json
-  PlayerPrefsKey: PKCEcredentials
+  PlayerPrefsKey: PKCE-credentials
 --- !u!1 &780863827
 GameObject:
   m_ObjectHideFlags: 0
@@ -6931,6 +6931,30 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3334243076275104849, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334243076275104849, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334243076275104849, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334243076275104849, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334243076275104849, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3334243076275104849, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3468961904429820216, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -7078,6 +7102,30 @@ PrefabInstance:
     - target: {fileID: 5671806407201222094, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
       propertyPath: m_Name
       value: ITZY
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167671703785773189, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167671703785773189, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167671703785773189, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167671703785773189, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167671703785773189, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6167671703785773189, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6239384107698733303, guid: c7d62427c72b01e42a2153ba7d4367bf, type: 3}
       propertyPath: m_AnchorMax.x

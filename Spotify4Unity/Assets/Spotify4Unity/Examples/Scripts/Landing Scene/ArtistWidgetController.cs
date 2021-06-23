@@ -96,10 +96,10 @@ public class ArtistWidgetController : SpotifyServiceListener
     {
         if (img != null && img.sprite == null)
         {
-            string iconUrl = images.FirstOrDefault()?.Url;
-            if (!string.IsNullOrEmpty(iconUrl))
+            SpotifyAPI.Web.Image icon = S4UUtility.GetLowestResolutionImage(images);
+            if (icon != null)
             {
-                StartCoroutine(S4UUtility.LoadImageFromUrl(iconUrl, (loadedSprite) =>
+                StartCoroutine(S4UUtility.LoadImageFromUrl(icon.Url, (loadedSprite) =>
                 {
                     _icon.sprite = loadedSprite;
                 }));

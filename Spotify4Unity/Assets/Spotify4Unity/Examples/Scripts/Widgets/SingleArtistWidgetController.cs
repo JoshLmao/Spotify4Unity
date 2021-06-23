@@ -35,7 +35,7 @@ public class SingleArtistWidgetController : SpotifyServiceListener
             _followButton.onClick.AddListener(() => this.OnFollowArtist());
         }
 
-        SetUIActive(false);
+        SetUIActive(_artist != null);
     }
 
     private void Update()
@@ -52,7 +52,8 @@ public class SingleArtistWidgetController : SpotifyServiceListener
     {
         base.OnSpotifyConnectionChanged(client);
 
-        if (client != null)
+        // On connect, if artist id set, then retrieve from API
+        if (client != null && !string.IsNullOrEmpty(ArtistId))
         {
             _artist = await client.Artists.Get(ArtistId);
 
@@ -61,8 +62,9 @@ public class SingleArtistWidgetController : SpotifyServiceListener
                 UpdateUI();
             });
         }
-        else
+        else if (_artist == null)
         {
+            // Set to inactive if no artist set
             SetUIActive(false);
         }
     }
@@ -130,5 +132,16 @@ public class SingleArtistWidgetController : SpotifyServiceListener
             _playButton.gameObject.SetActive(isActive);
         if (_followButton != null)
             _followButton.gameObject.SetActive(isActive);
+    }
+
+    /// <summary>
+    /// Set the full artist and populate the UI
+    /// </summary>
+    /// <param name="artist"></param>
+    public void SetArtist(FullArtist artist)
+    {
+        _artist = artist;
+
+        UpdateUI();
     }
 }

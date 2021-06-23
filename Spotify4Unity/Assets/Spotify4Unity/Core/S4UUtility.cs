@@ -29,7 +29,7 @@ public class S4UUtility
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log($"LoadImg error '{url}' - {www.error}");
+            Debug.Log($"LoadImageFromUrl error on url '{url}' - {www.error}");
         }
         else
         {

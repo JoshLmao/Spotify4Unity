@@ -160,10 +160,10 @@ public class UserWidgetController : SpotifyServiceListener
     {
         if (img != null && img.sprite == null)
         {
-            string iconUrl = images.FirstOrDefault()?.Url;
-            if (!string.IsNullOrEmpty(iconUrl))
+            SpotifyAPI.Web.Image image = S4UUtility.GetLowestResolutionImage(images);
+            if (image != null)
             {
-                StartCoroutine(S4UUtility.LoadImageFromUrl(iconUrl, (loadedSprite) =>
+                StartCoroutine(S4UUtility.LoadImageFromUrl(image.Url, (loadedSprite) =>
                 {
                     _icon.sprite = loadedSprite;
                 }));

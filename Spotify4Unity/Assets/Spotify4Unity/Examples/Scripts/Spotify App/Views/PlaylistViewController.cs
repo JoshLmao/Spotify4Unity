@@ -120,7 +120,7 @@ public class PlaylistViewController : ViewControllerBase
                 _headerParent.gameObject.SetActive(true);
             if (_headerImg != null)
             {
-                SpotifyAPI.Web.Image image = S4UUtility.GetLowestResolutionImage(_playlist.Images);
+                SpotifyAPI.Web.Image image = S4UUtility.GetLowestResolutionImage(_playlist.Images, 300, 300);
                 StartCoroutine(S4UUtility.LoadImageFromUrl(image?.Url, (loadedSprite) =>
                 {
                     _headerImg.sprite = loadedSprite;

@@ -250,6 +250,10 @@ public class PKCE_Authentification : MonoBehaviour, IServiceAuthenticator
             // Load token from File
             if (!string.IsNullOrEmpty(PKCEConfig.TokenPath))
             {
+                if (!File.Exists(PKCEConfig.TokenPath))
+                {
+                    return null;
+                }
                 string previousToken = File.ReadAllText(PKCEConfig.TokenPath);
                 if (string.IsNullOrEmpty(previousToken))
                 {
